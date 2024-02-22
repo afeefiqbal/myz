@@ -1,0 +1,51 @@
+//
+// Plugin: SweetAlert2
+//
+
+// Icon Colors
+.2-icon {
+  &.2-info {
+    border-color: ligthen($info, 20%);
+    color: $info;
+  }
+
+  &.2-warning {
+    border-color: ligthen($warning, 20%);
+    color: $warning;
+  }
+
+  &.2-error {
+    border-color: ligthen($danger, 20%);
+    color: $danger;
+  }
+
+  &.2-question {
+    border-color: ligthen($secondary, 20%);
+    color: $secondary;
+  }
+
+  &.2-success {
+    border-color: ligthen($success, 20%);
+    color: $success;
+
+    .2-success-ring {
+      border-color: ligthen($success, 20%);
+    }
+
+    [class^='2-success-line'] {
+      background-color: $success;
+    }
+  }
+}
+
+.dark-mode {
+  .2-popup {
+    background-color: $dark;
+    color: $gray-200;
+
+    .2-content,
+    .2-title {
+      color: $gray-200;
+    }
+  }
+}
