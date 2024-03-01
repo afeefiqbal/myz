@@ -33,74 +33,7 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3 class="card-title">Heading Form</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <form role="form" id="formWizard" action="{{ url('/admin/home-heading') }}"
-                                  class="form--wizard" enctype="multipart/form-data" method="post">
-                                {{csrf_field()}}
-                                <div class="card-body">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label for="homeTitle">Title*</label>
-                                            <input type="text" class="form-control required" id="homeTitle"
-                                                   name="homeTitle"
-                                                   placeholder="Title"
-                                                   value="{{ old('homeTitle', @$home_heading->title)}}">
-                                            <div class="help-block with-errors" id="homeTitle_error"></div>
-                                            @error('homeTitle')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="image"> Image*</label>
-                                            <div class="file-loading">
-                                                 <input id="image" name="image" type="file" accept="image/png, image/jpg, image/jpeg">
-                                            </div>
-                                            <span class="caption_note">Note: Image dimension must be 890 x 660 px
-                                            and Size must be less than 512 KB</span>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="image_attribute"> Image Attribute*</label>
-                                            <input type="text" class="form-control required placeholder-cls"
-                                                   id="image_attribute" name="image_attribute"
-                                                   placeholder="Alt='Image Attribute'"
-                                                   value="{{ isset($home_heading)?$home_heading->image_attribute:'' }}">
-                                            <div class="help-block with-errors" id="image_attribute_error"></div>
-                                            @error('image_attribute')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <input name="type" type="hidden" value="testimonial">
-                                    <input type="submit" name="btn_save" value="Submit"
-                                           class="btn btn-primary pull-left submitBtn">
-                                    <button type="reset" class="btn btn-default">Cancel</button>
-                                    <img class="animation__shake loadingImg"
-                                         src="{{asset('backend/dist/img/loading.gif')}}"
-                                         style="display:none;">
-                                </div>
-                            </form>
-                        </div>
+                  
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'testimonial/create')}}"

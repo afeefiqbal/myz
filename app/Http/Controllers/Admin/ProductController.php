@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Vendor;
 use App\Models\Color;
 use App\Models\MeasurementUnit;
 use App\Models\Offer;
@@ -88,11 +89,7 @@ class ProductController extends Controller
                        class="btn btn-sm btn-primary mr-2 tooltips" title="Add Gallery">Gallery</a>';
                 return $btn;
             })
-            ->addColumn('offer', function($row){
-                $btn = '<a href="'. url(Helper::sitePrefix() ."product/offer/".$row->id).'"
-                       class="btn btn-sm btn-warning mr-2 tooltips" title="Add Offer">Offer</a>';
-                return $btn;
-            })
+        
             ->addColumn('status', function($row){
                 $checked = '';
                 if ($row->status == "Active")
@@ -141,11 +138,7 @@ class ProductController extends Controller
                 $btn .= '<a href="'. url(Helper::sitePrefix() ."product/edit/".$row->id).'"
                            class="btn btn-sm btn-success mr-2 mt-1 tooltips" title="Edit Product">
                            <i class="fas fa-edit"></i></a>';
-                if($row->parent_product_id == NULL) {
-                    $btn .= ' <a href="'. url(Helper::sitePrefix().'product/copy/'.$row->id).'"
-                                 class="btn btn-sm btn-s btn-primary mr-2 mt-1 tooltips"  title="Copy this product"><i
-                                 class="fas fa-copy"></i></a>';
-                }
+
                 $btn .= '<a href="javascript:void(0)" class="btn btn-sm btn-danger mr-2 mt-1 delete_entry tooltips"
                             data-url="product/delete" data-id="'. $row->id.'" title="Delete Product">
                             <i class="fa fa-trash"></i></a>';
@@ -166,13 +159,14 @@ class ProductController extends Controller
         $brands = Brand::active()->get();
         $tags = Tag::active()->get();
         $categories = Category::active()->whereNull('parent_id')->orderBy('sort_order')->get();
-        $sizes = Size::active()->orderBy('sort_order')->get();
+        // $sizes = Size::active()->orderBy('sort_order')->get();
         $productTypes = ProductType::active()->orderBy('sort_order')->get();
         $products = Product::where('parent_product_id',null)->active()->get();
-        $frames = Frame::active()->orderBy('sort_order')->get();
-        $shapes = Shape::active()->orderBy('sort_order')->get();
+        // $frames = Frame::active()->orderBy('sort_order')->get(t)t;
+        // $shapes = Shape::active()->orderBy('sort_order')->get();
         $colors = Color::active()->get();
-        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes','frames','shapes','colors'));
+        $vendors = Vendor::get();
+        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'vendors','categories', 'products','productTypes'));
     }
     public function    product_detail($id)
     {
@@ -204,15 +198,19 @@ class ProductController extends Controller
                 'title' => 'required|min:2|max:255',
                 'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
                 'sku' => 'required',
-               'shapes' => 'required',
+                'vendor_id' => 'required',
+            //    'shapes' => 'required',
                 'category' => 'required',
-                'availability' => 'required',
+                // 'availability' => 'required',
                 'description' => 'required',
     //            'measurement_unit' => 'required',
     //            'quantity' => 'required',
-                // 'price' => 'required',
+                'price' => 'required',
                 
                 'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
+            ],[
+
+                'vendor_id.required' => 'Vendor is required'
             ]);
 
         }
@@ -225,12 +223,15 @@ class ProductController extends Controller
                 'title' => 'required|min:2|max:255',
                 'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
                 'sku' => 'required',
+                'vendor_id' => 'required',
                 'category' => 'required',
-                'shapes' => 'required',
-                'availability' => 'required',
+                // 'shapes' => 'required',
+                'price' => 'required',
                 'description' => 'required',
             ],
             [
+                
+                'vendor_id.required' => 'Vendor is required',
                 'product_type_id.unique' => 'Product Type already exists',
             ]
         );
@@ -241,9 +242,12 @@ class ProductController extends Controller
                 'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
                 'sku' => 'required',
                 'category' => 'required',
-                'shapes' => 'required',
-                'availability' => 'required',
+                'vendor_id' => 'required',
+                // 'shapes' => 'required',
+                'price' => 'required',
                 'description' => 'required',
+            ],[  
+                'vendor_id.required' => 'Vendor is required',       
             ]);
            }
            
@@ -365,14 +369,14 @@ class ProductController extends Controller
         $product->title = $validatedData['title'];
         $product->short_url = $validatedData['short_url'];
         $product->sku = $request->sku ?? '';
-      
+      $product->vendor_id = $validatedData['vendor_id'];
         $product->category_id = ($request->category) ? implode(',', $request->category) : '';
         $product->sub_category_id = ($request->sub_category) ? implode(',', $request->sub_category) : '';
         $product->tag_id = ($request->tags) ? implode(',', $request->tags) : '';
-        $product->color_id = ($request->colors) ? implode(',', $request->colors) : '';
+        // $product->color_id = ($request->colors) ? implode(',', $request->colors) : '';
         $product->description = $validatedData['description'];
         $product->is_mount = isset($request->is_mount) ? 1 : 0;
-        // $product->availability = $request->availability ?? '';
+        $product->price = $request->price ?? '';
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
         // if ($product->availability == "In Stock") {
         //     $product->stock = $request->stock;
@@ -402,15 +406,18 @@ class ProductController extends Controller
         $product->featured_image_attribute = $request->featured_image_attribute ?? '';
         $product->featured_description = $request->feature_description ?? '';
         $product->about_item = $request->about_this_item ?? '';
+        $product->price = $request->price ?? '';
+            $product->vendor_id = $request->vendor_id;
+
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
         $product->shape_id = ($request->shapes) ? implode(',', $request->shapes) : '';
-        $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
+        // $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
         $product->product_type_id = $request->product_type_id;
         $product->mount = $request->mount == 'on' ? "Yes" : "No";
         // $product->quantity = $request->quantity ?? '';
       
         $product->product_type_id = $request->product_type_id;
-        $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
+        // $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
         $meta_title =  $product->meta_title = $request->meta_title ?? '';
         $meta_description = $product->meta_description = $request->meta_description ?? '';
         $meta_keyword = $product->meta_keyword = $request->meta_keyword ?? '';
@@ -462,24 +469,7 @@ class ProductController extends Controller
 
             $priceWithSize = $request->price;
             
-            if(isset($priceWithSize) && !empty($priceWithSize)){
-                DB::table('products_size_price')->where('product_id', $product->id)->whereIn('size_id',$request->size)->delete();
-                foreach($priceWithSize as $key => $value){
-                   
-                    $price['product_id'] = $product->id;
-                    $price[$key] = $value;
-               
-                    if(isset($price[$key]) && !empty($price[$key])){
-    
-                        $procutPrice = DB::table('products_size_price')->insert([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'price' => $value,
-                        ]);
-                      
-                    }
-                }
-            }
+
             $stockWithSize = $request->stock;
             if(isset($stockWithSize) && !empty($stockWithSize)){
                 foreach($stockWithSize as $key => $value){
@@ -522,9 +512,6 @@ class ProductController extends Controller
                     }
                 }
             }
-            $productPrice = DB::table('products_size_price')->where('product_id', $product->id)->first();
-           
-            Product::where('id', $product->id)->update(['price' => $productPrice->price]);
         
             $similarProducts = [];
             $errorArray = $successArray = [];
@@ -571,12 +558,12 @@ class ProductController extends Controller
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->orderBy('sort_order')->get();
             
             $products = Product::active()->get();
-            $sizes = Size::active()->orderBy('sort_order','asc')->get();
+            // $sizes = Size::active()->orderBy('sort_order','asc')->get();
             $measurement_units = MeasurementUnit::active()->get();
             $brands = Brand::active()->get();
-            $tags = Tag::active()->orderBy('sort_order')->get();
+            $tags = Tag::active()->get();
             $categories = Category::active()->whereNull('parent_id')->orderBy('sort_order')->get();
-            $sizes = Size::active()->orderBy('sort_order','asc')->orderBy('sort_order')->get();
+            // $sizes = Size::active()->orderBy('sort_order','asc')->orderBy('sort_order')->get();
             $productTypes = ProductType::active()->orderBy('sort_order')->get();
             $parentIds = Product::where('id', '!=', $id)->where('copy','no')->where('parent_product_id',null)->pluck('id')->toArray();
             
@@ -584,12 +571,12 @@ class ProductController extends Controller
           
 
          
-            $frames = Frame::active()->orderBy('sort_order')->get();
+            // $frames = Frame::active()->orderBy('sort_order')->get();
             $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
             $colors = Color::active()->get();
-         
-            $shapes = Shape::active()->orderBy('sort_order')->get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags','colors', 'sizes','productTypes','frames','shapes','productWithPrice'));
+         $vendors = Vendor::get();
+            // $shapes = Shape::active()->orderBy('sort_order')->get();
+            return view('Admin.product.form', compact('key', 'title','vendors', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags','colors', 'productTypes','productWithPrice'));
         } else {
             return view('Admin.error.404');
         }

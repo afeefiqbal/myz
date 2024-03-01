@@ -45,14 +45,7 @@
                                    class="btn btn-primary pull-right mr-3">Export <i
                                         class="fa fa-download pull-right mt-1 ml-2"></i></a>
 
-                                        {{-- <a href="#importModal" data-toggle="modal" data-target="#importModal"
-                                        class="btn btn-info pull-right mr-3">Import <i
-                                             class="fa fa-upload pull-right mt-1 ml-2"></i></a> --}}
-                                        <a href="{{url('default-product-main-contents-excel')}}"
-                                        class="btn btn-secondary pull-right mr-3">GMC Feed<i class="fa fa-google-plus" aria-hidden="true"></i></a>
-
-                                        <a href="{{url(Helper::sitePrefix().'product/upload-to-google-merchant')}}"
-                                        class="btn btn-secondary pull-right mr-3">Upload to Google Merchant<i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                               
                             </div>
                             <div class="card-body">
                                 <table id="product-list-data-table" class="table table-bordered table-hover dataTable yajra-data-tables">
@@ -63,7 +56,7 @@
                                         <th>Type</th>
                                         <th>Category</th>
                                         <th>Gallery</th>
-                                        <th>Offer</th>
+                                        {{-- <th>Offer</th> --}}
                                         <th>Status</th>
                                         <th>Most Relevent</th>
                                         <th>Latest</th>
@@ -137,7 +130,6 @@
                 {data: 'product_type', name: 'product_type', searchable: true},
                 {data: 'category', name: 'category', searchable: true},
                 {data: 'gallery', name: 'gallery', orderable: false, searchable: false},
-                {data: 'offer', name: 'offer', orderable: false, searchable: false},
                 {data: 'status', name: 'status', orderable: false, searchable: false},
                 {data: 'is_featured', name: 'is_featured', orderable: false, searchable: false},
                 {data: 'new_arrival', name: 'new_arrival', orderable: false, searchable: false},

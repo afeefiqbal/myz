@@ -56,78 +56,21 @@
         <div class="row">
             <div class="col-12">
                 <div class="slider-9">
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp">
+                    @isset($categories)
+                        @foreach ($categories as $item)
+                        
                             <div>
-                                <img src="https://www.svgrepo.com/show/447989/electronics.svg" class="blur-up lazyload" alt="">
-                                <h5>Electornics</h5>
+                                <a href="/category/{{$item->short_url}}" class="category-box wow fadeInUp">
+                                    <div>
+                                    
+                                        <img src="{{$item->icon}}"  class="blur-up lazyload" alt="{{$item->image_attribute}}">
+                                        <h5>{{$item->title}}</h5>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp" data-wow-delay="0.05s">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/491053/mobile.svg" class="blur-up lazyload" alt="">
-                                <h5>Mobiles</h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp" data-wow-delay="0.1s">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/533059/camera.svg" class="blur-up lazyload" alt="">
-                                <h5>Camera</h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp" data-wow-delay="0.15s">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/502716/laptop.svg" class="blur-up lazyload" alt="">
-                                <h5>Laptops</h5>
-                            </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/447989/electronics.svg" class="blur-up lazyload" alt="">
-                                <h5>Electornics</h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp" data-wow-delay="0.2s">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/522096/desktop.svg" class="blur-up lazyload" alt="">
-                                <h5>Desktop PCs</h5>
-                            </div>
-                        </a>
-                    </div>
-
-            
-
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp" data-wow-delay="0.3s">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/532872/network-wired.svg" class="blur-up lazyload" alt="">
-                                <h5>Network Components</h5>
-                            </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="shop.php" class="category-box wow fadeInUp" data-wow-delay="0.1s">
-                            <div>
-                                <img src="https://www.svgrepo.com/show/533059/camera.svg" class="blur-up lazyload" alt="">
-                                <h5>Camera</h5>
-                            </div>
-                        </a>
-                    </div>
-                    
+                            
+                        @endforeach
+                    @endisset
                 </div>
             </div>
         </div>
@@ -1190,180 +1133,7 @@
 
 
 <!-- Product Section Start -->
-<section>
-    <div class="container-fluid-lg">
-        <div class="row">
-            <div class="col-12">
-                <div class="slider-4-1 ratio_65 no-arrow product-wrapper">
-                    <div>
-                        <div class="product-slider wow fadeInUp">
-                            <a href="shop.php" class="product-slider-image">
-                                <img src="https://img.freepik.com/free-photo/digital-tablet-screen-with-smart-home-controller-wooden-table_53876-98547.jpg?w=996&t=st=1705508428~exp=1705509028~hmac=906459dfa2a7aa49053e21a78fe82d45b032efbc2cdfd2dabf9926d8e8d2dae6" class="w-100 blur-up lazyload rounded-3"
-                                    alt="">
-                            </a>
 
-                            <div class="product-slider-detail">
-                                <div>
-                                    <a href="shop.php" class="d-block">
-                                        <h3 class="text-title">Category 1</h3>
-                                    </a>
-                                    <h5></h5>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                     
-                                    </div>
-                                    <h6>By <span class="theme-color">Sponsor 1</span></h6>
-                                    <button onclick="location.href = 'shop.php';"
-                                        class="btn btn-animation product-button btn-sm">Shop Now <i
-                                            class="fa-solid fa-arrow-right icon"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product-slider wow fadeInUp">
-                            <a href="shop.php" class="product-slider-image">
-                                <img src="https://img.freepik.com/free-photo/computer-laptop-tablet-view-from-wooden-table_1232-540.jpg?w=996&t=st=1705508377~exp=1705508977~hmac=668c490c177461585c81f829b03926875130b4e665f516f263b51a46a24af8a8" class="w-100 blur-up lazyload rounded-3"
-                                    alt="">
-                            </a>
-
-                            <div class="product-slider-detail">
-                                <div>
-                                    <a href="shop.php" class="d-block">
-                                        <h3 class="text-title">Category 1</h3>
-                                    </a>
-                                    <h5></h5>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                     
-                                    </div>
-                                    <h6>By <span class="theme-color">Sponsor 1</span></h6>
-                                    <button onclick="location.href = 'shop.php';"
-                                        class="btn btn-animation product-button btn-sm">Shop Now <i
-                                            class="fa-solid fa-arrow-right icon"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product-slider wow fadeInUp">
-                            <a href="shop.php" class="product-slider-image">
-                                <img src="https://img.freepik.com/free-photo/top-view-wi-fi-router-with-vacuum-cleaner_23-2148779236.jpg?w=996&t=st=1705508336~exp=1705508936~hmac=e1f4dc915a126708dcaaf904ec4cddca0943068f55935033ce53ba2ef3c239ab" class="w-100 blur-up lazyload rounded-3"
-                                    alt="">
-                            </a>
-
-                            <div class="product-slider-detail">
-                                <div>
-                                    <a href="shop.php" class="d-block">
-                                        <h3 class="text-title">Category 2</h3>
-                                    </a>
-                                    <h5></h5>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                     
-                                    </div>
-                                    <h6>By <span class="theme-color">Sponsor 1</span></h6>
-                                    <button onclick="location.href = 'shop.php';"
-                                        class="btn btn-animation product-button btn-sm">Shop Now <i
-                                            class="fa-solid fa-arrow-right icon"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product-slider wow fadeInUp">
-                            <a href="shop.php" class="product-slider-image">
-                                <img src="https://img.freepik.com/free-photo/keyboard-blank-cards-coffee-cup-office-supplies-desk_23-2148041993.jpg?w=996&t=st=1705508294~exp=1705508894~hmac=d8d55fc41f4841c2bff62a4ebaa4261d66e8028e8c14623f840a1a3f9df5cefb" class="w-100 blur-up lazyload rounded-3"
-                                    alt="">
-                            </a>
-
-                            <div class="product-slider-detail">
-                                <div>
-                                    <a href="shop.php" class="d-block">
-                                        <h3 class="text-title">Category 3</h3>
-                                    </a>
-                                    <h5></h5>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                     
-                                    </div>
-                                    <h6>By <span class="theme-color">Sponsor 1</span></h6>
-                                    <button onclick="location.href = 'shop.php';"
-                                        class="btn btn-animation product-button btn-sm">Shop Now <i
-                                            class="fa-solid fa-arrow-right icon"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- Product Section End -->
 
 

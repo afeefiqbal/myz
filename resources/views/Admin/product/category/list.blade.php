@@ -34,7 +34,7 @@
                             </div>
                         @endif
                        @if($type == 'Category')
-                         @include('Admin.includes.heading_form2',['type'=>'category'])
+                         {{-- @include('Admin.includes.heading_form2',['type'=>'category']) --}}
                         @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">

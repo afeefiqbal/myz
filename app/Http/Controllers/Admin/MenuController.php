@@ -46,6 +46,7 @@ class MenuController extends Controller
 
     public function menu_store(Request $request)
     {
+      
 
         $validatedData = $request->validate([
             'title' => 'required',
@@ -307,22 +308,16 @@ class MenuController extends Controller
             $menu->sort_order = $sort_number;
            
             if ($menu->save()) {
-                if($request->menu_color_id != null){
-                    foreach($request->menu_color_id as $color){
+           
+                if($request->menu_category_id != null){
+                    foreach($request->menu_category_id as $color){
                         $menu_detail = new SideMenuDetail;
                         $menu_detail->menu_id = $menu->id;
-                        $menu_detail->color_id = $color;
+                        $menu_detail->category_id = $color;
                         $menu_detail->save();
                     }
                 }
-                if($request->menu_shape_id != null){
-                    foreach($request->menu_shape_id as $shape){
-                        $menu_detail = new SideMenuDetail;
-                        $menu_detail->menu_id = $menu->id;
-                        $menu_detail->shape_id = $shape;
-                        $menu_detail->save();
-                    }
-                }
+              
                 session()->flash('success', 'Menu has been added successfully');
                 return redirect(Helper::sitePrefix() . 'side-menu');
             } else {
@@ -339,14 +334,11 @@ class MenuController extends Controller
         $title = "Update menu";
         $menu = SideMenu::find($id);
         $colors = Color::active()->get();
-        $sideMenuColors = SideMenuDetail::where('menu_id',$id)->where('color_id','!=',null)->pluck('color_id')->toArray();
-      
-        $sideMenuShapes = SideMenuDetail::where('menu_id',$id)->where('shape_id','!=',null)->pluck('shape_id')->toArray();
         $shapes = Shape::active()->get();
         $tags = Tag::active()->get();
         if ($menu) {
             $categories = Category::active()->whereNull('parent_id')->get();
-            return view('Admin.side_menu.form', compact('key', 'menu', 'title', 'categories','tags','shapes','colors','sideMenuColors','sideMenuShapes'));
+            return view('Admin.side_menu.form', compact('key', 'menu', 'title', 'categories','tags','shapes','colors'));
         } else {
             return view('Admin.error.404');
         }
@@ -385,10 +377,10 @@ class MenuController extends Controller
                     $delete=  SideMenuDetail::where('menu_id',$id)->whereNotNull('shape_id')->delete();
                     
         
-                    foreach($request->menu_shape_id as $shape){
+                    foreach($request->menu_category_id as $shape){
                         $menu_detail = new SideMenuDetail;
                         $menu_detail->menu_id = $menu->id;
-                        $menu_detail->shape_id = $shape;
+                        $menu_detail->category_id = $shape;
                         $menu_detail->save();
                     }
                 }

@@ -46,8 +46,7 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
             'short_url' => 'required|unique:categories,short_url,NULL,id,deleted_at,NULL',
-            'icon' => 'image|mimes:png|max:512',
-            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            'icon' => 'required|image|mimes:png|max:512',
             'image_attribute' => 'required',
         ]);
         $category = new Category;
@@ -55,18 +54,8 @@ class CategoryController extends Controller
             $category->icon_webp = Helper::uploadWebpImage($request->icon, 'uploads/category/icon/webp/', $request->short_url);
             $category->icon = Helper::uploadFile($request->icon, 'uploads/category/icon/', $request->short_url);
         }
-        if ($request->hasFile('image')) {
-            $category->image_webp = Helper::uploadWebpImage($request->image, 'uploads/category/image/webp/', $request->short_url);
-            $category->image = Helper::uploadFile($request->image, 'uploads/category/image/', $request->short_url);
-        }
-        if ($request->hasFile('desktop_banner')) {
-            $category->desktop_banner_webp = Helper::uploadWebpImage($request->desktop_banner, 'uploads/category/desktop_banner/webp/', $request->short_url);
-            $category->desktop_banner = Helper::uploadFile($request->desktop_banner, 'uploads/category/desktop_banner/', $request->short_url);
-        }
-        if ($request->hasFile('mobile_banner')) {
-            $category->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/category/mobile_banner/webp/', $request->short_url);
-            $category->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/category/mobile_banner/', $request->short_url);
-        }
+  
+      
         $category->title = $validatedData['title'];
         $category->short_url = $validatedData['short_url'];
         $category->parent_id = null;
@@ -300,10 +289,7 @@ class CategoryController extends Controller
             $sub_category->icon_webp = Helper::uploadWebpImage($request->icon, 'uploads/sub_category/icon/webp/', $request->short_url);
             $sub_category->icon = Helper::uploadFile($request->icon, 'uploads/sub_category/icon/', $request->short_url);
         }
-        if ($request->hasFile('image')) {
-            $sub_category->image_webp = Helper::uploadWebpImage($request->image, 'uploads/sub_category/image/webp/', $request->short_url);
-            $sub_category->image = Helper::uploadFile($request->image, 'uploads/sub_category/image/', $request->short_url);
-        }
+
         if ($request->hasFile('desktop_banner')) {
             $sub_category->desktop_banner_webp = Helper::uploadWebpImage($request->desktop_banner, 'uploads/sub_category/desktop_banner/webp/', $request->short_url);
             $sub_category->desktop_banner = Helper::uploadFile($request->desktop_banner, 'uploads/sub_category/desktop_banner/', $request->short_url);

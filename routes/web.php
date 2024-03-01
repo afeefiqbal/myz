@@ -37,6 +37,7 @@ use App\Http\Controllers\Web\CustomerController as CustomerWebController;
 use App\Http\Controllers\Web\PaymentController;
 use App\Http\Controllers\Web\WebController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\VendorController;
 use App\Http\Helpers\Helper;
 use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Route;
@@ -262,6 +263,18 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         });
     });
 
+    Route::prefix('vendor')->group(function () {
+        Route::get('/', [VendorController::class, 'admin']);
+        Route::get('create', [VendorController::class, 'create']);
+        Route::post('create', [VendorController::class, 'store']);
+        Route::get('edit/{id}', [VendorController::class, 'edit']);
+        Route::post('edit/{id}', [VendorController::class, 'update']);
+        Route::post('delete/', [VendorController::class, 'delete']);
+        Route::get('reset-password/{id}', [VendorController::class, 'reset_password']);
+        Route::post('reset-password/{id}', [VendorController::class, 'reset_password_store']);
+        Route::get('profile', [VendorController::class, 'profile']);
+        Route::post('profile', [VendorController::class, 'profile_store']);
+    });
     Route::prefix('administration')->group(function () {
         Route::get('/', [AdministrationController::class, 'admin']);
         Route::get('create', [AdministrationController::class, 'create']);

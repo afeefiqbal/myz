@@ -123,6 +123,7 @@ class Helper
     {
         $siteInformation = SiteInformation::first();
         $menus = Menu::active()->with('category')->oldest('sort_order')->get();
+        
         $shapes = Shape::active()->get();
         $sideMenus = SideMenu::active()->oldest('sort_order')->get();
         $colors = Color::active()->get();

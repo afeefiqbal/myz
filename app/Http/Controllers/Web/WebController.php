@@ -50,7 +50,7 @@ class WebController extends Controller
 {
     public function __construct()
     {
-        return $site = Helper::commonData();
+     return $site = Helper::commonData();
         
     }
 
@@ -63,19 +63,13 @@ class WebController extends Controller
 
     public function home()
     {
-        $seo_data = $this->seo_content('Home');
-
-        $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
-        $ourcollection = Homecollection::active()->first();
-        $homeHeadings = HomeHeading::where('type','testimonial')->first();
-        $selectionheading = HomeHeading::where('type','selection')->first();
+        
         $prdts = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
 
         $catIds = $prdts->pluck('id')->toArray();
         $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
-        $catIdss = $prs->pluck('category_id')->toArray();
 
-        $themes =  Category::whereIn('id',$catIdss)->get();
+        $categories =  Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
 
 
         $testimonials = Testimonial::active()->take(10)->get();
@@ -88,20 +82,9 @@ class WebController extends Controller
         $products = Product::active()->where('copy','no')->whereIn('id',$ourSelectionProducts);
         $ourSelectionProducts = [];
 
-        foreach($products->get() as $key => $product){
-            $ourSelectionProducts[$key]['id'] = $product->id;
-           $ourSelectionProducts[$key]['sort_order'] = DB::table('our_selection')->where('product_id',$product->id)->first()->sort_order;
-           $ourSelectionProducts[$key]['short_url'] = $product->short_url;
-              $ourSelectionProducts[$key]['title'] = $product->title;
-                $ourSelectionProducts[$key]['thumbnail_image'] = $product->thumbnail_image;
-                $ourSelectionProducts[$key]['thumbnail_image_attribute'] = $product->thumbnail_image_attribute;
-                $ourSelectionProducts[$key]['thumbnail_image_webp'] = $product->thumbnail_image_webp;
-                $ourSelectionProducts[$key]['categories'] = $product->product_categories;
-        }
-        $ourSelectionProducts = collect($ourSelectionProducts)->sortBy('sort_order')->values()->all();
-       $selection = $ourSelectionProducts;
+        
 
-        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','ourSelectionProducts','selection','selectionheading','recentlyViewedProducts'));
+        return view('web.home', compact('categories','recentlyViewedProducts'));
     }
 
 
@@ -125,10 +108,10 @@ class WebController extends Controller
        $catIdss = $prs->pluck('category_id')->toArray();
   
        $themes =  Category::whereIn('id',$catIdss)->get();
-  
+       $testimonials = Testimonial::get();
    
 
-        return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
+        return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes','testimonials'));
     }
 
 

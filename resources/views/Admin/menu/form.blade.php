@@ -55,12 +55,7 @@
                                         <option value="category" {{ (@$menu->menu_type=="category")?'selected':'' }}>
                                             Category
                                         </option>
-                                        <option value="color" {{ (@$menu->menu_type=="color")?'selected':'' }}>
-                                        color
-                                        </option>
-                                        <option value="shape" {{ (@$menu->menu_type=="shape")?'selected':'' }}>
-                                            Shape
-                                        </option>
+                                        
                                     </select>
                                     <div class="help-block with-errors" id="menu_type_error"></div>
                                 </div>

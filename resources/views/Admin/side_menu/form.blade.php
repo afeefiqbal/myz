@@ -54,12 +54,10 @@
                                             Static
                                         </option>
                                      
-                                        <option value="color" {{ (@$menu->menu_type=="color")?'selected':'' }}>
-                                           color
+                                        <option value="category" {{ (@$menu->menu_type=="category")?'selected':'' }}>
+                                           category
                                         </option>
-                                        <option value="shape" {{ (@$menu->menu_type=="shape")?'selected':'' }}>
-                                            Shape
-                                         </option>
+
                                     </select>
                                     <div class="help-block with-errors" id="menu_type_error"></div>
                                 </div>
@@ -67,7 +65,7 @@
                                      style="display: {{ (@$menu->menu_type=='category')?'block':'none' }}">
                                     <label> Categories*</label>
                                     <select class="form-control menu_category_id" id="menu_category_id"
-                                            name="menu_category_id">
+                                            name="menu_category_id[]">
                                         <option value="">Select Option</option>
                                         @foreach($categories as $category)
                                             <option data-url="{{$category->short_url}}"

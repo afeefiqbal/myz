@@ -5,13 +5,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Testimonial</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Vendor</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'/dashboard')}}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Testimonial Feature</li>
+                            <li class="breadcrumb-item active">Vendor</li>
                         </ol>
                     </div>
                 </div>
@@ -33,51 +33,57 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        {{-- @include('Admin.includes._heading_form',['type'=>'testimonial']) --}}
                         <div class="card card-success card-outline">
                             <div class="card-header">
-                                <a href="{{url(Helper::sitePrefix().'home/testimonial/create')}}"
-                                   class="btn btn-success pull-right">Add Testimonial <i
+                                <a href="{{url(Helper::sitePrefix().'vendor/create')}}"
+                                   class="btn btn-success pull-right">Add Vendor <i
                                         class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-hover dataTable">
+                                <table class="dataTable table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Designation</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
                                         <th>Status</th>
-                                        <th>Created Date</th>
-
-                                        <th class="not-sortable">Actions</th>
+                                        <th>Created At</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($testimonialList as $testimonial)
+                                    @foreach($adminList as $admin)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $testimonial->name }}</td>
-                                            <td>{{ $testimonial->designation }}</td>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$admin->name}}</td>
+                                            <td>{{$admin->user->email}}</td>
+                                            <td>{{$admin->phone_number}}</td>
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
-                                                           data-url="/status-change" data-table="Testimonial"
-                                                           data-field="status" data-pk="{{ $testimonial->id}}"
-                                                        {{($testimonial->status=="Active")?'checked':''}}>
+                                                           {{($admin->user->status=="Active")?'checked':''}} data-table="User"
+                                                           data-url="/status-change" data-field="status"
+                                                           data-pk="{{ $admin->user->id}}">
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>{{ date("d-M-Y", strtotime($testimonial->created_at)) }}</td>
-
+                                            <td>{{ date("d-M-Y", strtotime($admin->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="{{url(Helper::sitePrefix().'home/testimonial/edit/'.$testimonial->id)}}"
-                                                       class="btn btn-success mr-2 tooltips" title="Edit Testimonial"><i
-                                                            class="fas fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       title="Delete Testimonial" data-url="home/testimonial/delete"
-                                                       data-id="{{$testimonial->id}}"><i class="fas fa-trash"></i></a>
+                                                    <a href="{{url(Helper::sitePrefix().'vendor/edit/'.$admin->id)}}"
+                                                       class="btn btn-success mr-2 tooltips"
+                                                       title="Edit {{$admin->role}}"><i class="fas fa-edit"></i></a>
+                                                    @if($admin->id!=Auth::id())
+                                                        <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
+                                                           data-url="vendor/delete"
+                                                           data-id="{{$admin->id}}" title="Delete {{$admin->role}}"><i
+                                                                class="fas fa-trash"></i></a>
+                                                    @endif
+                                                    <a href="{{url(Helper::sitePrefix().'vendor/reset-password/'.$admin->id)}}"
+                                                       class="btn btn-primary mr-2 tooltips"
+                                                       title="Reset Password {{$admin->role}}"><i
+                                                            class="fas fa-unlock"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

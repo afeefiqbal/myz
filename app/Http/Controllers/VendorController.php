@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\SiteInformation;
 use App\Models\User;
+use App\Models\Vendor;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rules\Password;
 
-class AdministrationController extends Controller
+class VendorController extends Controller
 {
     public function __construct()
     {
@@ -35,8 +36,8 @@ class AdministrationController extends Controller
     public function admin()
     {
         if ((Auth::user()->admin->role) == "Super Admin") {
-            $adminList = Admin::with('user')->where('role','Admin')->latest()->get();
-            return view('Admin.administration.list', compact('adminList'));
+            $adminList = Vendor::with('user')->latest()->get();
+            return view('Admin.vendor.list', compact('adminList'));
         } else {
             return view('backend.error.403');
         }
@@ -46,7 +47,7 @@ class AdministrationController extends Controller
     {
         if ((Auth::user()->admin->role) == "Super Admin") {
             $title = "Create";
-            return view('Admin.administration.form', compact('title'));
+            return view('Admin.vendor.form', compact('title'));
         } else {
             return view('backend.error.403');
         }
@@ -55,20 +56,22 @@ class AdministrationController extends Controller
     public function store(Request $request)
     {
         // dd(User::get());
+      
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
-            'username' => 'required|string|email|max:255|unique:users,username,NULL,id,deleted_at,NULL',
             'phone' => 'required|min:7|max:15|unique:users,phone',
+            'address' => 'required',
             'profile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'role' => 'required',
+      
             'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
         ]);
         DB::beginTransaction();
+   
         $user = new User;
-        $user->user_type = 'Admin';
+        $user->user_type = 'Vendor';
         $user->email = $request->email;
-        $user->username = $request->username;
+        $user->username = $request->email;
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password);
         $user->created_by = Auth::id();
@@ -82,15 +85,26 @@ class AdministrationController extends Controller
             $admin->name = $request->name;
             $admin->user_id = $user->id;
             $admin->more_info = $request->more_info;
-            $admin->role = $request->role;
+            $admin->role = 'Vendor';
             if ($admin->save()) {
+                $vendor = new Vendor;
+                $vendor->name = $request->name;
+                $vendor->phone_number = $request->phone;
+                $vendor->password = $request->password;
+                $vendor->admin_id = $admin->id;
+                $vendor->user_id = $user->id;
+                $vendor->password = $request->password;
+                $vendor->email = $request->email;
+                $vendor->address = $request->address;
+                $vendor->about_us = $request->more_info;
+                $vendor->save();
                 DB::commit();
                 if (Helper::sendCredentials($user, $request->name, $request->password)) {
                     $message = $request->role . " '" . $request->name . "' has been added and credential mail has been sent successfully";
                 } else {
                     $message = $request->role . " '" . $request->name . "' has been added successfully and error while sending credential mail";
                 }
-                return redirect(Helper::sitePrefix() . 'administration')->with('success', $message);
+                return redirect(Helper::sitePrefix() . 'vendor')->with('success', $message);
             } else {
                 DB::rollBack();
                 return back()->with('message', 'Error while creating the ' . $request->role);
@@ -105,9 +119,9 @@ class AdministrationController extends Controller
     {
         if ((Auth::user()->admin->role) == "Super Admin") {
             $title = "Edit";
-            $admin = Admin::with('user')->find($id);
+            $admin = Vendor::with('user')->find($id);
             if ($admin) {
-                return view('Admin.administration.form', compact('admin', 'title'));
+                return view('Admin.vendor.form', compact('admin', 'title'));
             } else {
                 return view('backend.error.404');
             }
@@ -118,25 +132,26 @@ class AdministrationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $admin = Admin::with('user')->find($id);
+        $vendor = Vendor::with('user')->find($id);
+        $admin = Admin::with('user')->find($vendor->admin_id);
+
         $user = $admin->user;
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'username' => 'required|string|email|max:255|unique:users,username,' . $user->id,
             'phone' => 'required|min:7|max:15|unique:users,phone,' . $user->id,
             'profile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'role' => 'required',
+         
         ]);
         DB::beginTransaction();
         $admin->name = $request->name;
         $admin->more_info = $request->more_info ?? '';
-        $admin->role = $request->role;
         $admin->updated_at = now();
         if ($admin->save()) {
             $user->username = $request->username;
             $user->phone = $request->phone;
             $user->email = $request->email;
+
             if ($request->hasFile('profile_image')) {
                 if (File::exists(public_path($user->profile_image))) {
                     File::delete(public_path($user->profile_image));
@@ -151,8 +166,18 @@ class AdministrationController extends Controller
             $user->updated_by = Auth::id();
             $user->updated_at = now();
             if ($user->save()) {
+                $vendor->name = $request->name;
+                $vendor->phone_number = $request->phone;
+                $vendor->password = $request->password;
+                $vendor->admin_id = $admin->id;
+                $vendor->user_id = $user->id;
+                $vendor->password = $request->password;
+                $vendor->email = $request->email;
+                $vendor->address = $request->address;
+                $vendor->about_us = $request->more_info;
+                $vendor->save();
                 DB::commit();
-                return redirect(Helper::sitePrefix() . 'administration')->with('success', $request->role . " '" . $request->name . "' has been updated successfully");
+                return redirect(Helper::sitePrefix() . 'vendor')->with('success', $request->role . " '" . $request->name . "' has been updated successfully");
             } else {
                 DB::rollBack();
                 return back()->with('message', 'Error while updating the ' . $request->role);
@@ -220,8 +245,8 @@ class AdministrationController extends Controller
     {
         if (Auth::user()->admin->role == "Super Admin") {
             if ($id) {
-                $admin = Admin::find($id);
-                return view('Admin.administration.reset_password', compact('admin'));
+                $admin = Vendor::find($id);
+                return view('Admin.vendor.reset_password', compact('admin'));
             } else {
                 return view('backend.error.404');
             }
@@ -236,15 +261,15 @@ class AdministrationController extends Controller
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ]);
-        $admin = Admin::find($id);
+        $admin = Vendor::find($id);
         if ($admin) {
             $admin->user->password = Hash::make($request->confirm_password);
-            $admin->user->unhashed_password = $request->confirm_password;
+           
             $admin->user->updated_at = now();
             if ($admin->user->save()) {
-                return redirect(Helper::sitePrefix() . 'administration')->with('success', $admin->role . " '" . $admin->name . "' password has been changed successfully");
+                return redirect(Helper::sitePrefix() . 'vendor')->with('success', $admin->role . " '" . $admin->name . "' password has been changed successfully");
             } else {
-                return redirect(Helper::sitePrefix() . 'administration/reset-password/' . $id)->with('error', " Error while changing the password");
+                return redirect(Helper::sitePrefix() . 'vendor/reset-password/' . $id)->with('error', " Error while changing the password");
             }
         } else {
             return view('backend.error.404');
@@ -255,7 +280,7 @@ class AdministrationController extends Controller
     {
         $adminData = Auth::user()->admin;
         if ($adminData) {
-            return view('Admin.administration.profile', compact('adminData'));
+            return view('Admin.vendor.profile', compact('adminData'));
         } else {
             return view('backend.error.404');
         }
@@ -293,7 +318,7 @@ class AdministrationController extends Controller
             $admin->user->updated_at = now();
             if ($admin->user->save()) {
                 DB::commit();
-                return redirect(Helper::sitePrefix() . 'administration/profile')->with('success', "Profile has been updated successfully");
+                return redirect(Helper::sitePrefix() . 'vendor/profile')->with('success', "Profile has been updated successfully");
             } else {
                 DB::rollBack();
                 return back()->with('message', 'Error while updating the profile');

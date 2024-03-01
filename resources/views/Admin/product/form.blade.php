@@ -167,48 +167,20 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            
                             <div class="form-group col-md-3">
-                                <label> Colours *</label>
-                                <select class="form-control select2 required" name="colors[]" id="color_id" multiple>
-                                    @foreach($colors as $color)
-                                    <option value="{{$color->id}}"
-
-                                        @if(isset($product))
-                                        @php
-                                            $productColors = explode(',',$product->color_id);
-                                        @endphp
-                                   
-                                    {{(in_array($color->id,$productColors))?'selected':''}}
-                                  
-                                    @endif
-                                    {{ in_array($color->id, old('colors', [])) ? 'selected' : '' }}
-                                   >{{$color->title}}</option>
+                                <label> Select  a Vendor *</label>
+                                <select class="form-control select2 required " name="vendor_id" id="vendor_id" >
+                                    @foreach($vendors as $vendor)
+                                    <option value="{{$vendor->id}}">{{$vendor->name}}</option>
                                 @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="color_id_error"></div>
-                                @error('colors')
+                                <div class="help-block with-errors" id="vendor_id_error"></div>
+                                @error('vendor_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label> Product Description*</label>
-                                <textarea name="description" id="description"
-                                          placeholder="Description" class="form-control required tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->description:'' }}</textarea>
-                                <div class="help-block with-errors" id="description_error"></div>
-                                @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                        </div>
-                        <div class="form-row">
-
-
-
-
+                          
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
@@ -227,180 +199,77 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div class="form-group col-md-3 frame_div  d-none">
-                                <label> Frame Colour *</label>
-                                <select name="frame_color[]" id="frame_color"  class="form-control select2 " multiple>
-                                    <option value="">Select Frame Colour </option>
-                                    @foreach($frames as $frame)
-
-                                        <option value="{{$frame->id}}" 
+                         
+                            <div class="form-group col-md-5">
+                                <label> Related products </label>
+                                <select name="related_product_id[]" multiple id="related_product_id"
+                                        class="form-control select2">
+                                    @foreach($products as $related)
+                                        <option value="{{ $related->id }}"
                                             @if(isset($product))
-                                            @php
-                                                $productFrames = explode(',',$product->frame_color);
-                                            @endphp
-                                            {{(in_array($frame->id,$productFrames))?'selected':''}}
-                                  
-                                            @endif
-                                            {{ in_array($frame->id, old('frame_color', [])) ? 'selected' : '' }}
-                                             >{{$frame->title}}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                            <div class="form-group col-md-3 mount_div  d-none">
-                                <label> Has Mount *</label>
-                              <input type="checkbox" name="is_mount" id="is_mount" class="form-check" @if(@$product->is_mount) checked @endif >
-                            </div>
-                            <div class="form-group col-md-3 ">
-                                <label> Shapes *</label>
-                                <select name="shapes[]" id="shapes"  class="form-control select2 required" multiple>
-                                    <option value="">Select Shapes </option>
-                                    @foreach($shapes as $shape)
-                                        <option value="{{$shape->id}}"  
-                                          
-                                        @if(isset($product))
                                         @php
-                                            $productShapes = explode(',',$product->shape_id);
+                                            $productRelated = explode(',',$product->related_product_id);
                                         @endphp
                                    
-                                    {{(in_array($shape->id,$productShapes))?'selected':''}}
+                                    {{(in_array($related->id,$productRelated))?'selected':''}}
                                   
                                     @endif
-                                    {{ in_array($shape->id, old('shapes', [])) ? 'selected' : '' }}
-                                            >{{$shape->title}}</option>
+                                    {{ in_array($related->id, old('related_product_id', [])) ? 'selected' : '' }}
+                                            >{{ $related->title }}</option>
                                     @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="shapes_error"></div>
+                                @error('related_product_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label> Price *</label>
+                                <input type="text" name="price" id="price" placeholder="Price"
+                                       class="form-control required" autocomplete="off"
+                                       value="{{ isset($product)?$product->price:'' }}">
+                                <div class="help-block with-errors" id="pricpe_error"></div>
+                                @error('price')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="form-row">
-                            <table class="table table-active">
-                                <thead>
-                                    <th>Size *</th>
-                                    <th> Price *</th>
-                                    <th> Availability*</th>
-                                    <th> Stock*</th>
-                                    <th> Alert Quantity *</th>
-                                </thead>
-                                @if (!isset($product))
-                                <tbody>
-                                    @foreach ($sizes as $size)
-                                    <tr>
-                                        <td>
-                                            {{$size->title}}
-                                        </td>
-                                        <td>
-                                            <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                            <input type="text" name="price[{{$size->id}}]" id="price{{$size->id}}"   class="form-control price-field" value="{{isset($product)?$product->price:''}}">
+                            <div class="form-group col-md-12">
+                                <label> Product Description*</label>
+                                <textarea name="description" id="description"
+                                          placeholder="Description" class="form-control required tinyeditor"
+                                          autocomplete="off">{{ isset($product)?$product->description:'' }}</textarea>
+                                <div class="help-block with-errors" id="description_error"></div>
+                                @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-                                        </td>
-                                        <td>
-                                                <select class="form-control required"  name="availability[{{$size->id}}]"  id="availability">
-                                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
-                                                        <option value="{{ $availability }}"
-                                                            {{ old("availability", @$product->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="help-block with-errors" id="availability_error"></div>
-                                                @error('availability')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-
-
-                                        </td>
-                                        <td>
-
-                                            <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
-                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':'required'}}"
-                                                    autocomplete="off" value="{{ isset($product)?$product->stock:'2' }}">
-                                            <div class="help-block with-errors" id="stock_error"></div>
-                                            @error('stock')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$product->availability=='Out of stock')?'none':''}};">
-                                            </div>
-                                        </td>
-                                        <td>
-
-                                            <input type="text"name="alert_quantity[{{$size->id}}]" id="alert_quantity"
-                                                    placeholder="Alert Quantity"
-                                                    class="form-control alert_quantity {{(@$product->quantity=='Out of Stock')?'':'required'}}"
-                                                    autocomplete="off"
-                                                    value="{{ isset($product)?$product->alert_quantity:'1' }}">
-                                            <div class="help-block with-errors" id="alert_quantity_error"></div>
-                                            @error('alert_quantity')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-
-
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                    @else
-                                    <tbody>
-                                        @foreach ($sizes as $size)
-                                        <tr>
-                                            <td>
-                                                {{$size->title}}
-                                            </td>
-                                            <td>
-                                                @php
-                                                    $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
-                                                @endphp
-                                                <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                                <input type="text" name="price[{{$size->id}}]" id="price" class="form-control  price-field" value="{{isset($price)?$price->price:''}}">
-                                                <div class="help-block with-errors price-error" id="price_error"></div>
-                                            </td>
-                                        </td>
-                                        <td>
-                                                <select class="form-control  availability" name="availability[{{$size->id}}]" id="availability">
-                                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
-                                                        <option value="{{ $availability }}"
-                                                            {{ old("availability", @$price->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="help-block with-errors" id="availability_error"></div>
-                                                @error('availability')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-
-
-                                        </td>
-                                        <td>
-
-                                            <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
-                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':''}}"
-                                                    autocomplete="off" value="{{ isset($price)?$price->stock:'2' }}">
-                                            <div class="help-block with-errors" id="stock_error"></div>
-                                            @error('stock')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$price->availability=='Out of stock')?'none':''}};">
-                                            </div>
-                                        </td>
-                                        <td>
-
-                                            <input type="text" name="alert_quantity[{{$size->id}}]" id="alert_quantity"
-                                                    placeholder="Alert Quantity"
-                                                    class="form-control alert_quantity {{(@$price->quantity=='Out of Stock')?'':''}}"
-                                                    autocomplete="off"
-                                                    value="{{ isset($price)?$price->alert_quantity:'1' }}">
-                                            <div class="help-block with-errors" id="alert_quantity_error"></div>
-                                            @error('alert_quantity')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-
-
-                                        </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                @endif
-                            </table>
                         </div>
+                        <div class="form-row">
+
+                            <div class="form-group col-md-12">
+                                <label> About this  product*</label>
+                                <textarea name="about_this_item" id="about_this_item"
+                                          placeholder="about_this_item" class="form-control required tinyeditor"
+                                          autocomplete="off">{{ isset($product)?$product->about_this_item:'' }}</textarea>
+                                <div class="help-block with-errors" id="description_error"></div>
+                                @error('about_this_item')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                        </div>
+
+
+                        </div>
+                        <div class="form-row">
+                       
+
+                        
+                        </div>
+                   
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label> Product Thumbnail Image*</label>
@@ -425,166 +294,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label> You May Also Like</label>
-                                <select name="similar_product_id[]" multiple id="similar_product_id"
-                                        class="form-control select2">
-                                    @foreach($products as $similar)
-                                        <option value="{{ $similar->id  }}"
-                                                
-                                        @if(isset($product))
-                                        @php
-                                            $productSimilars = explode(',',$product->similar_product_id);
-                                        @endphp
-                                   
-                                    {{(in_array($similar->id,$productSimilars))?'selected':''}}
-                                  
-                                    @endif
-                                    {{ in_array($similar->id, old('similar_product_id', [])) ? 'selected' : '' }}
-                                            >{{ $similar->title }}</option>
-                                    @endforeach
-                                </select>
-                                @error('similar_product_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                         
-                            <div class="form-group col-md-6">
-                                <label> Related products </label>
-                                <select name="related_product_id[]" multiple id="related_product_id"
-                                        class="form-control select2">
-                                    @foreach($products as $related)
-                                        <option value="{{ $related->id }}"
-                                            @if(isset($product))
-                                        @php
-                                            $productRelated = explode(',',$product->related_product_id);
-                                        @endphp
-                                   
-                                    {{(in_array($related->id,$productRelated))?'selected':''}}
-                                  
-                                    @endif
-                                    {{ in_array($related->id, old('related_product_id', [])) ? 'selected' : '' }}
-                                            >{{ $related->title }}</option>
-                                    @endforeach
-                                </select>
-                                @error('related_product_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                       
+                 
 
-                        {{-- <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Banner Image</label>
-                                <div class="file-loading">
-                                    <input id="desktop_banner" name="desktop_banner" type="file"
-                                            accept="image/png, image/jpg, image/jpeg">
-                                </div>
-                                <span class="caption_note">Note: uploaded images have a maximum size of <strong> 1920x500</strong> pixels and can't be over 512kb</span>
-                                @error('desktop_banner')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Banner Attribute</label>
-                                <input type="text" name="banner_attribute"
-                                        id="banner_attribute"
-                                        placeholder="Alt='Product Thumbnail Attribute'"
-                                        class="form-control placeholder-cls" autocomplete="off"
-                                        value="{{ isset($product)?$product->banner_attribute:'' }}">
-                                @error('banner_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div> --}}
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label> About This Item</label>
-                                <textarea name="about_this_item" id="about_this_item"
-                                          placeholder="About This Item" class="form-control   tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->about_item:'' }}</textarea>
-
-                                @error('about_this_item')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Featured Image</label>
-                                <div class="file-loading">
-                                    <input id="featured_image" name="featured_image" type="file"
-                                            accept="image/png, image/jpg, image/jpeg">
-                                </div>
-                                <span class="caption_note">Note: uploaded images have a maximum size of <strong> 900x830</strong> pixels and can't be over 512kb</span>
-                                @error('featured_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Featured Attribute</label>
-                                <input type="text" name="featured_image_attribute"
-                                        id="featured_image_attribute"
-                                        placeholder="Alt='Product Thumbnail Attribute'"
-                                        class="form-control placeholder-cls" autocomplete="off"
-                                        value="{{ isset($product)?$product->featured_image_attribute:'' }}">
-                                @error('featured_image_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
-
-                            <div class="form-group col-md-12">
-                                <label> Feature Description</label>
-                                <textarea name="feature_description" id="feature_description"
-                                          placeholder="Feture Description" class="form-control  tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->featured_description:'' }}</textarea>
-                                <div class="help-block with-errors" id="feature_description_error"></div>
-                                @error('feature_description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label> Meta Title</label>
-                                <textarea class="form-control" id="meta_title" name="meta_title" rows="4"
-                                          placeholder="Meta Title">{{ isset($product)?$product->meta_title:'' }}</textarea>
-                                @error('meta_title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Meta Description</label>
-                                <textarea class="form-control" id="meta_description" name="meta_description" rows="4"
-                                          placeholder="Meta Description">{{ isset($product)?$product->meta_description:'' }}</textarea>
-                                @error('meta_description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Meta Keyword</label>
-                                <textarea class="form-control" id="meta_keyword" name="meta_keyword" rows="4"
-                                          placeholder="Meta Keyword">{{ isset($product)?$product->meta_keyword:'' }}</textarea>
-                                @error('meta_keyword')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Other Meta Tag</label>
-                                <textarea class="form-control" id="other_meta_tag" name="other_meta_tag" rows="4"
-                                          placeholder="Other Meta Tag">{{ isset($product)?$product->other_meta_tag:'' }}</textarea>
-                                @error('other_meta_tag')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
-                        </div>
+          
                     </div>
                     <div class="card-footer">
                         <input type="submit" id="btn_save" name="btn_save"

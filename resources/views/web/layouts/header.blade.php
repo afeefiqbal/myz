@@ -173,8 +173,8 @@
             </div>
         </div>
     </div>
-
     <div class="container-fluid-lg">
+
         <div class="row">
             <div class="col-12">
                 <div class="header-nav">
@@ -193,124 +193,54 @@
                             </div>
 
                             <ul class="category-list">
+                                @foreach ($sideMenus as $sidemenu)
+                                    
                                 <li class="onhover-category-list">
                                     <a href="javascript:void(0)" class="category-name">
-                                      
-                                        <h6>Smartphones</h6>
+                                        @php
+                                        $subSideMenu = App\Models\SideMenuDetail::active()->where('menu_id',$sidemenu->id)->first();
+                                        @endphp
+                                        <h6> {{ $sidemenu->title}}</h6>
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
-
+                                    @if($sidemenu->menu_type=="category")
                                     <div class="onhover-category-box">
                                         <div class="list-1">
-                                       
+                                            @php
+                                            $sideMenuDetails = App\Models\SideMenuDetail::active()->where('menu_id',$sidemenu->id)->get();
+
+                                            $colorId = [];
+                                            foreach($sideMenuDetails as $sideMenuDetail){
+                                                $colorId[] = $sideMenuDetail->category_id;
+                                                ($sideMenudetail);
+                                            }
+                                            $colorItems = App\Models\Category::whereIn('id',$colorId)->get();
+                                            @endphp
+                                     
                                             <ul>
+                                                @foreach ($colorItems as $menuCat)
+                                                    
                                                 <li>
-                                                    <a href="javascript:void(0)">Apple </a>
+                                                    <a href="{{url('category/'.$menuCat->short_url)}}">{{$menuCat->title}}</a>
                                                 </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Samsung</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Google Pixels</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">One Plus</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Beans & Okra</a>
-                                                </li>
+                                                @endforeach
+                  
+                                               
                                               
                                             </ul>
                                         </div>
 
                                 
                                     </div>
+                                    @endif
                                 </li>
-                                <li class="onhover-category-list">
-                                    <a href="javascript:void(0)" class="category-name">
-                                      
-                                        <h6>Laptops and Computers</h6>
-                                        <i class="fa-solid fa-angle-right"></i>
-                                    </a>
-
-                                    <div class="onhover-category-box">
-                                        <div class="list-1">
-                                       
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">Laptops </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Desktops</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Computer Accessories</a>
-                                                </li>
-                                              
-                                            </ul>
-                                        </div>
-
+                                @endforeach
                                 
-                                    </div>
-                                </li>
-                                <li class="onhover-category-list">
-                                    <a href="javascript:void(0)" class="category-name">
-                                      
-                                        <h6>Camera & Photography</h6>
-                                        <i class="fa-solid fa-angle-right"></i>
-                                    </a>
-
-                                    <div class="onhover-category-box">
-                                        <div class="list-1">
-                                       
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">DSLR Cameras </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Mirrorless Cameras</a>
-                                                </li>
-                                                
-                                              
-                                            </ul>
-                                        </div>
-
-                                
-                                    </div>
-                                </li>
-                                <li class="onhover-category-list">
-                                    <a href="javascript:void(0)" class="category-name">
-                                      
-                                        <h6>Home Electronics</h6>
-                                        <i class="fa-solid fa-angle-right"></i>
-                                    </a>
-
-                                    <div class="onhover-category-box">
-                                        <div class="list-1">
-                                       
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">Smart Home Devices </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Home Security cameras</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">Thermostats</a>
-                                                </li>
-                                             
-                                              
-                                            </ul>
-                                        </div>
-
-                                
-                                    </div>
-                                </li>
                           
                             </ul>
                         </div>
                     </div>
-
+                    @if($menus->isNotEmpty())
                     <div class="header-nav-middle">
                         <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
                             <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
@@ -321,145 +251,58 @@
                                 </div>
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav">
-                                       
-                                    <li class="nav-item">
-                                            <a class="nav-link nav-link-2" href="index">Home</a>
+                                        @foreach($menus as $menu)
+                                        @php
+                                            $subMenu = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->first();
+                                        @endphp 
+                                        @if($subMenu==NULL)
+                                   
+                                        @if($menu->menu_type=="category")
+                                        @else
+                                        <li class="nav-item active">
+                                            <a class="nav-link nav-link-2" href="{{ url($menu->url) }}">
+                                                {{$menu->title}} 
+                                            </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link nav-link-2" href="products">Shop</a>
-                                        </li>
-                                        <li class="nav-item dropdown dropdown-mega">
-                                            <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                                href="javascript:void(0)" data-bs-toggle="dropdown">Smart Phones</a>
-
-                                            <div class="dropdown-menu dropdown-menu-2 row g-3">
-                                                <div class="dropdown-column col-xl-3">
-                                                    <h5 class="dropdown-header">Apple </h5>
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 14</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                </div>
-                                                <div class="dropdown-column col-xl-3">
-                                                    <h5 class="dropdown-header">Samsung </h5>
-                                                    <a class="dropdown-item" href="#">Samsung S23</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S24</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S23 FE</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S23</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S24</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S23 FE</a>
-
-                                                </div>
-
-                                                <div class="dropdown-column col-xl-3">
-                                                    <h5 class="dropdown-header">Apple </h5>
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 14</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                </div>
-
-                                                <div class="dropdown-column  col-3"></div>
-                                            </div>
-                                        </li>
+                                        @endif
+                                        @else
 
                                         <li class="nav-item dropdown dropdown-mega">
                                             <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                                href="javascript:void(0)" data-bs-toggle="dropdown">Smart Phones</a>
+                                                href="javascript:void(0)" data-bs-toggle="dropdown">{{$menu->title}}</a>
 
                                             <div class="dropdown-menu dropdown-menu-2 row g-3">
+                                                @if($menu->menu_type=="category")
+                                                    @php 
+                                                        $menuDetails = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->get();
+                                                        $colorId = [];
+                                                        foreach($menuDetails as $menuDetail){
+                                                            $categoryId[] = $menuDetail->category_id;
+                                                        }
+                                                        $categoryItems = App\Models\Category::whereIn('id',$categoryId)->get();
+                                                    @endphp
+                                                @endif
                                                 <div class="dropdown-column col-xl-3">
-                                                    <h5 class="dropdown-header">Apple </h5>
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
+                                                    <h5 class="dropdown-header">{{$menu->title}}</h5>
+                                                    @foreach ($categoryItems as $menuCat)
+                                                    <a class="dropdown-item" href="{{url('category/'.$menuCat->short_url)}}">{{$menuCat->title}}</a>
+                                                    @endforeach
 
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 14</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
 
                                                 </div>
-                                                <div class="dropdown-column col-xl-3">
-                                                    <h5 class="dropdown-header">Samsung </h5>
-                                                    <a class="dropdown-item" href="#">Samsung S23</a>
+                                                
 
-                                                    <a class="dropdown-item" href="#">Samsung S24</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S23 FE</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S23</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S24</a>
-
-                                                    <a class="dropdown-item" href="#">Samsung S23 FE</a>
-
-                                                </div>
-
-                                                <div class="dropdown-column col-xl-3">
-                                                    <h5 class="dropdown-header">Apple </h5>
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 14</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 13pro</a>
-
-                                                    <a class="dropdown-item" href="#">I phone 15</a>
-
-                                                </div>
-
-                                                <div class="dropdown-column  col-3"></div>
+                                              
                                             </div>
                                         </li>
-                                        
-                                     
-                                        <li class="nav-item">
-                                            <a class="nav-link nav-link-2" href="about">About us</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link nav-link-2" href="contact">Contact</a>
-                                        </li>
+                                        @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <!-- <div class="header-nav-right">
                         <button class="btn deal-button" data-bs-toggle="modal" data-bs-target="#deal-box">

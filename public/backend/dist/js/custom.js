@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     if ($('.placeholder-cls').val() == '' || $('.placeholder-cls').val() == null) {
-        $('.placeholder-cls').val('alt="ARTEMYST"');
+        $('.placeholder-cls').val('alt="MYZ"');
     }
 
     if ($('.fancy').length > 0) {
@@ -1478,9 +1478,9 @@ $(document).ready(function () {
            if(field_name == 'description'){
                 var description = tinymce.get($('#description').attr('id')).getContent();
                 var about_this_item = tinymce.get($('#about_this_item').attr('id')).getContent();
-                var feature_description = tinymce.get($('#feature_description').attr('id')).getContent();
+                // var feature_description = tinymce.get($('#feature_description').attr('id')).getContent();
                 formData.append('about_this_item', about_this_item);
-                formData.append('feature_description', feature_description);
+                // formData.append('feature_description', feature_description);
            
                 if (description == '') {
                     errors = true;
