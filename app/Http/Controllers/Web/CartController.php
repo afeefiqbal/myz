@@ -102,28 +102,17 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        
-       if($request->size == null){
-        $sizes = ProductPrice::where('product_id',$request->product_id)->get();
-        $sizeID = $sizes->map(function($item) {
-            return $item->size_id;
-        })->toArray();
-       $sizes = \App\Models\Size::whereIn('id',$sizeID)->orderBy('sort_order')->get();
-        $size= $sizes->first()->id;
-        }
-        else{
-            $size = $request->size;
-        }
+     
         $sessionKey = $this->setSession();
       
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
              
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey,$size);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey);
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey,$size);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey);
         }
         $count = 0;
         foreach (Cart::session($sessionKey)->getContent() as $row) {
@@ -209,23 +198,12 @@ class CartController extends Controller
         return $sessionKey;
     }
 
-    public function cartAddItems($request, $product_id, $sessionKey,$size)
+    public function cartAddItems($request, $product_id, $sessionKey)
     {
-
-        $product = Product::find($product_id);     
-        $product->frame = ($request->frame_id) ?$request->frame_id : null;
-    
-       
-        if($request->type_id == '4' && $request->mount == null) {
-
-           $product->mount = "Yes";
-        }
-        else{
-            $product->mount = $request->mount;
-        }
+        $product = Product::find($product_id);    
 
         $n = $product->id;
-        $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
+        $productPrice = Product::where('id',$product_id)->first();
          
         $product->stock = $productPrice->stock;
         $product->price =  Helper::defaultCurrencyRate() *$productPrice->price;
@@ -423,7 +401,7 @@ class CartController extends Controller
                 // dd(Cart::session($sessionKey)->getContent());
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
                     $product = Product::where([['status', 'Active'], ['id', $row->attributes->product_id]])->first();
-                    $productPrice =ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                    $productPrice =Product::where('id',$product->id)->first();
                    
                    if($productPrice->stock == 0 && $productPrice->availability !='In Stock'){
                     return false;

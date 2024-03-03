@@ -54,7 +54,7 @@ use PHPUnit\TextUI\Help;
 */
 
 Route::middleware(['web'])->group(function () {
-    Route::get('/', [WebController::class, 'home']);
+    Route::get('/', [WebController::class, 'home'])->name('/');
 
     Route::get('product-details',function(){
         return view('web.product-details');

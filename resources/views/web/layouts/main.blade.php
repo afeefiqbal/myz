@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MYZ">
     <meta name="keywords" content="MYZ">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="author" content="MYZ">
     <link rel="icon" href="assets/images/favicon/3.png" type="image/x-icon">
     <title>The best electronic shop near you</title>
@@ -23,27 +24,33 @@
         rel="stylesheet">
 
     <!-- bootstrap css -->
-    <link id="rtl-link" rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/bootstrap.css')}}">
 
     <!-- wow css -->
-    <link rel="stylesheet" href="assets/css/animate.min.css" />
+    <link rel="stylesheet" href="{{asset('assets/css/animate.min.css')}}" />
 
     <!-- font-awesome css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/font-awesome.css')}}">
 
     <!-- feather icon css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/feather-icon.css')}}">
 
     <!-- slick css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/vendors/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/slick/slick.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/slick/slick-theme.css')}}">
 
     <!-- Iconly css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bulk-style.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bulk-style.css')}}">
 
     <!-- Template css -->
-    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
 </head>
+<script type="text/javascript">
+            var base_url = "{{ url('/') }}";
+        var fc_path = "{{ asset('/') }}";
+        var token = "{{ csrf_token() }}";
+</script>
+
 
 <body class="bg-effect">
 

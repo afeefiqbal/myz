@@ -92,7 +92,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-4">
                                 <label> Category*</label>
                                 <select name="category[]" id="category" multiple
                                         class="form-control select2 required">
@@ -117,7 +117,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-4">
                                 <label> Sub Category *</label>
                                 <select class="form-control select2 " name="sub_category[]"
                                         id="sub_category" multiple>
@@ -144,7 +144,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-4">
                                 <label> Tags *</label>
                                 <select class="form-control select2 required " name="tags[]" id="tag_id" multiple>
                                     @foreach($tags as $tag)
@@ -168,7 +168,7 @@
                                 @enderror
                             </div>
                             
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-4">
                                 <label> Select  a Vendor *</label>
                                 <select class="form-control select2 required " name="vendor_id" id="vendor_id" >
                                     @foreach($vendors as $vendor)
@@ -180,7 +180,24 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                          
+                            <div class="form-group col-md-4">
+                                <label> Stock*</label>
+                                <input type="number" name="stock" id="stock" placeholder="Stock" class="form-control {{(@$product->qunatity=='Out of stock')?'':'required'}}" autocomplete="off" value="{{ isset($product)?$product->stock:'2000' }}">
+                                <div class="help-block with-errors" id="stock_error"></div>
+                            </div>
+                            <div class="form-group col-md-4">
+                             <label> Quantity*</label>
+                             <select class="form-control required" name="quantity" id="quantity">
+                                 <option value="In Stock" {{ (@$product->quantity=='In Stock')?'selected':''}}>In
+                                     Stock
+                                 </option>
+                                 <option
+                                     value="Out of Stock" {{  (@$product->quantity=='Out of Stock')?'selected':'' }}>
+                                     Out of stock
+                                 </option>
+                             </select>
+                             <div class="help-block with-errors" id="quantity_error"></div>
+                         </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
@@ -266,7 +283,9 @@
                         </div>
                         <div class="form-row">
                        
-
+                            <div class="form-row" id="quantity_div"
+                            style="display: {{(@$product->quantity=='Out of Stock')?'none':''}};">
+                          
                         
                         </div>
                    

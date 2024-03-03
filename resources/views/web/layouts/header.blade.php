@@ -51,8 +51,8 @@
                                 <i class="fa-solid fa-bars"></i>
                             </span>
                         </button>
-                        <a href="index" class="web-logo nav-logo">
-                            <img src="./assets/images/logo/logo.jpeg" class="img-fluid blur-up lazyload" alt="">
+                        <a href="{{route('/')}}" class="web-logo nav-logo">
+                            <img src="{{asset('assets/images/logo/logo.jpeg')}}" class="img-fluid blur-up lazyload" alt="">
                         </a>
                         <div class="rightside-box">
                             <div class="search-full">
@@ -94,14 +94,14 @@
                                 </li>
                                 <li class="right-side">
                                     <div class="onhover-dropdown header-badge">
-                                        <button type="button" class="btn p-0 position-relative header-wishlist">
+                                        <button type="button" onclick="location.href = '{{ url('/cart') }}'" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="shopping-cart"></i>
                                             <span class="position-absolute top-0 start-100 translate-middle badge">2
                                                 <span class="visually-hidden">unread messages</span>
                                             </span>
                                         </button>
 
-                                        <div class="onhover-div">
+                                        {{-- <div class="onhover-div">
                                             <ul class="cart-list">
                                                 <li class="product-box-contain">
                                                     <div class="drop-cart">
@@ -135,7 +135,7 @@
                                                 <a href="checkout" class="btn btn-sm cart-button theme-bg-color
                                                 text-white">Checkout</a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </li>
                                 <li class="right-side onhover-dropdown">

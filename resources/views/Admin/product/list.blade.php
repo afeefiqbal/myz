@@ -56,12 +56,12 @@
                                         <th>Type</th>
                                         <th>Category</th>
                                         <th>Gallery</th>
-                                        {{-- <th>Offer</th> --}}
+                                        <th>Offer</th>
                                         <th>Status</th>
                                         <th>Most Relevent</th>
-                                        <th>Latest</th>
+                                    {{-- <th>Latest</t[h> --}}
                                         <th>Popular</th>
-                                        {{-- <th >Display to Home</th> --}}
+                                        <th >Display to Home</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -133,7 +133,9 @@
                 {data: 'status', name: 'status', orderable: false, searchable: false},
                 {data: 'is_featured', name: 'is_featured', orderable: false, searchable: false},
                 {data: 'new_arrival', name: 'new_arrival', orderable: false, searchable: false},
-                {data: 'best_seller', name: 'best_seller', orderable: false, searchable: false},
+                {data: 'offer', name: 'offer', orderable: false, searchable: false},
+                // {data: 'best_seller', name: 'best_seller', orderable: false, searchable: false},
+                {data: 'display_to_home', name: 'display_to_home', orderable: false, searchable: false},
                 {data: 'created_at', name: 'created_at', orderable: false, searchable: false},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],

@@ -109,6 +109,11 @@ class ProductController extends Controller
                         ref="'. $row->id.'" '. $checked .'><span class="slider"></span></label>';
                 return $btn;
             })
+            ->addColumn('offer', function($row){
+                $btn = '<a href="'. url(Helper::sitePrefix() ."product/offer/".$row->id).'"
+                       class="btn btn-sm btn-warning mr-2 tooltips" title="Add Offer">Offer</a>';
+                return $btn;
+            })
             ->addColumn('new_arrival', function($row){
                 $checked = '';
                 if ($row->new_arrival == "Yes")
@@ -130,6 +135,17 @@ class ProductController extends Controller
                         ref="'. $row->id.'" '. $checked .'><span class="slider"></span></label>';
                 return $btn;
             })
+            ->addColumn('display_to_home', function($row){
+                $checked = '';
+                if ($row->display_to_home == "Yes")
+                    $checked = 'checked';
+                $btn = '<label class="switch"><input type="checkbox" class="bool_status" title="Product"
+                ass="bool_status" title="Product"
+                data-url="change-bool-status" data-table="Product"
+                data-id="'.$row->id.'" data-field="display_to_home"
+                        ref="'. $row->id.'" '. $checked .'><span class="slider"></span></label>';
+                return $btn;
+            })
             ->addColumn('created_at', function($row){
                 return date('d M Y', strtotime($row->created_at));
             })
@@ -145,7 +161,7 @@ class ProductController extends Controller
                 return $btn;
             })
             ->rawColumns(['product_price', 'overview', 'specification', 'gallery','product_title',
-                'offer', 'status', 'is_featured', 'new_arrival', 'best_seller', 'action'])
+                'offer', 'status', 'is_featured', 'new_arrival', 'best_seller', 'action','display_to_home'])
             ->make(true);
         }
         return view('Admin.product.list', compact( 'title'));
@@ -378,13 +394,13 @@ class ProductController extends Controller
         $product->is_mount = isset($request->is_mount) ? 1 : 0;
         $product->price = $request->price ?? '';
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
-        // if ($product->availability == "In Stock") {
-        //     $product->stock = $request->stock;
-        //     $product->alert_quantity = $request->alert_quantity;
-        // } else {
-        //     $product->stock = 0;
-        //     $product->alert_quantity = 0;
-        // }
+        if ($product->availability == "In Stock") {
+            $product->stock = $request->stock;
+            $product->alert_quantity = $request->alert_quantity;
+        } else {
+            $product->stock = 0;
+            $product->alert_quantity = 0;
+        }
         if($request->copy == 'Copy'){
             $product->copy = "Yes";
             $prd = Product::where('id', $request->copy_product_id)->first();
@@ -470,48 +486,48 @@ class ProductController extends Controller
             $priceWithSize = $request->price;
             
 
-            $stockWithSize = $request->stock;
-            if(isset($stockWithSize) && !empty($stockWithSize)){
-                foreach($stockWithSize as $key => $value){
-                    $stock['product_id'] =  $product->id;
-                    $stock[$key] = $value;
-                    if(isset($stock[$key]) && !empty($stock[$key])){
-                        $procutPrice = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'stock' => $value,
-                        ]);
-                    }
-                }
-            }
-            $availabilityWithSize = $request->availability;
-            if(isset($availabilityWithSize) && !empty($availabilityWithSize)){
-                foreach($availabilityWithSize as $key => $value){
-                    $stock['product_id'] =  $product->id;
-                    $stock[$key] = $value;
-                    if(isset($stock[$key]) && !empty($stock[$key])){
-                        $availabilityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'availability' => $value,
-                        ]);
-                    }
-                }
-            }
-            $alert_quantityWithSize = $request->alert_quantity;
-            if(isset($alert_quantityWithSize) && !empty($alert_quantityWithSize)){
-                foreach($alert_quantityWithSize as $key => $value){
-                    $stock['product_id'] =  $product->id;
-                    $stock[$key] = $value;
-                    if(isset($stock[$key]) && !empty($stock[$key])){
-                        $alert_quantityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'alert_quantity' => $value,
-                        ]);
-                    }
-                }
-            }
+            // $stockWithSize = $request->stock;
+            // if(isset($stockWithSize) && !empty($stockWithSize)){
+            //     foreach($stockWithSize as $key => $value){
+            //         $stock['product_id'] =  $product->id;
+            //         $stock[$key] = $value;
+            //         if(isset($stock[$key]) && !empty($stock[$key])){
+            //             $procutPrice = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+            //                 'product_id' =>  $product->id,
+            //                 'size_id' => $key,
+            //                 'stock' => $value,
+            //             ]);
+            //         }
+            //     }
+            // }
+            // $availabilityWithSize = $request->availability;
+            // if(isset($availabilityWithSize) && !empty($availabilityWithSize)){
+            //     foreach($availabilityWithSize as $key => $value){
+            //         $stock['product_id'] =  $product->id;
+            //         $stock[$key] = $value;
+            //         if(isset($stock[$key]) && !empty($stock[$key])){
+            //             $availabilityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+            //                 'product_id' =>  $product->id,
+            //                 'size_id' => $key,
+            //                 'availability' => $value,
+            //             ]);
+            //         }
+            //     }
+            // }
+            // $alert_quantityWithSize = $request->alert_quantity;
+            // if(isset($alert_quantityWithSize) && !empty($alert_quantityWithSize)){
+            //     foreach($alert_quantityWithSize as $key => $value){
+            //         $stock['product_id'] =  $product->id;
+            //         $stock[$key] = $value;
+            //         if(isset($stock[$key]) && !empty($stock[$key])){
+            //             $alert_quantityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+            //                 'product_id' =>  $product->id,
+            //                 'size_id' => $key,
+            //                 'alert_quantity' => $value,
+            //             ]);
+            //         }
+            //     }
+            // }
         
             $similarProducts = [];
             $errorArray = $successArray = [];
@@ -1369,12 +1385,14 @@ class ProductController extends Controller
 
     public function offer_create($product_id)
     {
-        $sizes = Size::where('status', 'Active')->get();
+     
         $product = Product::find($product_id);
+        // dd($product);
         if ($product) {
             $key = "Create";
             $title = "Create Offer";
-            return view('Admin.product.offer.form', compact('key', 'title', 'product','sizes'));
+         
+            return view('Admin.product.offer.form', compact('key', 'title', 'product'));
         } else {
             abort(404, 'Product variant not found');
         }
@@ -1382,42 +1400,31 @@ class ProductController extends Controller
 
     public function offer_store(Request $request)
     {
+        $val = $request->offer_type === 'Decrease' ? 'lt:' . (int)$request->product_price : 'gt:' . (int)$request->product_price;
         $validatedData = $request->validate([
             'product_id' => 'required',
-            'title' => 'required',
-            // 'price' => 'required',
+            'title' => 'required|min:2|max:230',
+            'price' => 'required|numeric|' . $val,
             'start_date' => 'required',
             'end_date' => 'required',
+
         ]);
         $offer = new Offer;
         $offer->title = $validatedData['title'];
         $offer->product_id = $validatedData['product_id'];
-        $offer->price = $validatedData['price'] ?? 0;
+        $offer->price = $validatedData['price'];
         $offer->start_date = $validatedData['start_date'];
         $offer->end_date = $validatedData['end_date'];
         $offer->sale_condition = ($request->sale_condition) ? $request->sale_condition : '';
-        
+
         $activeOffer = Offer::active()->where('product_id', $validatedData['product_id'])->first();
         if ($activeOffer) {
             $activeOffer->status = 'Inactive';
             $activeOffer->save();
         }
-        
+
         if ($offer->save()) {
-          
-            foreach ($request->price as $key => $value) {
-                DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
-                if($value != null){
-                $procutPrice = DB::table('product_offer_size')->insert([
-                    'product_id' => $validatedData['product_id'],
-                    'size_id' => $key,
-                    'price' => $value,
-                    'offer_id' => $offer->id,
-                ]);
-                }
-            }
-           
-           session()->flash('success', "Offer '" . $offer->title . "' has been added successfully");
+            session()->flash('message', "Offer '" . $offer->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
         } else {
             return back()->with('message', 'Error while creating the offer');
@@ -1440,35 +1447,26 @@ class ProductController extends Controller
     public function offer_update(Request $request, $id)
     {
         $offer = Offer::find($id);
+        $val = $request->offer_type === 'Decrease' ? 'lt:' . (int)$request->product_price : 'gt:' . (int)$request->product_price;
+
         $validatedData = $request->validate([
             'product_id' => 'required',
             'title' => 'required',
-            // 'price' => 'required',
+            'price' => 'required|numeric|' . $val,
             'start_date' => 'required',
             'end_date' => 'required',
             // 'sale_condition' => 'required',
         ]);
         $offer->title = $validatedData['title'];
         $offer->product_id = $validatedData['product_id'];
-
+        $offer->price = $validatedData['price'];
         $offer->start_date = $validatedData['start_date'];
         $offer->end_date = $validatedData['end_date'];
         $offer->sale_condition = ($request->sale_condition) ? $request->sale_condition : '';
         $offer->updated_at = date('Y-m-d h:i:s');
 
         if ($offer->save()) {
-            foreach ($request->price as $key => $value) {
-                DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
-                if($value != null){
-                $procutPrice = DB::table('product_offer_size')->insert([
-                    'product_id' => $validatedData['product_id'],
-                    'size_id' => $key,
-                    'price' => $value,
-                    'offer_id' => $offer->id,
-                ]);
-                }
-            }
-           session()->flash('success', "Offer '" . $offer->title . "' has been updated successfully");
+            session()->flash('message', "Offer '" . $offer->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
         } else {
             return back()->with('message', 'Error while updating the offer');
@@ -1480,17 +1478,17 @@ class ProductController extends Controller
         if (isset($request->id) && $request->id != NULL) {
             $offer = Offer::find($request->id);
             if ($offer) {
-                if ($offer->delete()) {
-                    $offerPrice = DB::table('product_offer_size')->where('offer_id',$request->id)->delete();
-                    return response()->json(['status' => true]);
+                $deleted = $offer->delete();
+                if ($deleted == true) {
+                    echo(json_encode(array('status' => true)));
                 } else {
-                    return response()->json(['status' => false, 'message' => 'Some error occured,please try after sometime']);
+                    echo(json_encode(array('status' => false, 'message' => 'Some error occured,please try after sometime')));
                 }
             } else {
-                return response()->json(['status' => false, 'message' => 'Model class not found']);
+                echo(json_encode(array('status' => false, 'message' => 'Model class not found')));
             }
         } else {
-            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+            echo(json_encode(array('status' => false, 'message' => 'Empty value submitted')));
         }
     }
 

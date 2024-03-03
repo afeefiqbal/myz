@@ -79,12 +79,10 @@ class WebController extends Controller
         $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
         $ourSelectionProducts = DB::table('our_selection')->orderBy('sort_order')->pluck('product_id')->toArray();
 
-        $products = Product::active()->where('copy','no')->whereIn('id',$ourSelectionProducts);
         $ourSelectionProducts = [];
 
-        
 
-        return view('web.home', compact('categories','recentlyViewedProducts'));
+    return view('web.home', compact('categories','recentlyViewedProducts','products'));
     }
 
 
@@ -242,7 +240,7 @@ class WebController extends Controller
 
         $banner = Banner::type('product')->first();
         $seo_data = $this->seo_content('Products');
-       $parentCategories = Category::active()->isParent()->with('activeChildren')->orderBy('sort_order')->get();
+       $parentCategories = Category::active()->with('activeChildren')->orderBy('sort_order')->get();
         $condition = Product::active()->where('copy','no');
 
          $totalProducts = $condition->count();
@@ -289,14 +287,14 @@ class WebController extends Controller
             $loading_limit = 15;
             $type = "category";
             $colors = Color::active()->oldest('title')->get();
-            $shapes = Shape::active()->orderBy('sort_order','asc')->get();
+            // $shapes = Shape::active()->orderBy('sort_order','asc')->get();totalRatin
             $tags = Tag::orderBy('sort_order')->get();
-            $shapescount = count($shapes);
+            // $shapescount = count($shapes);
             $typeValue = $short_url;
             $sort_value = 'latest';
             $title = ucfirst($category->title);
             $latestProducts = Product::active()->whereRaw("find_in_set('" . $category->id . "',category_id)")->take(5)->latest()->get();
-            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount',
+            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','tags',
                 'parentCategories', 'colors', 'category', 'banner', 'type', 'typeValue', 'latestProducts',
                 'title', 'sort_value'));
         } else {
@@ -586,7 +584,7 @@ class WebController extends Controller
             $productTypeIds = $products->pluck('product_type_id')->toArray();
             $productTypes = ProductType::whereIn('id',$productTypeIds)->active()->get();
 
-            $sizes = Size::active()->get();
+       
             $banner = $seo_data = $product;
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
             $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))
@@ -619,7 +617,6 @@ class WebController extends Controller
             }
             
             $productTags = Tag::active()->whereIn('id', explode(',', $product->tag_id))->latest()->get();
-            $productFrames = Frame::whereIn('id', explode(',', $product->frame_color))->latest()->get();
             $specifications = ProductSpecificationHead::active()->with('specifications')
                 ->where('product_id', $product->id)->orderby('sort_order')->get();
             $averageRatings = Helper::averageRating($product->id);
@@ -637,26 +634,10 @@ class WebController extends Controller
                 $ratings = ProductReview::where('product_id',$product->id)->get();
                 $bestRating = $ratings->max("rating");
 
-            if($product->product_type_id == 1){
-                return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
+                return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications','bestRating'));
-            }
-            elseif($product->product_type_id == 2){
-                return view('web.product-details-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications','bestRating'));
-            }
-            elseif($product->product_type_id == 3){
-                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications','bestRating'));
-            }
-            elseif($product->product_type_id == 4){
-                return view('web.product-details-framed-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications','bestRating'));
-            }
+
 
         } else {
             return view('web.404');
