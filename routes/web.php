@@ -168,7 +168,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('check-out-button', [CartController::class, 'check_out_button']);
     Route::post('cancel_all', [OrderController::class, 'cancel_all']);
 
-
+    Route::post('submit-order-by-cod',[CartController::class,'submit_order_by_cod']);
     Route::post('state-list', [CartController::class, 'state_list']);
     Route::post('b-state-list', [CartController::class, 'b_state_list']);
     Route::post('submit-order', [CartController::class, 'submit_order']);

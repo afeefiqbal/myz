@@ -1,46 +1,71 @@
 
 @extends('web.layouts.main')
 @section('content')
-<section class="loginSection position-relative">
-        <div class="container position-relative">
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
             <div class="row">
-                <div class="col-xxl-5 col-xl-6 col-lg-7 myAccountContainer">
-                    <div class="myAccountForm">
-                        <h3>Forgot Password</h3>
-                        <form action="" id="forgot">
-                    <div class="row">
-                        <!-- <div class="form-group">
-                            <input type="text" class="form-control required" id="name" name="name" placeholder="Name*">
-                            <span class="invalidMessage"></span>
-                        </div> -->
-                        <div class="form-group">
-                            <img src="{{asset('frontend/images/icon-email.png')}}" alt="">
-                            <input type="text" class="form-control required" id="email" name="email" placeholder="Email*">
-                        </div>
-
-                        <!-- <div class="form-group">
-                            <textarea name="" class="form-control form-message" placeholder="Message*"></textarea>
-
-                        </div> -->
-                        <div class="form-group">
-                            <button class="btn primary_btn  form_submit_btn" data-url="/forgot-password" id="forgotpasswdform_submit_btn">Send</button>
-                        </div>
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2 class="mb-2">Log In</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active">Log In</li>
+                            </ol>
+                        </nav>
                     </div>
-                </form>
-                        <h6 class="or">OR</h6>
-                        <div class="loginOptionWrapper">
-                            <a class="btnBox" href="{{ url('auth/google') }}"> <img src="{{asset('frontend/images/googleIcon.png')}}" alt="">  <p>Continue With Google</p> </a>
-                            <a class="btnBox btnBoxFace" href="{{ url('auth/facebook') }}"> <img src="{{asset('frontend/images/facebookIcon.png')}}" alt=""> <p>Continue With Facebook</p> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 myAccountImageBox">
-                    <img class="img-fluid w-100" src="assets/images/loginImage.png" alt="">
                 </div>
             </div>
         </div>
     </section>
+    <!-- Breadcrumb Section End -->
 
+    <!-- log in section start -->
+    <section class="log-in-section section-b-space forgot-section">
+        <div class="container-fluid-lg w-100">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
+                    <div class="image-contain">
+                        <img src="../assets/images/inner-page/forgot.png" class="img-fluid" alt="">
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-5 col-lg-6 me-auto">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                        <div class="log-in-box">
+                            <div class="log-in-title">
+                                <h3>Welcome To {{@$siteInformation->brand_name}}</h3>
+                                <h4>Forgot your password</h4>
+                            </div>
+
+                            <div class="input-box">
+                                <form class="row g-4">
+                                    <div class="col-12">
+                                        <div class="form-floating theme-form-floating log-in-form">
+                                            <input type="email" class="form-control" id="email"
+                                                placeholder="Email Address">
+                                            <label for="email">Email Address</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button class="btn btn-animation w-100" type="submit">Forgot
+                                            Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
 @push('scripts')
 

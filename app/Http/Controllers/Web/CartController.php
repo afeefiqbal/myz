@@ -662,9 +662,9 @@ class CartController extends Controller
                         return $q->state_id;
                     });
                     $shipping_charge = ShippingCharge::whereIn('state_id',$state_id->toArray())->active()->pluck('state_id')->toArray();
-                   $customerAddresses = $customerAddresses->filter(function($q) use($shipping_charge){
-                        return in_array($q->state_id,$shipping_charge);
-                    });
+                //    $customerAddresses = $customerAddresses->filter(function($q) use($shipping_charge){
+                //         return in_array($q->state_id,$shipping_charge);
+                //     });
                 }
                 $calculation_box = Helper::calculationBox();
                 
@@ -713,7 +713,7 @@ class CartController extends Controller
     public function state_list(Request $request)
     {
         $shipping_charge = ShippingCharge::active()->pluck('state_id')->toArray();
-        $statesData = State::active()->whereIn('id',$shipping_charge)->where('country_id', $request->country_id)->get(['id', 'title']);
+        $statesData = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
         return response()->json(['status' => 'true', 'states' => $statesData]);
      
     }
@@ -1080,6 +1080,7 @@ class CartController extends Controller
     }
     public function select_customer_address(Request $request)
     {
+     
         if (Auth::guard('customer')->check()) {
             if (Session::has('session_key')) {
                 $sessionKey = session('session_key');
@@ -1093,23 +1094,23 @@ class CartController extends Controller
                     $responseMessage = 'Customer address selected successfully';
                     $status = true;
                     if($address){
-                        if($address->state){
-                            $shipping = ShippingCharge::active()
-                                ->where('state_id' ,$address->state->id)->first();
-                            if($shipping != NULL){
-                                session(['selected_customer_address' => $request->address_id]);
-                                session(['selected_shipping_address' => $request->address_id]);
-                                session(['selected_billing_address' => $request->address_id]);
-                            }
-                            else{
-                                $status = false;
-                                $responseMessage = 'This item cannot be shipped on this location';
-                            }
-                        }
-                        else{
-                            $status = false;
-                            $responseMessage = 'This item cannot be shipped on this location';
-                        }
+                        // if($address->state){
+                        //     $shipping = ShippingCharge::active()
+                        //         ->where('state_id' ,$address->state->id)->first();
+                        //     // if($shipping != NULL){
+                        //     //     session(['selected_customer_address' => $request->address_id]);
+                        //     //     session(['selected_shipping_address' => $request->address_id]);
+                        //     //     session(['selected_billing_address' => $request->address_id]);
+                        //     // }
+                        //     // else{
+                        //     //     $status = false;
+                        //     //     $responseMessage = 'This item cannot be shipped on this location';
+                        //     // }
+                        // }
+                        // else{
+                        //     $status = false;
+                        //     $responseMessage = 'This item cannot be shipped on this location';
+                        // }
                     }
                     else{
                         $status = false;
@@ -1342,9 +1343,66 @@ class CartController extends Controller
             ), 200, []);
         }
     }
+    public function submit_order_by_cod(Request $request)
+    {
 
+        if (!(Auth::guard('customer')->check())) {
+            $request->validate([
+                'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
+                'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
+                'phone_number' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
+                'email' => 'required|email|max:70',
+                'address' => 'required',
+
+                'state' => 'required',
+                'country' => 'required',
+                'billing_first_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
+                'billing_last_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
+                'billing_phone_number' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
+                'billing_email' => 'required|email|max:70',
+                'billing_address' => 'required',
+                'delivery_time' => 'required',
+                'delivery_date' => 'required',
+                'message' => ['nullable', new MessageWordLimitRule()]
+
+            ],
+                [
+                    'billing_first_name.required' => 'The First name field is required',
+                    'billing_last_name.required' => 'The Last name field is required',
+                    'billing_phone_number.required' => 'The Phone number field is required',
+                    'billing_email.required' => 'The Email field is required',
+                    'billing_address.required' => 'The Address field is required',
+
+                    'billing_first_name.regex' => 'The First name field invalid',
+                    'billing_last_name.regex' => 'The Last name field invalid',
+                    'billing_phone_number.regex' => 'The Phone number field invalid',
+                    'billing_email.email' => 'The Email must be a valid email',
+                ]
+            );
+
+
+
+        }
+        if (Session::has('session_key')) {
+            $sessionKey = session('session_key');
+            $date = date('Y-m-d', strtotime($request->delivery_date));
+            session(['delivery_date' => $date]);
+            session(['delivery_time' => $request->delivery_time]);
+
+            $result = $this->orderProcess($sessionKey, $request->payment_method, $request->billingAddresChoose);
+            return $result;
+
+        } else {
+            return response(array(
+                'status' => false,
+                'message' => 'Cart is empty',
+                'data' => '/cart',
+            ), 200, []);
+        }
+    }
     public function orderProcess($sessionKey, $method, $billingAddressChoose)
     {
+       
       if($method == 'COD'){
         $method = 'cod';
       }
@@ -1409,12 +1467,12 @@ class CartController extends Controller
                             $addressid = $customerAddress->id;
                         }
                         $order_customer->shipping_address = $addressid;
-                 
+                        $billingAddressChoose = 'different';
                         if ($billingAddressChoose == 'same') {
                             $billingAddressid = session('selected_customer_address');
                          
-                        } elseif (Session::has('selected_customer_billing_address')) {
-                            $billingAddressid = session('selected_customer_billing_address');
+                        } elseif (Session::has('selected_billing_address')) {
+                            $billingAddressid = session('selected_billing_address');
                         } else {
                             session(['billing_first_name' => session('first_name')]);
                             session(['billing_last_name' => session('last_name')]);
@@ -1425,9 +1483,11 @@ class CartController extends Controller
                             session(['billing_address' => session('address')]);
                             session(['billing_zipcode' => session('zipcode')]);
                             session(['address_choose' => 'different']);
-                            $customerbillingAddress = new CustomerAddress;
+                            $customerbillingAddress = CustomerAddress::find(1);
                             $customerbillingAddress->customer_id = Null;
                             $customerbillingAddress->first_name = session('billing_first_name');
+                            
+                            
                             $customerbillingAddress->last_name = session('billing_last_name');
                             $customerbillingAddress->address = session('billing_address');
                             $customerbillingAddress->email = session('billing_email');
@@ -1826,7 +1886,7 @@ class CartController extends Controller
             $product = Product::find($order_product->product_id);
      
        
-            $productPrice = ProductPrice::where('product_id', $product->id)->where('size_id',$order_product->size)->first();
+            $productPrice = Product::where('id', $product->id)->first();
         
   
             $quantity = $productPrice->stock - $order_product->quantity;

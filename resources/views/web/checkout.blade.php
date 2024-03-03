@@ -1,6 +1,7 @@
 @extends('web.layouts.main')
 @section('content')
-<section class="breadscrumb-section pt-0">
+  <!-- Breadcrumb Section Start -->
+  <section class="breadscrumb-section pt-0">
     <div class="container-fluid-lg">
         <div class="row">
             <div class="col-12">
@@ -61,22 +62,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item" role="presentation">
-                        <div class="nav-link" id="delivery-option" data-bs-toggle="tab" data-bs-target="#d-options"
-                            role="tab">
-                            <div class="nav-item-box">
-                                <div>
-                                    <span>STEP 3</span>
-                                    <h4>Delivery Options</h4>
-                                </div>
-                                <lord-icon target=".nav-item" src="https://cdn.lordicon.com/jyijxczt.json"
-                                    trigger="loop-on-hover"
-                                    colors="primary:#3a3347,secondary:#0baf9a,tertiary:#ebe6ef,quaternary:#646e78"
-                                    class="lord-icon">
-                                </lord-icon>
-                            </div>
-                        </div>
-                    </li>
+                 
 
                     <li class="nav-item" role="presentation">
                         <div class="nav-link" id="payment-option" data-bs-toggle="tab" data-bs-target="#p-options"
@@ -101,213 +87,133 @@
                 <div class="tab-content" id="progressBar">
                     <div class="tab-pane active" id="s-cart" role="tabpanel" aria-labelledby="shopping-cart">
                         <h2 class="tab-title">Shopping Cart</h2>
+                        @if (!Cart::session($sessionKey)->isEmpty())
                         <div class="cart-table p-0">
                             <div class="table-responsive">
+                                <h5 id="offcanvasRightLabel"><span>(<span  class="cart-count">  {{ Helper::getCartItemCount()}}</span> Items )</span> <br></h5> <br>
                                 <table class="table">
                                     <tbody>
-                                        <tr class="product-box-contain">
-                                            <td class="product-detail">
-                                                <div class="product border-0">
-                                                    <a href="product-left.php" class="product-image">
-                                                        <img src="https://img.freepik.com/free-vector/wifi-router-front-side-view-mockup_107791-5061.jpg?w=1060&t=st=1705510903~exp=1705511503~hmac=3cc0dafdb9f9020d8c28f83b575bb11ed268ee18341cab188b9a7482cd0b124b"
-                                                            class="img-fluid blur-up lazyload" alt="">
-                                                    </a>
-                                                    <div class="product-detail">
-                                                        <ul>
-                                                            <li class="name">
-                                                                <a href="product-left.php" class="text-title">iMac</a>
-                                                            </li>
+                                        @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
+                                        @php
+                                        $product = App\Models\Product::find($row->attributes['product_id']);
+                                        @endphp
+                                   <tr class="product-box-contain" id="sub-cart-item-div-{{$row->id}}">
+                                    <td class="product-detail">
+                                        <div class="product border-0">
+                                            <a href="{{ url('/product/'.$product->short_url) }}" class="product-image">
+                                                {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','img-fluid blur-up lazyload') !!}
+                                                
+                                            </a>
+                                            <div class="product-detail">
+                                                <ul>
+                                                    <li class="name">
+                                                        <a href="{{ url('/product/'.$product->short_url) }}">
+                                                            <h6>
+                                                                {{ $product->title }}
+                                                            </h6>
+                                                        </a>
+                                                    </li>
 
-                                                            <li class="text-content"><span class="text-title">Sold
-                                                                    By :</span> Fresho</li>
+                                                    <li class="text-content"><span class="text-title">Sold
+                                                            By:</span> {{$product->vendor->name}}</li>
 
-                                                            <li class="text-content"><span
-                                                                    class="text-title"></span> </li>
+                                                    <li class="text-content"><span
+                                                            class="text-title">Quantity</span> - {{$product->stock}} g</li>
 
-                                                            <li>
-                                                                <h5 class="text-content d-inline-block">Price :</h5>
-                                                                <span>$35.10</span>
-                                                                <span class="text-content">$45.68</span>
-                                                            </li>
+                                                    <li>
+                                                        <ul class="price_area">
+                                                            @if(Helper::offerPrice($product->id)!='')
+                                                            <li>{{Helper::defaultCurrency().' '.Helper::offerPriceAmount($product->id)}}</li>
+                                                            <li>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</li>
+                                                        @else
+                                                        <li>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</li>
+                                                        <li></li>
+                                                        @endif
+                                                       </ul>
+                                                        {{-- <h5 class="text-content d-inline-block">Price :</h5>
+                                                        <span>$35.10</span>
+                                                        <span class="text-content">$45.68</span> --}}
+                                                    </li>
 
-                                                            <li>
-                                                                <h5 class="saving theme-color">Saving : $20.68</h5>
-                                                            </li>
+                                                    
 
-                                                            <li class="quantity-price-box">
-                                                                <div class="cart_qty">
-                                                                    <div class="input-group">
-                                                                        <button type="button" class="qty-left-minus"
-                                                                            data-type="minus" data-field="">
-                                                                            <i class="fa fa-minus"
-                                                                                aria-hidden="true"></i>
-                                                                        </button>
-                                                                        <input
-                                                                            class="form-control input-number qty-input"
-                                                                            type="text" name="quantity" value="0">
-                                                                        <button type="button" class="qty-right-plus"
-                                                                            data-type="plus" data-field="">
-                                                                            <i class="fa fa-plus"
-                                                                                aria-hidden="true"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-
-                                                            <li>
-                                                                <h5>Total: $35.10</h5>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td class="price">
-                                                <h4 class="table-title text-content">Price</h4>
-                                                <h5>$35.10 <del class="text-content">$45.68</del></h5>
-                                                <h6 class="theme-color">You Save : $20.68</h6>
-                                            </td>
-
-                                            <td class="quantity">
-                                                <h4 class="table-title text-content">Qty</h4>
-                                                <div class="quantity-price">
-                                                    <div class="cart_qty">
-                                                        <div class="input-group">
-                                                            <button type="button" class="qty-left-minus"
-                                                                data-type="minus" data-field="">
-                                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                                            </button>
-                                                            <input class="form-control input-number qty-input"
-                                                                type="text" name="quantity" value="0">
-                                                            <button type="button" class="qty-right-plus"
-                                                                data-type="plus" data-field="">
-                                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                                            </button>
+                                                    <li class="quantity-price-box">
+                                                        <div class="cart_qty">
+                                                            <div class="input-group">
+                                                                <button type="button" class="btn qty-left-minus"
+                                                                    data-type="minus" data-field="">
+                                                                    <i class="fa fa-minus ms-0"
+                                                                        aria-hidden="true"></i>
+                                                                </button>
+                                                                <input class="form-control input-number qty-input"
+                                                                    type="text" name="quantity" value="0">
+                                                                <button type="button" class="btn qty-right-plus"
+                                                                    data-type="plus" data-field="">
+                                                                    <i class="fa fa-plus ms-0"
+                                                                        aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </li>
+                                                    @php
+                                                    $price = ($row->price * $row->quantity);
+                                                @endphp
+                                                    <li>
+                                                        <h6 class="price{{$row->id}}">{{Helper::defaultCurrency()}} {{number_format(($price),2)}}</h6>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="price">
+                                        <h4 class="table-title text-content">Price</h4>
+                                        
+                                         @if(Helper::offerPrice($product->id)!='')
+                                         <h5>{{Helper::offerPriceAmount($product->id)}} <del class="text-content">{{number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</del></h5>
+                                         @else
+                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                         @endif
+                                        
+                                    </td>
+
+                                    <td class="quantity">
+                                        <h4 class="table-title text-content">Qty</h4>
+                                        <div class="quantity-price">
+                                            <div class="cart_qty">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn qty-left-minus"
+                                                        data-type="minus" data-field="">
+                                                        <i class="fa fa-minus ms-0" aria-hidden="true"></i>
+                                                    </button>
+                                                    <input class="form-control input-number qty-input" type="text"
+                                                        name="quantity" value="{{$row->quantity}}">
+                                                    <button type="button" class="btn qty-right-plus"
+                                                        data-type="plus" data-field="">
+                                                        <i class="fa fa-plus ms-0" aria-hidden="true"></i>
+                                                    </button>
                                                 </div>
-                                            </td>
+                                            </div>
+                                        </div>
+                                    </td>
 
-                                            <td class="subtotal">
-                                                <h4 class="table-title text-content">Total</h4>
-                                                <h5>$35.10</h5>
-                                            </td>
+                                    <td class="subtotal">
+                                        <h4 class="table-title text-content">Total</h4>
+                                        <h5>{{Helper::defaultCurrency()}} {{number_format(($price),2)}}</h5>
+                                    </td>
 
-                                            <td class="save-remove">
-                                                <h4 class="table-title text-content">Action</h4>
-                                                <a class="save notifi-wishlist" href="javascript:void(0)">Save for
-                                                    later</a>
-                                                <a class="remove close_button" href="javascript:void(0)">Remove</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="product-box-contain">
-                                            <td class="product-detail">
-                                                <div class="product border-0">
-                                                    <a href="product-left.php" class="product-image">
-                                                        <img src="https://img.freepik.com/free-vector/computer-design_1156-101.jpg?w=740&t=st=1705511015~exp=1705511615~hmac=41f974635ff936b954216109c3399797c60d3db7424ea32b8fc9e565e2d6f1fc"
-                                                            class="img-fluid blur-up lazyload" alt="">
-                                                    </a>
-                                                    <div class="product-detail">
-                                                        <ul>
-                                                            <li class="name">
-                                                                <a href="product-left.php"
-                                                                    class="text-title">iPhone</a>
-                                                            </li>
-
-                                                            <li class="text-content"><span class="text-title">Sold
-                                                                    By :</span> Nesto</li>
-
-                                                            <li class="text-content"><span
-                                                                    class="text-title"></span> </li>
-
-                                                            <li>
-                                                                <h5 class="text-content d-inline-block">Price :</h5>
-                                                                <span>$35.10</span>
-                                                                <span class="text-content">$45.68</span>
-                                                            </li>
-
-                                                            <li>
-                                                                <h5 class="saving theme-color">Saving : $20.68</h5>
-                                                            </li>
-
-                                                            <li class="quantity">
-                                                                <div class="quantity-price">
-                                                                    <div class="cart_qty">
-                                                                        <div class="input-group">
-                                                                            <button type="button"
-                                                                                class="qty-left-minus"
-                                                                                data-type="minus" data-field="">
-                                                                                <i class="fa fa-minus"
-                                                                                    aria-hidden="true"></i>
-                                                                            </button>
-                                                                            <input
-                                                                                class="form-control input-number qty-input"
-                                                                                type="text" name="quantity"
-                                                                                value="0">
-                                                                            <button type="button"
-                                                                                class="qty-right-plus"
-                                                                                data-type="plus" data-field="">
-                                                                                <i class="fa fa-plus"
-                                                                                    aria-hidden="true"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-
-                                                            <li>
-                                                                <h5>Total: $52.95</h5>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td class="price">
-                                                <h4 class="table-title text-content">Price</h4>
-                                                <h5>$52.95 <del class="text-content">$68.49</del></h5>
-                                                <h6 class="theme-color">You Save : $15.14</h6>
-                                            </td>
-
-                                            <td class="quantity">
-                                                <h4 class="table-title text-content">Qty</h4>
-                                                <div class="quantity-price">
-                                                    <div class="cart_qty">
-                                                        <div class="input-group">
-                                                            <button type="button" class="qty-left-minus"
-                                                                data-type="minus" data-field="">
-                                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                                            </button>
-                                                            <input class="form-control input-number qty-input"
-                                                                type="text" name="quantity" value="0">
-                                                            <button type="button" class="qty-right-plus"
-                                                                data-type="plus" data-field="">
-                                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td class="subtotal">
-                                                <h4 class="table-title text-content">Total</h4>
-                                                <h5>$52.95</h5>
-                                            </td>
-
-                                            <td class="save-remove">
-                                                <h4 class="table-title text-content">Action</h4>
-                                                <a class="save notifi-wishlist" href="javascript:void(0)">Save for
-                                                    later</a>
-                                                <a class="remove close_button" href="javascript:void(0)">Remove</a>
-                                            </td>
-                                        </tr>
-
-                        
+                                    <td class="save-remove">
+                                        <h4 class="table-title text-content">Action</h4>
+                                        <a class="save notifi-wishlist" href="javascript:void(0)">Save for later</a>
+                                        <a class="remove close_button" href="javascript:void(0)">Remove</a>
+                                    </td>
+                                </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        @endif
 
                         <div class="button-group">
                             <ul class="button-group-list">
@@ -335,78 +241,49 @@
                         </div>
 
                         <div class="row g-4">
+                            
+                            @if (@$customerAddresses)
+                            @foreach($customerAddresses as $address)
                             <div class="col-xxl-6 col-lg-12 col-md-6">
                                 <div class="delivery-address-box">
                                     <div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="jack"
+                                            <input  @if(session('selected_customer_address') == $address->id) @checked(true) @else @endif class="form-check-input set_d_add deliver login{{$address->id}}" type="radio" name="jack" " data-id="{{$address->id}}"  data-address-type="shipping"
                                                 id="flexRadioDefault1">
                                         </div>
 
                                         <div class="label">
-                                            <label>Home</label>
+                                            <label>  {{$address->address_type}}</label>
                                         </div>
 
                                         <ul class="delivery-address-detail">
                                             <li>
-                                                <h4 class="fw-500">Jack Jennas</h4>
+                                                <h4 class="fw-500">   {{$address->first_name}}  {{ $address->last_name }}</h4>
                                             </li>
 
                                             <li>
                                                 <p class="text-content"><span class="text-title">Address
-                                                        : </span>8424 James Lane South San Francisco, CA 94080</p>
+                                                        : </span>   {{$address->address}}</p>
                                             </li>
 
                                             <li>
                                                 <h6 class="text-content"><span class="text-title">Pin Code
-                                                        :</span> +380</h6>
+                                                        :</span>{{$address->zipcode}}</h6>
                                             </li>
 
                                             <li>
                                                 <h6 class="text-content mb-0"><span class="text-title">Phone
-                                                        :</span> + 380 (0564) 53 - 29 - 68</h6>
+                                                        :</span> {{$address->phone}}</h6>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xxl-6 col-lg-12 col-md-6">
-                                <div class="delivery-address-box">
-                                    <div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="jack"
-                                                id="flexRadioDefault2" checked="checked">
-                                        </div>
+                            @endforeach
+                            @endif
 
-                                        <div class="label">
-                                            <label>Office</label>
-                                        </div>
-
-                                        <ul class="delivery-address-detail">
-                                            <li>
-                                                <h4 class="fw-500">Jack Jennas</h4>
-                                            </li>
-
-                                            <li>
-                                                <p class="text-content"><span class="text-title">Address
-                                                        :</span>Nakhimovskiy R-N / Lastovaya Ul., bld. 5/A, appt. 12
-                                                </p>
-                                            </li>
-
-                                            <li>
-                                                <h6 class="text-content"><span class="text-title">Pin Code :</span>
-                                                    +380</h6>
-                                            </li>
-
-                                            <li>
-                                                <h6 class="text-content mb-0"><span class="text-title">Phone
-                                                        :</span> + 380 (0564) 53 - 29 - 68</h6>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                   
                         </div>
 
                         <div class="button-group">
@@ -418,14 +295,14 @@
                                 </li>
 
                                 <li>
-                                    <button class="btn btn-animation proceed-btn">Continue Delivery Option</button>
+                                    <button class="btn btn-animation proceed-btn">Continue Payment Option</button>
                                 </li>
                             </ul>
 
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="d-options" role="tabpanel" aria-labelledby="delivery-option">
+                    {{-- <div class="tab-pane" id="d-options" role="tabpanel" aria-labelledby="delivery-option">
                         <h2 class="tab-title">Delivery Option</h2>
                         <div class="row g-4">
                             <div class="col-12">
@@ -581,51 +458,65 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="tab-pane" id="p-options" role="tabpanel" aria-labelledby="payment-option">
                         <h2 class="tab-title">Payment Option</h2>
                         <div class="row g-sm-4 g-2">
                             <div class="col-xxl-4 col-lg-12 col-md-5 order-xxl-2 order-lg-1 order-md-2">
                                 <div class="summery-box">
+                                    @if (Session::has('session_key') && !Cart::session($sessionKey)->isEmpty())
                                     <div class="summery-header bg-white">
                                         <h3>Order Summery</h3>
-                                        <a href="cart.php">Edit Cart</a>
+                                        
                                     </div>
+                                    
+                                     <ul class="summery-total bg-white">
+                                         <li>
+                                             <h4>Subtotal</h4>
+                                             <h4 class="price">{{ ($siteInformation->tax_type == 'Inside')? '(Tax Inclusive - '.$siteInformation->tax.'%)':''}}</h4>
+                                         </li>
+ 
+                                         <li>
+                                             <h4>Shipping</h4>
+                                             <h4 class="price">{{Helper::defaultCurrency()}} {{number_format($calculation_box['shippingAmount'],2)}}</h4>
+                                         </li>
+ 
+                                         <li>
+                                             <h4>Tax{{ ' ('. $siteInformation->tax . '% )' }}</h4>
+                                             <h4 class="price">{{Helper::defaultCurrency()}} {{number_format($calculation_box['tax_amount'],2)}}</h4>
+                                         </li>
+ 
+                                         @if (Session::exists('coupons'))
+                                            @foreach(Session::get('coupons') as $session_coupon)
+                                                <li class="flex-column justify-content-end align-items-end couponDiscount">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <div class="left">
+                                                            <h6>Coupon ({{ $session_coupon['code'] }}):</h6>
+                                                        </div>
+                                                        <div class="right">
 
-                                   
-                                    <ul class="summery-total bg-white">
-                                        <li>
-                                            <h4>Subtotal</h4>
-                                            <h4 class="price">$111.81</h4>
-                                        </li>
+                                                            <h6 class="tableData">- {{Helper::defaultCurrency()}} {{number_format($session_coupon['coupon_value'],2)}}</h6>
+                                                        </div>
+                                                    </div>
+                                                    <a class="coupon_remove_btn remove_coupon" href="javascript:void(0)"
+                                                    data-coupon="{{ $session_coupon['code'] }}">Remove Coupon<i class="fa-solid fa-xmark"></i></a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                         <li class="list-total">
+                                             <h4>Total (USD)</h4>
+                                             <h4 class="price">{{Helper::defaultCurrency()}} {{number_format($calculation_box['final_total_with_tax'],2)}}  </h4>
+                                         </li>
+                                     </ul>
+                                    @endif
 
-                                        <li>
-                                            <h4>Shipping</h4>
-                                            <h4 class="price">$8.90</h4>
-                                        </li>
-
-                                        <li>
-                                            <h4>Tax</h4>
-                                            <h4 class="price">$29.498</h4>
-                                        </li>
-
-                                        <li>
-                                            <h4>Coupon/Code</h4>
-                                            <h4 class="price">$-23.10</h4>
-                                        </li>
-
-                                        <li class="list-total">
-                                            <h4>Total (USD)</h4>
-                                            <h4 class="price">$19.28</h4>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
 
                             <div class="col-xxl-8 col-lg-12 col-md-7 order-xxl-1 order-lg-2 order-md-1">
                                 <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
-                                    <div class="accordion-item">
+                                    {{-- <div class="accordion-item">
                                         <div class="accordion-header" id="flush-headingOne">
                                             <div class="accordion-button collapsed" data-bs-toggle="collapse"
                                                 data-bs-target="#flush-collapseOne">
@@ -859,16 +750,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="flush-headingFour">
                                             <div class="accordion-button collapsed" data-bs-toggle="collapse"
                                                 data-bs-target="#flush-collapseFour">
                                                 <div class="custom-form-check form-check mb-0">
-                                                    <label class="form-check-label" for="cash"><input
-                                                            class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="cash"> Cash On
+                                                    <label class="form-check-label" for="cash">
+                                                        <input class="form-check-input mt-0payment_method" type="radio" id="cod" name="paymentOption" value="COD"> Cash On
                                                         Delivery</label>
                                                 </div>
                                             </div>
@@ -880,6 +770,7 @@
                                                     be accepted in COVID restricted areas. <a
                                                         href="javascript:void(0)">Know more.</a></h5>
                                             </div>
+                                            <span class="error" id="payment-method-error"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -895,8 +786,8 @@
                                 </li>
 
                                 <li>
-                                    <button onclick="location.href = 'order-success.php';"
-                                        class="btn btn-animation">Done</button>
+                                    <button type="button" class="primary_btn login btn btn-animation confirm_payment_btn checkout_btn" id="confirm_payment" >Place Order</button>
+                                 
                                 </li>
                             </ul>
                         </div>
@@ -909,256 +800,8 @@
 <!-- Checkout section End -->
 
 <!-- Footer Section Start -->
-<footer class="section-t-space">
-    <div class="container-fluid-lg">
-        <div class="service-section">
-            <div class="row g-3">
-                <div class="col-12">
-                    <div class="service-contain">
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="https://themes.pixelstrap.com/fastkart/assets/svg/product.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Every Fresh Products</h5>
-                            </div>
-                        </div>
-
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="https://themes.pixelstrap.com/fastkart/assets/svg/delivery.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Free Delivery For Order Over $50</h5>
-                            </div>
-                        </div>
-
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="https://themes.pixelstrap.com/fastkart/assets/svg/discount.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Daily Mega Discounts</h5>
-                            </div>
-                        </div>
-
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="https://themes.pixelstrap.com/fastkart/assets/svg/market.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Best Price On The Market</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-footer section-b-space section-t-space">
-            <div class="row g-md-4 g-3">
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="footer-logo">
-                        <div class="theme-logo">
-                            <a href="index.php">
-                                <img src="assets/images/logo/logo.jpeg" class="blur-up lazyload" alt="">
-                            </a>
-                        </div>
-
-                        <div class="footer-logo-contain">
-                            <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
-                                demonstrate the visual form.</p>
-
-                            <ul class="address">
-                                <li>
-                                    <i data-feather="home"></i>
-                                    <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
-                                </li>
-                                <li>
-                                    <i data-feather="mail"></i>
-                                    <a href="javascript:void(0)">support@fastkart.com</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <div class="footer-title">
-                        <h4>Categories</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Vegetables & Fruit</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Beverages</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Meats & Seafood</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Frozen Foods</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Biscuits & Snacks</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Grocery & Staples</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl col-lg-2 col-sm-3">
-                    <div class="footer-title">
-                        <h4>Useful Links</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="index.php" class="text-content">Home</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.php" class="text-content">Shop</a>
-                            </li>
-                            <li>
-                                <a href="about-us.php" class="text-content">About Us</a>
-                            </li>
-                            <li>
-                                <a href="blog-list.php" class="text-content">Blog</a>
-                            </li>
-                            <li>
-                                <a href="contact-us.php" class="text-content">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl-2 col-sm-3">
-                    <div class="footer-title">
-                        <h4>Help Center</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="order-success.php" class="text-content">Your Order</a>
-                            </li>
-                            <li>
-                                <a href="user-dashboard.php" class="text-content">Your Account</a>
-                            </li>
-                            <li>
-                                <a href="order-tracking.php" class="text-content">Track Order</a>
-                            </li>
-                            <li>
-                                <a href="wishlist.php" class="text-content">Your Wishlist</a>
-                            </li>
-                            <li>
-                                <a href="search.php" class="text-content">Search</a>
-                            </li>
-                            <li>
-                                <a href="faq.php" class="text-content">FAQ</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="footer-title">
-                        <h4>Contact Us</h4>
-                    </div>
-
-                    <div class="footer-contact">
-                        <ul>
-                            <li>
-                                <div class="footer-number">
-                                    <i data-feather="phone"></i>
-                                    <div class="contact-number">
-                                        <h6 class="text-content">Hotline 24/7 :</h6>
-                                        <h5>+91 888 104 2340</h5>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="footer-number">
-                                    <i data-feather="mail"></i>
-                                    <div class="contact-number">
-                                        <h6 class="text-content">Email Address :</h6>
-                                        <h5>fastkart@hotmail.com</h5>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="social-app">
-                                <h5 class="mb-2 text-content">Download App :</h5>
-                                <ul>
-                                    <li class="mb-0">
-                                        <a href="https://play.google.com/store/apps" target="_blank">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/images/playstore.svg" class="blur-up lazyload"
-                                                alt="">
-                                        </a>
-                                    </li>
-                                    <li class="mb-0">
-                                        <a href="https://www.apple.com/in/app-store/" target="_blank">
-                                            <img src="https://themes.pixelstrap.com/fastkart/assets/images/appstore.svg" class="blur-up lazyload"
-                                                alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="sub-footer section-small-space">
-            <div class="reserve">
-                <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
-            </div>
-
-            <div class="payment">
-                <img src="assets/images/payment/1.png" class="blur-up lazyload" alt="">
-            </div>
-
-            <div class="social-link">
-                <h6 class="text-content">Stay connected :</h6>
-                <ul>
-                    <li>
-                        <a href="https://www.facebook.com/" target="_blank">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/" target="_blank">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/" target="_blank">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://in.pinterest.com/" target="_blank">
-                            <i class="fa-brands fa-pinterest-p"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
 <!-- Footer Section End -->
+
 
 <!-- Location Modal Start -->
 <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
@@ -1273,46 +916,90 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="fname" placeholder="Enter First Name">
-                        <label for="fname">First Name</label>
+                <form action="#" id="addShippingLoginAddressForm" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="">First Name</label>
+                                <input type="text" name="first_name" id="first_name"  class="form-control required " maxlength="60" required placeholder="First Name*"  value="{{(Session::has('shipping_first_name'))?session('shipping_first_name'):''}}">
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="">Last Name</label>
+                                <input type="text" name="last_name" id="last_name"  class="form-control required " maxlength="60" required placeholder="Last Name*"  value="{{(Session::has('shipping_last_name'))?session('shipping_last_name'):''}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control required "   name="email" id="email"  maxlength="70" required placeholder="Email*"  value="{{(Session::has('shipping_email'))?session('shipping_email'):''}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="">Phone Number</label>
+                                <input type="text" class="form-control required  required login-shipping-phone" placeholder="Phone Number*"  name="phone" id="phone"   maxlength="70"  value="{{(Session::has('shipping_phone'))?session('shipping_phone'):''}}">
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-6">
+                            <div class="form-group" >
+                                <label for="">Country</label>
+                                <select name="country" id="shipping_country" class="form-control form_select required " >
+                                    <option selected disabled value="">Select Country*</option>
+                                    @foreach($countries as $country)
+                                    <option value="{{ $country->id }}"
+                                        {{(session('shipping_country')==$country->id)?'selected':''}}
+                                    >{{$country->title}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            
+                            <div class="form-group" >
+                                <label for="">Emirate</label>
+                                <select class="form-control form_select required " name="state" id="shipping_state" >
+                                    <option selected disabled value="">Select Emirate*</option>
+                                    @if(!empty($states))
+                                        @foreach($states as $shipping_state)
+                                            <option value="{{ $shipping_state->id }}"
+                                                {{(session('shipping_state')==$shipping_state->id)?'selected':''}}
+                                            >{{$shipping_state->title}}</option>
+                                        @endforeach
+                                     @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Zip Code</label>
+                                <input type="text" class="form-control  "   name="zipcode" id="zipcode" placeholder="Zip code"  value="{{(Session::has('shipping_zipcode'))?session('shipping_zipcode'):''}}">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Address</label>
+                                <textarea class="form-control form-message  "  data-reload="true"   name="address" id="address" placeholder="Address*">{{(Session::has('shipping_address'))?session('shipping_address'):''}}</textarea>
+                            </div>
+                        </div>
                     </div>
-                </form>
-
-                <form>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
-                        <label for="lname">Last Name</label>
-                    </div>
-                </form>
-
-                <form>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="email" class="form-control" id="email" placeholder="Enter Email Address">
-                        <label for="email">Email Address</label>
-                    </div>
-                </form>
-
-                <form>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="address"
-                            style="height: 100px"></textarea>
-                        <label for="address">Enter Address</label>
-                    </div>
-                </form>
-
-                <form>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="email" class="form-control" id="pin" placeholder="Enter Pin Code">
-                        <label for="pin">Pin Code</label>
+                    <input type="hidden" id="account_type" name="account_type" value="{{(Auth::guard('customer')->check())?1:0}}">
+                    <input type="hidden" name="is_default" id="is_default" value="1">
+                     <input type="hidden" id="id" name="id" value="0">
+                     <input type="hidden" id="choose" name="choose" value="same" class="choose">
+                    <input type="hidden" name="set_session" id="set_session"  value="1">
+                    <div class="col-12 btnsBox align-items-end">
+                        <button href="" class="submit-btn shipping-login-value-change btn theme-bg-color btn-md text-white">Submit</button>
+                        
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">Save
-                    changes</button>
+             
             </div>
         </div>
     </div>
@@ -1320,194 +1007,48 @@
 <!-- Add address modal box end -->
 
 
-<!-- Deal Box Modal Start -->
-<div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                    <p class="mt-1 text-content">Recommended deals for you.</p>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="deal-offer-box">
-                    <ul class="deal-offer-list">
-                        <li class="list-1">
-                            <div class="deal-offer-contain">
-                                <a href="shop-left-sidebar.php" class="deal-image">
-                                    <img src="assets/images/vegetable/product/10.png" class="blur-up lazyload"
-                                        alt="">
-                                </a>
 
-                                <a href="shop-left-sidebar.php" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="list-2">
-                            <div class="deal-offer-contain">
-                                <a href="shop-left-sidebar.php" class="deal-image">
-                                    <img src="assets/images/vegetable/product/11.png" class="blur-up lazyload"
-                                        alt="">
-                                </a>
-
-                                <a href="shop-left-sidebar.php" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="list-3">
-                            <div class="deal-offer-contain">
-                                <a href="shop-left-sidebar.php" class="deal-image">
-                                    <img src="assets/images/vegetable/product/12.png" class="blur-up lazyload"
-                                        alt="">
-                                </a>
-
-                                <a href="shop-left-sidebar.php" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="list-1">
-                            <div class="deal-offer-contain">
-                                <a href="shop-left-sidebar.php" class="deal-image">
-                                    <img src="assets/images/vegetable/product/13.png" class="blur-up lazyload"
-                                        alt="">
-                                </a>
-
-                                <a href="shop-left-sidebar.php" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Bg overlay End -->
 @endsection
 @push('scripts')
+
+<!-- latest jquery-->
+<script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+
+<!-- jquery ui-->
+<script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
+
+<!-- Lordicon Js -->
+<script src="{{asset('assets/js/lusqsztk.js')}}"></script>
+
+<!-- Bootstrap js-->
+<script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap/popper.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap/bootstrap-notify.min.js')}}"></script>
+
+<!-- feather icon js-->
+<script src="{{asset('assets/js/feather/feather.min.js')}}"></script>
+<script src="{{asset('assets/js/feather/feather-icon.js')}}"></script>
+
+<!-- Lazyload Js -->
+<script src="{{asset('assets/js/lazysizes.min.js')}}"></script>
+
+<!-- Wizard js -->
+<script src="{{asset('assets/js/wizard.js')}}"></script>
+
+<!-- Slick js-->
+<script src="{{asset('assets/js/slick/slick.js')}}"></script>
+<script src="assets/js/slick/custom_slick.js"></script>
+
+<!-- Quantity js -->
+<script src="{{asset('assets/js/quantity.js')}}"></script>
+
+<!-- script js -->
+<script src="{{asset('assets/js/script.js')}}"></script>
+
+<!-- thme setting js -->
+<script src="{{asset('assets/js/theme-setting.js')}}"></script>
 <script>
-    $(document).ready(function () {
 
-        //make checkbox unchecked
-        // $('.different_shipping_address').prop('checked', false);
-        if($(".different_shipping_address").is(':checked')){
-            var choose = "different";
-            $('.billiing_address_form').removeClass("d-none");
-            $('.choose').val("different");
-
-    } else {
-        var choose = "same";
-            $('.billiing_address_form').addClass("d-none");
-            $('.choose').val("same");
-
-    }
-    });
-    //check if checkbox is checked or not
-    $(document).on('click', '.different_shipping_address', function (e) {
-        if($(this).is(':checked')){
-            var choose = "different";
-            $('.billiing_address_form').removeClass("d-none");
-            $('.choose').val("different");
-        }
-        else{
-            var choose = "same";
-            $('.billiing_address_form').addClass("d-none");
-            $('.choose').val("same");
-        }
-    });
-        //for selecting different address for shipping
-        $(document).on('change', '.different_shipping_address', function (e) {
-            e.preventDefault();
-            $this = $(this);
-            var different_status = $this.is(':checked');
-            $.ajax({
-                type: 'POST', dataType: 'json', data: {different_status}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, url: base_url + '/different-shipping-address', success: function (response) {
-
-                    if (response.status == true  ) {
-                    console.log(response);
-                        Toast.fire("", response.message, "success");
-                    //make all fields readonly
-                    if(response.orderC == true){
-                        $('.error').addClass("d-none");
-
-                    }
-                    else{
-                        $('.error').removeClass("d-none");
-                    }
-                    if(response.type == 'same'){
-                        $('.billiing_address_form').addClass("d-none");
-                        $('#addBillingForm input').val('');
-                        //select box empty
-                        $('#addBillingForm select').val('');
-                        $('#addBillingForm textarea').val('');
-                        $('#addBillingForm span').html('');
-                        $('.error').addClass("d-none");
-                        $('#billingAddressChoose').val('same');
-                        //remove disabled attribute from confirm payment button
-                        $('#confirm_payment').attr('disabled', false);
-                    }
-                    else{
-                        $('.billiing_address_form').removeClass("d-none");
-                        $('#addBillingForm input').val('');
-                        $('.error').removeClass("d-none");
-                        $('#billingAddressChoose').val('different');
-                        $('#confirm_payment').attr('disabled', true);
-                    }
-                    if(response.reload == true){
-                        setTimeout(() => {
-                            // location.reload();
-                        }, 1000);
-                    }
-                    } else {
-                        if(response.orderC == true){
-                        $('.error').addClass("d-none");
-
-                    }
-                    else{
-                        $('.error').removeClass("d-none");
-                    //empty all  in addBillingForm form
-                    $(':input').val('');
-
-
-
-                    }
-                    if(response.type == 'same'){
-                            $('.billiing_address_form').addClass("d-none");
-
-                            $('#confirm_payment').attr('disabled', false);
-                        }
-                        else{
-
-                            $('.billiing_address_form').removeClass("d-none");
-                            $('#confirm_payment').attr('disabled', true);
-                        }
-
-
-                        Toast.fire('Error', response.message, "error");
-                    }
-                    setTimeout(() => {
-                        // location.reload();
-
-                    }, 1500);
-                }
-            });
-        });
 </script>
 @endpush

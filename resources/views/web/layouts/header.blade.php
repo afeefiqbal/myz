@@ -87,11 +87,13 @@
                                         </div>
                                     </a>
                                 </li>
+                                @if(Auth::guard('customer')->check())
                                 <li class="right-side">
-                                    <a href="/wishlist" class="btn p-0 position-relative header-wishlist">
+                                    <a href="{{url('customer/account/wishlist')}}" class="btn p-0 position-relative header-wishlist">
                                         <i data-feather="heart"></i>
                                     </a>
                                 </li>
+                                    @endif
                                 <li class="right-side">
                                     <div class="onhover-dropdown header-badge">
                                         <button type="button" onclick="location.href = '{{ url('/cart') }}'" class="btn p-0 position-relative header-wishlist">
@@ -101,71 +103,61 @@
                                             </span>
                                         </button>
 
-                                        {{-- <div class="onhover-div">
-                                            <ul class="cart-list">
-                                                <li class="product-box-contain">
-                                                    <div class="drop-cart">
-                                                        <a href="product" class="drop-image">
-                                                            <img src="https://img.freepik.com/free-vector/computer-design_1156-101.jpg?w=740&t=st=1705511015~exp=1705511615~hmac=41f974635ff936b954216109c3399797c60d3db7424ea32b8fc9e565e2d6f1fc"
-                                                                class="blur-up lazyload" alt="">
-                                                        </a>
-
-                                                        <div class="drop-contain">
-                                                            <a href="product">
-                                                                <h5>iMac</h5>
-                                                            </a>
-                                                            <h6><span>1 x</span> $80.58</h6>
-                                                            <button class="close-button close_button">
-                                                                <i class="fa-solid fa-xmark"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                            
-                                            </ul>
-
-                                            <div class="price-box">
-                                                <h5>Total :</h5>
-                                                <h4 class="theme-color fw-bold">$106.58</h4>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <a href="cart" class="btn btn-sm cart-button">View Cart</a>
-                                                <a href="checkout" class="btn btn-sm cart-button theme-bg-color
-                                                text-white">Checkout</a>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </li>
+                                @if(Auth::guard('customer')->check())
                                 <li class="right-side onhover-dropdown">
                                     <div class="delivery-login-box">
                                         <div class="delivery-icon">
                                             <i data-feather="user"></i>
                                         </div>
-                                        <div class="delivery-detail">
-                                            <h6>Hello,</h6>
-                                            <h5>My Account</h5>
-                                        </div>
+                                        
                                     </div>
 
                                     <div class="onhover-div onhover-div-login">
                                         <ul class="user-box-name">
                                             <li class="product-box-contain">
                                                 <i></i>
-                                                <a href="log-in">Log In</a>
+                                                <a href="{{ url('customer/account/profile') }}">My Account</a>
                                             </li>
 
                                             <li class="product-box-contain">
-                                                <a href="sign-up">Register</a>
+                                                <a href="{{ url('logout') }}">Logout</a>
                                             </li>
 
                                             <li class="product-box-contain">
-                                                <a href="forgot">Forgot Password</a>
+                                                <a href="{{url('forgot-password')}}">Forgot Password</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
+                                @else
+                                <li class="right-side onhover-dropdown">
+                                    <div class="delivery-login-box">
+                                        <div class="delivery-icon">
+                                            <i data-feather="user"></i>
+                                        </div>
+                           
+                                    </div>
+
+                                    <div class="onhover-div onhover-div-login">
+                                        <ul class="user-box-name">
+                                            <li class="product-box-contain">
+                                                <i></i>
+                                                <a href="{{url('login')}}">Log In</a>
+                                            </li>
+
+                                            <li class="product-box-contain">
+                                                <a href="{{url('register')}}">Register</a>
+                                            </li>
+
+                                            <li class="product-box-contain">
+                                                <a href="{{url('forgot-password')}}">Forgot Password</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                     </div>

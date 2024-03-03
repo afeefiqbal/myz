@@ -2,89 +2,150 @@
 @section('content')
 
 
-    <section class="loginSection loginRegisterSection position-relative">
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-xxl-5 col-xl-6 col-lg-7 myAccountContainer">
-                    <div class="myAccountForm">
-                        <h3>Register</h3>
-                        <form action="" id="registerForm">
-                            <div class="row">
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">First Name</label>
-                                        <img src="{{asset('frontend/images/loginUser.png')}}" alt="">
-                                        <input type="text" name="firstname" id="firstname"  class="form-control required" placeholder="Enter First Name">
-                                        <span class="invalidMessage">  </span>
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Last Name</label>
-                                        <img src="{{asset('frontend/images/loginUserName.png')}}" alt="">
-                                        <input type="text" name="lastname" id="lastname" class="form-control required" placeholder="Enter Last Name">
-                                        <span class="invalidMessage"></span>
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Email address</label>
-                                        <img src="{{asset('frontend/images/icon-email.png')}}" alt="">
-                                        <input type="email" name="email" id="email" class="form-control required" placeholder="Enter Email">
-                                        <span class="invalidMessage"> </span>
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Phone number</label>
-                                        <img src="{{asset('frontend/images/icon-phone.png')}}" alt="">
-                                        <input type="text" class="form-control required register-phone" name="phone" id="phone"placeholder="Enter Phone number ">
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Password</label>
-                                        <div class="position-relative d-flex align-items-center passwordMsg">
-                                            <img src="{{asset('frontend/images/loginPassword.png')}}" alt="">
-                                            <input id="password-field" type="password" class="form-control" id="password" name="password" placeholder="Enter Password" name="password" value="aswed">
-                                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Confirm Password</label>
-                                        <div class="position-relative d-flex align-items-center">
-                                            <img src="{{asset('frontend/images/loginPasswordRe.png')}}" alt="">
-                                            <input id="confirm_password" type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter Password" name="password" value="asdf">
-                                            <span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12x ">
-                                    <div class="form-group btnWrapper">
-                                        <button type="button" class="primary_btn registerform_submit_btn" data-url="/register">Register</button>
-                                        <div class="btnRegister">
-                                            <p>Already a Member</p>
-                                            <a href="{{url('/login')}}">Login</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <h6 class="or">OR</h6>
-                        <div class="loginOptionWrapper">
-                            <a class="btnBox" href="{{ url('auth/google') }}"> <img src="{{asset('frontend/images/googleIcon.png')}}" alt="">  <p>Continue With Google</p> </a>
-                            <a class="btnBox btnBoxFace" href="{{ url('auth/facebook') }}"> <img src="{{asset('frontend/images/facebookIcon.png')}}" alt=""> <p>Continue With Facebook</p> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 myAccountImageBox">
-                    <img class="img-fluid w-100" src="{{asset('frontend/images/loginImage.png')}}" alt="">
+<section class="breadscrumb-section pt-0">
+    <div class="container-fluid-lg">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadscrumb-contain">
+                    <h2 class="mb-2">Log In</h2>
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.php">
+                                    <i class="fa-solid fa-house"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active">Log In</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- log in section start -->
+<section class="log-in-section section-b-space">
+    <div class="container-fluid-lg w-100">
+        <div class="row">
+            <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
+                <div class="image-contain">
+                    <img src="assets/images/inner-page/sign-up.png" class="img-fluid" alt="">
+                </div>
+            </div>
+
+            <div class="col-xxl-6 col-xl-6 col-lg-12 me-auto">
+                <div class="log-in-box">
+                    <div class="log-in-title">
+                        <h3>Welcome To Fastkart</h3>
+                        <h4>Create New Account</h4>
+                    </div>
+
+                    <div class="input-box">
+                        <form class="row g-4" id="registerForm">
+                            <div class="col-6">
+                                <div class="form-floating theme-form-floating">
+                                    <input type="text" class="form-control required" id="firstname" name="firstname" placeholder="Full Name">
+                                    <label for="firstname">First Name</label>
+                                    <span class="invalidMessage">  </span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating theme-form-floating">
+                                    <input type="text" class="form-control required" id="lastname" name="lastname" placeholder="Full Name">
+                                    <label for="lastname">Last Name</label>
+                                    <span class="invalidMessage">  </span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating theme-form-floating">
+                                    <input type="email" class="form-control required" name="email" id="email" placeholder="Email Address">
+                                    <label for="email">Email Address</label> 
+                                    <span class="invalidMessage">  </span>
+                                </div>
+                            </div>
+                            <div class=" col-6">
+                                <div class="form-group form-floating theme-form-floating">
+                                    <input type="text" class="form-control required register-phone" name="phone" id="phone"placeholder="Enter Phone number ">
+                                    <label for="phone">Phone number</label>
+                                    <span class="invalidMessage">  </span>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-floating theme-form-floating">
+                                    <input type="password" class="form-control required" name="password" id="password" placeholder="Password">
+                                    <label for="password"> Password</label>
+                                 
+                                    <span class="invalidMessage">  </span>
+                                </div>
+                            </div>
+                            <div class=" col-6">
+                                <div class="form-group">
+                                    <div class="position-relative d-flex align-items-center form-floating theme-form-floating">
+                                        <input id="confirm_password" type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter Password" name="password">
+                                        <span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <label for="">Confirm Password</label>
+                                        <span class="invalidMessage">  </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="forgot-box">
+                                    <div class="form-check ps-0 m-0 remember-box">
+                                        <input class="checkbox_animated check-box " type="checkbox"
+                                            id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">I agree with
+                                            <span>Terms</span> and <span>Privacy</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-animation w-100 registerform_submit_btn" type="button" data-url="/register">Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+{{-- 
+                    <div class="other-log-in">
+                        <h6>or</h6>
+                    </div>
+
+                    <div class="log-in-button">
+                        <ul>
+                            <li>
+                                <a href="https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin"
+                                    class="btn google-button w-100">
+                                    <img src="assets/images/inner-page/google.png" class="blur-up lazyload"
+                                        alt="">
+                                    Sign up with Google
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                    <img src="assets/images/inner-page/facebook.png" class="blur-up lazyload"
+                                        alt=""> Sign up with Facebook
+                                </a>
+                            </li>
+                        </ul>
+                    </div> --}}
+
+                    <div class="other-log-in">
+                        <h6></h6>
+                    </div>
+
+                    <div class="sign-up-box">
+                        <h4>Already have an account?</h4>
+                        <a href="{{url('login')}}">Log In</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-7 col-xl-6 col-lg-6"></div>
+        </div>
+    </div>
+</section>
 
     @endsection
 @push('scripts')

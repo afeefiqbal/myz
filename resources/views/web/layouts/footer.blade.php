@@ -524,14 +524,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
+<script src="{{ asset('js/wizard.js')}}"></script>
 <script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
-
   <!-- latest jquery-->
   <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
   
   <!-- jquery ui-->
   <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
-
+  <script src="{{asset('assets/js/wizard.js')}}"></script>
 
 <!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js')}}"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -595,6 +595,7 @@
 
     <!-- thme setting js -->
     <script src="{{asset('assets/js/theme-setting.js')}}"></script>
+    @stack('scripts')
 </body>
 
 </html>

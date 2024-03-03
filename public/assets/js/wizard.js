@@ -8,6 +8,7 @@
      $(".proceed-btn").on({
          click: function () {
              $("#myTab").find(".active").parent().next().find('.nav-link').addClass("active");
+            
              $(this).parents(".tab-pane").fadeOut("slow", function () {
                  $(this).next(".tab-pane").fadeIn("slow");
              });

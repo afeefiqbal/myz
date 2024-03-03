@@ -375,21 +375,21 @@ class Helper
         //mail to customer
      $emails = explode(',', $common->order_emails);
      //send mail to multiple emails
-       
-        Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,'admin' =>false,
-            'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
-            'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
-            $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
-            $message->from($common->email, $common->email_recipient);
-        });        //mail to admin
-        foreach ($emails as $email) {
-            Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,'admin'=>true,
-                'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'New Order Recieved',
-                'link' => $link), function ($message) use ($email, $to_name, $common,$contactAddress) {
-                $message->to($email, $to_name)->subject(config('app.name') . ' - Order Placed');
-                $message->from($common->email, $common->email_recipient);
-            });
-        }
+  
+        // Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,'admin' =>false,
+        //     'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
+        //     'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
+        //     $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
+        //     $message->from($common->email, $common->email_recipient);
+        // });        //mail to admin
+        // foreach ($emails as $email) {
+        //     Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,'admin'=>true,
+        //         'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'New Order Recieved',
+        //         'link' => $link), function ($message) use ($email, $to_name, $common,$contactAddress) {
+        //         $message->to($email, $to_name)->subject(config('app.name') . ' - Order Placed');
+        //         $message->from($common->email, $common->email_recipient);
+        //     });
+        // }
         return true;
     }
 

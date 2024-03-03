@@ -218,8 +218,9 @@ class Product extends Model
         return $this->hasMany(ProductPrice::class);
     }
 
-   
-
+    public function vendor(){
+        return $this->belongsTo(Vendor::class, 'vendor_id');
+    }
 
     public function productshape()
     {

@@ -282,74 +282,74 @@ $(document).ready(function () {
     // });
 
 
-    $(document).on('change', '#shipping_country', function () {
-        console.log('yes');
-        var country_id = $(this).val();
-        console.log(country_id);
-        console.log('yes');
-        if (country_id) {
-            $.ajax({
-                type: 'POST', dataType: 'json', url: base_url + '/state-list', data: {country_id}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, success: function (data) {
-                    if (data.status == false) {
-                        Toast.fire('Error', data.message, "error");
-                    } else {
-                        if (data.states.length > 0) {
-                            $("#shipping_state").empty();
-                            $('#shipping_state').append('<option value="">Select State</option>');
-                            $.each(data.states, function (key, value) {
-                                $('#shipping_state').append('<option value="' + value.id + '"' + '>' + value.title + '</option>');
-                            });
-                        } else {
-                            $('#shipping_state').append('<option value="">No States Available</option>');
-                        }
-                    }
-                }
-            })
-        }
-    });
+    // $(document).on('change', '#shipping_country', function () {
+    //     console.log('yes');
+    //     var country_id = $(this).val();
+    //     console.log(country_id);
+    //     console.log('yes');
+    //     if (country_id) {
+    //         $.ajax({
+    //             type: 'POST', dataType: 'json', url: base_url + '/state-list', data: {country_id}, headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }, success: function (data) {
+    //                 if (data.status == false) {
+    //                     Toast.fire('Error', data.message, "error");
+    //                 } else {
+    //                     if (data.states.length > 0) {
+    //                         $("#shipping_state").empty();
+    //                         $('#shipping_state').append('<option value="">Select State</option>');
+    //                         $.each(data.states, function (key, value) {
+    //                             $('#shipping_state').append('<option value="' + value.id + '"' + '>' + value.title + '</option>');
+    //                         });
+    //                     } else {
+    //                         $('#shipping_state').append('<option value="">No States Available</option>');
+    //                     }
+    //                 }
+    //             }
+    //         })
+    //     }
+    // });
 
-    $(document).on('change', '#shipping_state', function () {
-        var state_id = $(this).val();
-        if (state_id) {
-            $.ajax({
-                type: 'POST',async:false, dataType: 'json', url: base_url + '/get-value', data: {state_id}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, success: function (data) {
-                    if (data.status == false) {
-                        Toast.fire('Error !', data.message, "error");
-                    } else {
-                        console.log(data);
-                    }
-                }
-            })
-        }
-    });
-    $(document).on('change', '#billing_country', function () {
-        var country_id = $(this).val();
-        if (country_id) {
-            $.ajax({
-                type: 'POST',async:false, dataType: 'json', url: base_url + '/b-state-list', data: {country_id}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, success: function (data) {
-                    if (data.status == false) {
-                        Toast.fire('Error !', data.message, "error");
-                    } else {
-                        if (data.states.length > 0) {
-                            $("#billing_state").empty();
-                            $('#billing_state').append('<option value="">Select State</option>');
-                            $.each(data.states, function (key, value) {
-                                $('#billing_state').append('<option value="' + value.id + '"' + '>' + value.title + '</option>');
-                            });
-                        } else {
-                            $('#billing_state').append('<option value="">No States Available</option>');
-                        }
-                    }
-                }
-            })
-        }
-    });
+    // $(document).on('change', '#shipping_state', function () {
+    //     var state_id = $(this).val();
+    //     if (state_id) {
+    //         $.ajax({
+    //             type: 'POST',async:false, dataType: 'json', url: base_url + '/get-value', data: {state_id}, headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }, success: function (data) {
+    //                 if (data.status == false) {
+    //                     Toast.fire('Error !', data.message, "error");
+    //                 } else {
+    //                     console.log(data);
+    //                 }
+    //             }
+    //         })
+    //     }
+    // });
+    // $(document).on('change', '#billing_country', function () {
+    //     var country_id = $(this).val();
+    //     if (country_id) {
+    //         $.ajax({
+    //             type: 'POST',async:false, dataType: 'json', url: base_url + '/b-state-list', data: {country_id}, headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }, success: function (data) {
+    //                 if (data.status == false) {
+    //                     Toast.fire('Error !', data.message, "error");
+    //                 } else {
+    //                     if (data.states.length > 0) {
+    //                         $("#billing_state").empty();
+    //                         $('#billing_state').append('<option value="">Select State</option>');
+    //                         $.each(data.states, function (key, value) {
+    //                             $('#billing_state').append('<option value="' + value.id + '"' + '>' + value.title + '</option>');
+    //                         });
+    //                     } else {
+    //                         $('#billing_state').append('<option value="">No States Available</option>');
+    //                     }
+    //                 }
+    //             }
+    //         })
+    //     }
+    // });
 
     /****************** cart action *************************/
 
