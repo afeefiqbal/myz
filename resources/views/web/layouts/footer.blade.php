@@ -85,7 +85,7 @@
 
                         <div class="footer-contain">
                             <ul>
-                                <li>
+                                {{-- <li>
                                     <a href="shop.php" class="text-content">Vegetables & Fruit</a>
                                 </li>
                                 <li>
@@ -102,7 +102,7 @@
                                 </li>
                                 <li>
                                     <a href="shop.php" class="text-content">Grocery & Staples</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
