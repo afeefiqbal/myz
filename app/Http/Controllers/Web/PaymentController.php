@@ -3,101 +3,88 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\CartController;
-use App\Http\Helpers\Helper;
 use App\Models\Order;
 use Illuminate\Http\Request;
-use TelrGateway\TelrManager;
-use TelrGateway\Transaction;
+use GuzzleHttp\Client;
 
 class PaymentController extends Controller
 {
     public function payment($order_id, $amount, $billingParams)
     {
-    
-      
-        $order = Order::where('id', $order_id)->first();
-        //remove slashes from phone number and + sign
+        // Fetch order details
+        $order = Order::findOrFail($order_id);
+
+        // Remove slashes from phone number and + sign
         $phone_number = str_replace('/', '', $billingParams['phone_number']);
         $phone_number = str_replace('+', '', $phone_number);
         $billingParams['phone'] = $phone_number;
-        $billingParams['currency'] =  $order->currency;
-   
-       $currency = $order->currency;
-        $telrManager = new TelrManager();
-        $description = 'Order of : ' . $billingParams['first_name'] . ' with order id ' . $order_id;
+        $billingParams['currency'] = $order->currency;
 
-        if($billingParams['country'] != null){
-            $country = \App\Models\Country::where('title',$billingParams['country'])->first();
-            
+        // Determine description
+        $description = 'Order of: ' . $billingParams['first_name'] . ' with order id ' . $order_id;
+
+        // Determine country code
+        if ($billingParams['country'] != null) {
+            $country = \App\Models\Country::where('title', $billingParams['country'])->first();
             $billingParams['country'] = $country->country_code;
-        }
-        else{
-            $state = \App\Models\State::where('title',$billingParams['city'])->first();
-            if($state){
+        } else {
+            $state = \App\Models\State::where('title', $billingParams['city'])->first();
+            if ($state) {
                 $country = \App\Models\Country::where('id', $state->country_id)->first();
                 $billingParams['country'] = $country->country_code;
-            } else{
+            } else {
                 $billingParams['country'] = '';
             }
         }
-       
-    
 
-        $url_link = $telrManager->pay($order_id, $amount, $description, $billingParams,$currency)->redirect();
-       
-        $url = $url_link->getTargetUrl();
+        // Make a request to create payment intent
+        $client = new Client();
+        $response = $client->request('POST', 'https://api-v2.ziina.com/api/payment_intent', [
+            'json' => [
+                'amount' => max(200, $amount), // Adjust amount as needed
+                'currency_code' => 'AED',
+                'message' => $description,
+                'success_url' => url('/payment/success'),
+                'cancel_url' => url('/payment/cancel'),
+                'test' => true, 
+            ],
+            'headers' => [
+                'accept' => 'application/json',
+                'authorization' => 'Bearer 1jnTSlh0smrSSavQGccEbHWrdXwh9fi3/lJsu+haXH74e7jw6LjhpUEuZ4JVP4EW', 
+                'content-type' => 'application/json',
+            ],
+        ]);
 
-        // Display Result Of Response
-        return $url;
-//        return redirect($url);
-//        return view('payment', compact('url'));
+        // Extract payment intent ID
+        $paymentIntent = json_decode($response->getBody(), true);
+        $paymentIntentId = $paymentIntent['id'];
+  
+        $redirectUrl = "https://pay.ziina.com/payment_intent/{$paymentIntentId}";
+        return ($redirectUrl);
     }
 
-
-    public function paymentSuccess(Request $request)
+    public function charge(Request $request)
     {
-        // Store Transaction Details
-        $telrManager = new TelrManager();
-        $transaction = $telrManager->handleTransactionResponse($request);
-
-        $response = app(CartController::class)->order_success($transaction->order_id);
-
-        //Card Details
-        $card_last_4 = $transaction->response['order']['card']['last4'];
-        $card_holder_name = $transaction->response['order']['customer']['name']['forenames'] . " " . $transaction->response['order']['customer']['name']['surname'];
-
-        //Queries
-//        $paymentDetails = Transaction::where('cart_id', $request->cart_id)->firstOrFail();
-
-        // Display Result Of Response
-//        dump('paymentSuccess :: ', $transaction);
-//        dump('transaction Response :: ', $transaction->response);
-//        dd('payment Details :: ', $paymentDetails);
-
-        return redirect(url($response['data']));
+        $response = app(CartController::class)->order_success(1);
+        return redirect(url($response['data'])); 
+       
+        // Handle payment success
+        // You can implement this method according to your business logic
     }
 
     public function paymentCancel(Request $request)
     {
-        $telrManager = new TelrManager();
-        $transaction = $telrManager->handleTransactionResponse($request);
-        $response = app(CartController::class)->order_payment_cancelled($transaction->order_id);
-//        dd('paymentCancel :: ', $transaction);
-
+        $response = app(CartController::class)->order_payment_cancelled(1);
+        
         return redirect(url($response['data']));
+        // Handle payment cancellation
+        // You can implement this method according to your business logic
     }
 
     public function paymentDeclined(Request $request)
     {
-        $telrManager = new \TelrGateway\TelrManager();
-        $transaction = $telrManager->handleTransactionResponse($request);
-
-        $response = app(CartController::class)->order_payment_failed($transaction->order_id);
-
-//        dd('paymentDeclined :: ', $transaction);
+        $response = app(CartController::class)->order_payment_failed(1);
 
         return redirect(url($response['data']));
     }
-
 }

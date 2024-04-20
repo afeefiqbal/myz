@@ -115,19 +115,19 @@
                         <div class="footer-contain">
                             <ul>
                                 <li>
-                                    <a href="index.php" class="text-content">Home</a>
+                                    <a href="/" class="text-content">Home</a>
                                 </li>
                                 <li>
-                                    <a href="shop.php" class="text-content">Shop</a>
+                                    <a href="{{url('products')}}" class="text-content">Shop</a>
                                 </li>
                                 <li>
-                                    <a href="about.php" class="text-content">About Us</a>
+                                    <a href="{{url('about')}}" class="text-content">About Us</a>
                                 </li>
                                 <li>
-                                    <a href="blog.php" class="text-content">Blog</a>
+                                    {{-- <a href="blog.php" class="text-content">Blog</a> --}}
                                 </li>
                                 <li>
-                                    <a href="contact.php" class="text-content">Contact Us</a>
+                                    <a href="{{url('contact')}}" class="text-content">Contact Us</a>
                                 </li>
                             </ul>
                         </div>
@@ -140,7 +140,7 @@
 
                         <div class="footer-contain">
                             <ul>
-                                <li>
+                                {{-- <li>
                                     <a href="order-success.php" class="text-content">Your Order</a>
                                 </li>
                                 <li>
@@ -157,7 +157,7 @@
                                 </li>
                                 <li>
                                     <a href="faq.php" class="text-content">FAQ</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -342,7 +342,7 @@
 
 
     <!-- Cookie Bar Box Start -->
-    <div class="cookie-bar-box">
+    {{-- zc<div class="cookie-bar-box">
         <div class="cookie-box">
             <div class="cookie-image">
                 <img src="{{asset('assets/images/cookie-bar.png')}}" class="blur-up lazyload" alt="">
@@ -358,7 +358,7 @@
             <button class="btn privacy-button">Privacy Policy</button>
             <button class="btn ok-button">OK</button>
         </div>
-    </div>
+    </div> --}}
     <!-- Cookie Bar Box End -->
 
     <!-- Deal Box Modal Start -->

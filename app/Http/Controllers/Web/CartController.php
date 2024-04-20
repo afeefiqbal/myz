@@ -1086,31 +1086,20 @@ class CartController extends Controller
                 $sessionKey = session('session_key');
                 if (!Cart::session($sessionKey)->isEmpty()) {
                     $address = CustomerAddress::find($request->address_id);
+                   
                     $address->is_default = 'Yes';
                     $address->save();
                     if($address){
                         $updateWhole = CustomerAddress::where([['customer_id', Auth::guard('customer')->user()->customer->id], ['id', '!=', $address->id]])->update(['is_default' => 'No']);
                     }
+                   
                     $responseMessage = 'Customer address selected successfully';
                     $status = true;
                     if($address){
-                        // if($address->state){
-                        //     $shipping = ShippingCharge::active()
-                        //         ->where('state_id' ,$address->state->id)->first();
-                        //     // if($shipping != NULL){
-                        //     //     session(['selected_customer_address' => $request->address_id]);
-                        //     //     session(['selected_shipping_address' => $request->address_id]);
-                        //     //     session(['selected_billing_address' => $request->address_id]);
-                        //     // }
-                        //     // else{
-                        //     //     $status = false;
-                        //     //     $responseMessage = 'This item cannot be shipped on this location';
-                        //     // }
-                        // }
-                        // else{
-                        //     $status = false;
-                        //     $responseMessage = 'This item cannot be shipped on this location';
-                        // }
+                        session(['selected_customer_address' => $request->address_id]);
+                        session(['selected_shipping_address' => $request->address_id]);
+                        session(['selected_billing_address' => $request->address_id]);
+                        
                     }
                     else{
                         $status = false;
@@ -1402,7 +1391,7 @@ class CartController extends Controller
     }
     public function orderProcess($sessionKey, $method, $billingAddressChoose)
     {
-       
+
       if($method == 'COD'){
         $method = 'cod';
       }

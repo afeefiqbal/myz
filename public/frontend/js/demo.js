@@ -412,126 +412,126 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', '.deliver', function (e) {
+    // $(document).on('click', '.deliver', function (e) {
         
-        e.preventDefault();
-        var id = $(this).data('id');
+    //     e.preventDefault();
+    //     var id = $(this).data('id');
    
-        $('.deliver').removeClass('active');
-        var addressChoose = $('.addressChoose:checked').val();
-        $(this).addClass('active');
-        var _this = $(this);
-        var remarks = $('#remark').val();
-        // var _token = token;
-        $.ajax({
-            type: 'POST', dataType: 'json', data: {address_id: id, remarks: remarks}, headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/select-customer-address', success: function (response) {
-                if (response.status == true) {
-                    Toast.fire({
-                        title: "", text: response.response_message, icon: "success"
-                    })
+    //     $('.deliver').removeClass('active');
+    //     var addressChoose = $('.addressChoose:checked').val();
+    //     $(this).addClass('active');
+    //     var _this = $(this);
+    //     var remarks = $('#remark').val();
+    //     // var _token = token;
+    //     $.ajax({
+    //         type: 'POST', dataType: 'json', data: {address_id: id, remarks: remarks}, headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }, url: base_url + '/select-customer-address', success: function (response) {
+    //             if (response.status == true) {
+    //                 Toast.fire({
+    //                     title: "", text: response.response_message, icon: "success"
+    //                 })
                   
-                    if (response.status == true) {
+    //                 if (response.status == true) {
                       
-                    //     $('#address_select_error').addClass('d-none');
-                        $('.error').addClass('d-none');
-                        $('.confirm_payment_btn').attr('id','confirm_payment');
-                    $('#confirm_payment').attr('disabled',false);
-                    }else{
-                        $('.confirm_payment_btn').removeAttr('id');
-                        // $('#address_select_error').removeClass('d-none');
-                        $('.error').removeClass('d-none');
-                        $('#confirm_payment').attr('disabled',false);
-                    }
-                    $('.cod-charge').hide();
+    //                 //     $('#address_select_error').addClass('d-none');
+    //                     $('.error').addClass('d-none');
+    //                     $('.confirm_payment_btn').attr('id','confirm_payment');
+    //                 $('#confirm_payment').attr('disabled',false);
+    //                 }else{
+    //                     $('.confirm_payment_btn').removeAttr('id');
+    //                     // $('#address_select_error').removeClass('d-none');
+    //                     $('.error').removeClass('d-none');
+    //                     $('#confirm_payment').attr('disabled',false);
+    //                 }
+    //                 $('.cod-charge').hide();
 
-                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount);
-                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount);
-                    $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
-                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax);
-                    // $('.session').removeClass('d-none');
-                    if(response.message == false){
+    //                 $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount);
+    //                 $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount);
+    //                 $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
+    //                 $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax);
+    //                 // $('.session').removeClass('d-none');
+    //                 if(response.message == false){
 
-                        $('.address_session'+response.address_id).addClass('active');
+    //                     $('.address_session'+response.address_id).addClass('active');
                   
-                        response.address_id_not_selected.forEach(function (item) {
+    //                     response.address_id_not_selected.forEach(function (item) {
                           
-                            $('.address_session'+item).removeClass('active');
-                        });
-                        $('.login'+response.address_id).addClass('d-none');
+    //                         $('.address_session'+item).removeClass('active');
+    //                     });
+    //                     $('.login'+response.address_id).addClass('d-none');
                   
-                        response.address_id_not_selected.forEach(function (item) {
+    //                     response.address_id_not_selected.forEach(function (item) {
                   
                           
-                            $('.login'+item).removeClass('d-none');
-                        });
-                    }
+    //                         $('.login'+item).removeClass('d-none');
+    //                     });
+    //                 }
 
-                    // $('.login').removeClass('d-none');
+    //                 // $('.login').removeClass('d-none');
                 
               
-                    $('#sameAdd').data('shipping-address',true);
+    //                 $('#sameAdd').data('shipping-address',true);
                
                   
-                } else {
-                    Toast.fire('Error', response.response_message, "error");
-                    _this.removeClass('active');
-                    // $.notify(response.message, "error");
-                }
-            }
-        });
-    });
+    //             } else {
+    //                 Toast.fire('Error', response.response_message, "error");
+    //                 _this.removeClass('active');
+    //                 // $.notify(response.message, "error");
+    //             }
+    //         }
+    //     });
+    // });
 
 
-    $(document).on('click', '.billing', function (e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        var remarks = $('#remark').val();
-        // var _token = token;
-        $('.billing').removeClass('active');
-        $(this).addClass('active');
-        $.ajax({
-            type: 'POST', dataType: 'json', data: {address_id: id, remarks: remarks}, headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/select-customer-billing-address', success: function (response) {
-                if (response.status == true) {
-                    Toast.fire({
-                        title: "", text: 'Customer billing address selected successfully', icon: "success"
-                    })
-                    $('.error').addClass('d-none');
-                    if (response.address_selected == true) {
-                        $('.error').addClass('d-none');
-                        $('.confirm_payment_btn').attr('id','confirm_payment');
-                    $('#confirm_payment').attr('disabled',false);
-                    }else{
-                        $('.confirm_payment_btn').removeAttr('id');
-                        // $('#address_select_error').removeClass('d-none');
-                        $('.error').removeClass('d-none');
-                        $('#confirm_payment').attr('disabled',false);
-                    }
-                    $('.session_billing'+response.address_id).addClass('active');
+    // $(document).on('click', '.billing', function (e) {
+    //     e.preventDefault();
+    //     var id = $(this).data('id');
+    //     var remarks = $('#remark').val();
+    //     // var _token = token;
+    //     $('.billing').removeClass('active');
+    //     $(this).addClass('active');
+    //     $.ajax({
+    //         type: 'POST', dataType: 'json', data: {address_id: id, remarks: remarks}, headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }, url: base_url + '/select-customer-billing-address', success: function (response) {
+    //             if (response.status == true) {
+    //                 Toast.fire({
+    //                     title: "", text: 'Customer billing address selected successfully', icon: "success"
+    //                 })
+    //                 $('.error').addClass('d-none');
+    //                 if (response.address_selected == true) {
+    //                     $('.error').addClass('d-none');
+    //                     $('.confirm_payment_btn').attr('id','confirm_payment');
+    //                 $('#confirm_payment').attr('disabled',false);
+    //                 }else{
+    //                     $('.confirm_payment_btn').removeAttr('id');
+    //                     // $('#address_select_error').removeClass('d-none');
+    //                     $('.error').removeClass('d-none');
+    //                     $('#confirm_payment').attr('disabled',false);
+    //                 }
+    //                 $('.session_billing'+response.address_id).addClass('active');
               
-                    response.address_id_not_selected.forEach(function (item) {
-                      console.log(item);
-                        $('.session_billing'+item).removeClass('active');
-                    });
-                    $('.login_billing'+response.address_id).addClass('d-none');
+    //                 response.address_id_not_selected.forEach(function (item) {
+    //                   console.log(item);
+    //                     $('.session_billing'+item).removeClass('active');
+    //                 });
+    //                 $('.login_billing'+response.address_id).addClass('d-none');
               
-                    response.address_id_not_selected.forEach(function (item) {
+    //                 response.address_id_not_selected.forEach(function (item) {
                       
                       
-                        $('.login_billing'+item).removeClass('d-none');
-                    });
+    //                     $('.login_billing'+item).removeClass('d-none');
+    //                 });
                    
-                } else {
-                    $('.error').removeClass('d-none');
-                    Toast.fire('Error', response.message, "error");
-                    // $.notify(response.message, "error");
-                }
-            }
-        });
-    });
+    //             } else {
+    //                 $('.error').removeClass('d-none');
+    //                 Toast.fire('Error', response.message, "error");
+    //                 // $.notify(response.message, "error");
+    //             }
+    //         }
+    //     });
+    // });
 
     $(document).on('click', '.payment_method', function () {
         var payment_method = $(this).val();
@@ -599,105 +599,7 @@ $(document).ready(function () {
             }
         });
     });
-    $(document).on('click', '#confirm_payment', function (e) {
    
-        e.preventDefault();
-        // alert($('#terms-and-conditions').val());
-        if ($('#terms-and-conditions').prop('checked') == true) {
-            $(this).prop('disabled', true);
-            var payment_method = $("input[name='paymentOption']:checked").val();
-           
-            var billingAddressChoose = $('#billingAddressChoose').val();
-            // var _token = token;
-            $('#confirm-order-error').html('');
-            $('.order-submit-loader').show();
-
-            $('form input, form textarea').removeClass('is-invalid is-valid');
-            $('span.error').remove();
-
-            var credit_point = $('#credit_point_amount').val();
-            var credit_point_check = $('#credit_point_check_valid').val();
-            var thisData = $(this);
-            if (payment_method) {
-                $(this).text("Please Wait...")
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: base_url + '/submit-order', // data: {_token: _token, payment_method: payment_method, billingAddresChoose: billingAddressChoose,},
-                    data: $('#customerAddressForm').serialize() + "&" + $('#billing-address-form').serialize() + "&" + $('#deliveryForm').serialize() + "&payment_method=" + payment_method + "&billingAddresChoose=" + billingAddressChoose +"&remarks="+$('.remarks').val(),
-                    
-                    success: function (response) {
-                        $('.order-submit-loader').hide();
-                        if (response.status == true) {
-                         
-                            // swal.fire({
-                            //     title: "", text: response.message, type: "success", icon: "success",
-                            // });
-                                
-                                setTimeout(() => {
-                                    $('#submit-loader').hide();
-                                    window.location.href = base_url + response.data;
-                                    
-                                }, 900);
-                                // if (result.isConfirmed) {
-                                //     $('#submit-loader').hide();
-                                //     window.location.href = base_url + response.data;
-                                // }
-                           
-                        } else {
-                            if (response.status == 'online-payment') {
-                                window.location.href = response.url;
-                            } else {
-                                // swal.fire({
-                                //     confirmButtonColor: '#3085d6',
-                                //     title: "", text: response.message, type: "success", icon: "success",
-                                // });
-                                setTimeout(() => {
-                                    $('#submit-loader').hide();
-                                    
-                                    window.location.href = response.url;
-                                    
-                                }, 500);
-                                    // if (result.isConfirmed) {
-                                    // }
-                            
-                            }
-                            thisData.text("Confirm Order");
-                        }
-                    },
-                    error: function (response) {
-                        thisData.text("Confirm Order");
-                        $('#confirm_payment').removeAttr('disabled');
-                        $.each(response.responseJSON.errors, function (field_name, error) {
-                            var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
-                            $("#customerAddressForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-                                .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                            $("#billing-address-form").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-                                .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                            $("#deliveryForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-                                .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                        });
-                        $(this).prop('disabled', false);
-                        $(this).text("Confirm Order")
-
-                    }
-                });
-            } else {
-                $(this).prop('disabled', false);
-                var payment_error = 'Select payment method';
-           
-                $('#payment-method-error').html(payment_error).css({'color': 'red'});
-                Toast.fire('Error', payment_error, "error");
-            }
-        } else {
-            $('#confirm_payment').removeAttr('disabled');
-            $('#confirm-order-error').html('Please accept the terms & condition').css({'color': 'red'});
-            // $.notify('Please accept the terms & condition', "error");
-        }
-    });
 
     /***************** cart action end **********************/
 

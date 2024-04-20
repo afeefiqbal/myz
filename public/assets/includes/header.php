@@ -510,7 +510,7 @@
                                             
                                          
                                             <li class="nav-item">
-                                                <a class="nav-link nav-link-2" href="about.php">About us</a>
+                                                <a class="nav-link nav-link-2" href="{{url('about'}}">About us</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link nav-link-2" href="contact">Contact</a>
