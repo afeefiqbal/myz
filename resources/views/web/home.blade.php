@@ -1,37 +1,59 @@
 @extends('web.layouts.main')
 @section('content')
-<section class="home-section pt-2">
+ <!-- Home Section Start -->
+ <section class="home-section pt-2">
     <div class="container-fluid-lg">
         <div class="row g-4">
-            <div class="col-xl-9 col-lg-8">
-                <div class="home-contain h-100">
-                    <img src="assets/images/bannner1.jpg" class="bg-img blur-up lazyload" alt="">
-                    <div class="home-detail p-center-left w-75 position-relative mend-auto">
+            <div class="col-xl-8 ratio_65">
+                <div class="home-contain h-100 ">
+                    <div class="h-100">
+                        <img src="{{asset('frontend/main-banner.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    </div>
+                    <div class="home-detail p-center-left w-75">
                         <div>
-                            <h6>Exclusive offer <span>30% Off</span></h6>
-                            <h1 class="w-75 text-uppercase poster-1">Stay home & delivered your <span
-                                    class="daily">Daily Needs</span></h1>
-                            <p class="w-58 d-none d-sm-block">Many organizations have issued official
-                                statements encouraging people to reduce their intake of sugary drinks.</p>
-                            <button onclick="location.href = 'shop.php';"
+                            <h6><span></span></h6>
+                            <h1 class="text-uppercase"> <span class="daily"></span></h1>
+                            <p class="w-75 d-none d-sm-block"></p>
+                            <button onclick="location.href = '{{url('products')}}';"
                                 class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">Shop Now <i
-                                    class="fa-solid fa-right-long ms-2 icon"></i></button>
+                                    class="fa-solid fa-right-long icon"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 d-lg-inline-block d-none ratio_156">
-                <div class="home-contain h-100">
-                    <img src="assets/images/veg-2/banner/2.jpg" class="bg-img blur-up lazyload" alt="">
-                    <div class="home-detail p-top-left home-p-sm w-75">
-                        <div class="section-t-space">
-                            <h2 class="mt-0 text-danger">45% <span class="discount text-title">OFF</span>
-                            </h2>
-                            <h3 class="theme-color">Real Refresement</h3>
-                            <h5 class="text-content">Only this week, Don't miss..</h5>
-                            <a href="shop.php" class="shop-button">Shop Now <i
-                                    class="fa-solid fa-right-long ms-2"></i></a>
+            <div class="col-xl-4 ratio_65">
+                <div class="row g-4">
+                    <div class="col-xl-12 col-md-6">
+                        <div class="home-contain">
+                            <img src="{{asset('frontend/banner1.jpg')}}" class="bg-img blur-up lazyload"
+                                alt="">
+                            <div class="home-detail p-center-left home-p-sm w-75">
+                                <div>
+                                    <h2 class="mt-0 text-danger"><span class="discount text-title"></span>
+                                    </h2>
+                                    <h3 class="theme-color"></h3>
+                                    <p class="w-75"></p>
+                                    <a href="{{url('products')}}" class="shop-button"><i
+                                            class="fa-solid fa-right-long"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-md-6">
+                        <div class="home-contain">
+                            <img src="{{asset('frontend/banner3.jpg')}}" class="bg-img blur-up lazyload"
+                                alt="">
+                            <div class="home-detail p-center-left home-p-sm w-75">
+                                <div>
+                                    <h3 class="mt-0 theme-color fw-bold"></h3>
+                                    <h4 class="text-danger"></h4>
+                                    <p class="organic"></p>
+                                    <a href="{{url('products')}}" class="shop-button"><i
+                                            class="fa-solid fa-right-long"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -39,6 +61,76 @@
         </div>
     </div>
 </section>
+<!-- Home Section End -->
+
+<!-- Banner Section Start -->
+<section class="banner-section ratio_60 wow fadeInUp">
+    <div class="container-fluid-lg">
+        <div class="row g-sm-4 g-3">
+            <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="banner-contain hover-effect">
+                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <div class="banner-details">
+                        <div class="banner-box">
+                            <h6 class="text-danger"></h6>
+                            <h5></h5>
+                            <h6 class="text-content"></h6>
+                        </div>
+                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                                class="fa-solid fa-right-long ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="banner-contain hover-effect">
+                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <div class="banner-details">
+                        <div class="banner-box">
+                            <h6 class="text-danger"></h6>
+                            <h5></h5>
+                            <h6 class="text-content"></h6>
+                        </div>
+                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                                class="fa-solid fa-right-long ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="banner-contain hover-effect">
+                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <div class="banner-details">
+                        <div class="banner-box">
+                            <h6 class="text-danger"></h6>
+                            <h5></h5>
+                            <h6 class="text-content"></h6>
+                        </div>
+                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                                class="fa-solid fa-right-long ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-3 col-lg-4 col-sm-6">
+                <div class="banner-contain hover-effect">
+                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <div class="banner-details">
+                        <div class="banner-box">
+                            <h6 class="text-danger"></h6>
+                            <h5></h5>
+                            <h6 class="text-content"></h6>
+                        </div>
+                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                                class="fa-solid fa-right-long ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+
 <!-- Home Section End -->
 
 <!-- Category Section Start -->

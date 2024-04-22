@@ -6,7 +6,7 @@
                 <div class="col-xxl-3 d-xxl-block d-none">
                     <div class="top-left-header">
                         <i class="iconly-Location icli text-white"></i>
-                        <span class="text-white">1418 Riverwood Drive, CA 96052, US</span>
+                        <span class="text-white"> Khalid Bin Walid Road, Bur Dubai, UAE</span>
                     </div>
                 </div>
 
@@ -15,9 +15,7 @@
                         <div class="notification-slider">
                             <div>
                                 <div class="timer-notification">
-                                    <h6><strong class="me-1">Welcome to MYZ!</strong>Wrap new offers/gift
-                                        every signle day on Weekends.<strong class="ms-1">New Coupon Code: Fast024
-                                        </strong>
+                                    <h6><strong class="me-1">Welcome to MYZ!</strong>
 
                                     </h6>
                                 </div>
@@ -54,6 +52,29 @@
                         <a href="{{route('/')}}" class="web-logo nav-logo">
                             <img src="{{asset('assets/images/logo/logo.jpeg')}}" class="img-fluid blur-up lazyload" alt="">
                         </a>
+                        <div class="middle-box">
+                            <div class="location-box">
+                                <button class="btn location-button" data-bs-toggle="modal"
+                                    data-bs-target="#locationModal">
+                                    <span class="location-arrow">
+                                        <i data-feather="map-pin"></i>
+                                    </span>
+                                    <span class="locat-name">Your Location</span>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </button>
+                            </div>
+
+                            <div class="search-box">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" placeholder="I'm searching for..."
+                                        aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn" type="button" id="button-addon2">
+                                        <i data-feather="search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="rightside-box">
                             <div class="search-full">
                                 <div class="input-group">
@@ -77,7 +98,7 @@
                                     </div>
                                 </li>
                                 <li class="right-side">
-                                    <a href="/contact" class="delivery-login-box">
+                                    <a href="contact-us.html" class="delivery-login-box">
                                         <div class="delivery-icon">
                                             <i data-feather="phone-call"></i>
                                         </div>
@@ -87,77 +108,103 @@
                                         </div>
                                     </a>
                                 </li>
-                                @if(Auth::guard('customer')->check())
                                 <li class="right-side">
-                                    <a href="{{url('customer/account/wishlist')}}" class="btn p-0 position-relative header-wishlist">
+                                    <a href="wishlist.html" class="btn p-0 position-relative header-wishlist">
                                         <i data-feather="heart"></i>
                                     </a>
                                 </li>
-                                    @endif
                                 <li class="right-side">
                                     <div class="onhover-dropdown header-badge">
-                                        <button type="button" onclick="location.href = '{{ url('/cart') }}'" class="btn p-0 position-relative header-wishlist">
+                                        <button type="button" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="shopping-cart"></i>
                                             <span class="position-absolute top-0 start-100 translate-middle badge">2
                                                 <span class="visually-hidden">unread messages</span>
                                             </span>
                                         </button>
 
+                                        <div class="onhover-div">
+                                            <ul class="cart-list">
+                                                <li class="product-box-contain">
+                                                    <div class="drop-cart">
+                                                        <a href="product-left.html" class="drop-image">
+                                                            <img src="../assets/images/vegetable/product/1.png"
+                                                                class="blur-up lazyload" alt="">
+                                                        </a>
+
+                                                        <div class="drop-contain">
+                                                            <a href="product-left.html">
+                                                                <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                            </a>
+                                                            <h6><span>1 x</span> $80.58</h6>
+                                                            <button class="close-button close_button">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <div class="drop-cart">
+                                                        <a href="product-left.html" class="drop-image">
+                                                            <img src="../assets/images/vegetable/product/2.png"
+                                                                class="blur-up lazyload" alt="">
+                                                        </a>
+
+                                                        <div class="drop-contain">
+                                                            <a href="product-left.html">
+                                                                <h5>Peanut Butter Bite Premium Butter Cookies 600 g
+                                                                </h5>
+                                                            </a>
+                                                            <h6><span>1 x</span> $25.68</h6>
+                                                            <button class="close-button close_button">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <div class="price-box">
+                                                <h5>Total :</h5>
+                                                <h4 class="theme-color fw-bold">$106.58</h4>
+                                            </div>
+
+                                            <div class="button-group">
+                                                <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
+                                                <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                text-white">Checkout</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
-                                @if(Auth::guard('customer')->check())
                                 <li class="right-side onhover-dropdown">
                                     <div class="delivery-login-box">
                                         <div class="delivery-icon">
                                             <i data-feather="user"></i>
                                         </div>
-                                        
+                                        <div class="delivery-detail">
+                                            <h6>Hello,</h6>
+                                            <h5>My Account</h5>
+                                        </div>
                                     </div>
 
                                     <div class="onhover-div onhover-div-login">
                                         <ul class="user-box-name">
                                             <li class="product-box-contain">
                                                 <i></i>
-                                                <a href="{{ url('customer/account/profile') }}">My Account</a>
+                                                <a href="log-in.html">Log In</a>
                                             </li>
 
                                             <li class="product-box-contain">
-                                                <a href="{{ url('logout') }}">Logout</a>
+                                                <a href="sign-up.html">Register</a>
                                             </li>
 
                                             <li class="product-box-contain">
-                                                <a href="{{url('forgot-password')}}">Forgot Password</a>
+                                                <a href="forgot.html">Forgot Password</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
-                                @else
-                                <li class="right-side onhover-dropdown">
-                                    <div class="delivery-login-box">
-                                        <div class="delivery-icon">
-                                            <i data-feather="user"></i>
-                                        </div>
-                           
-                                    </div>
-
-                                    <div class="onhover-div onhover-div-login">
-                                        <ul class="user-box-name">
-                                            <li class="product-box-contain">
-                                                <i></i>
-                                                <a href="{{url('login')}}">Log In</a>
-                                            </li>
-
-                                            <li class="product-box-contain">
-                                                <a href="{{url('register')}}">Register</a>
-                                            </li>
-
-                                            <li class="product-box-contain">
-                                                <a href="{{url('forgot-password')}}">Forgot Password</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                @endif
                             </ul>
                         </div>
                     </div>
@@ -296,12 +343,12 @@
                     </div>
                     @endif
 
-                    <!-- <div class="header-nav-right">
+                    <div class="header-nav-right">
                         <button class="btn deal-button" data-bs-toggle="modal" data-bs-target="#deal-box">
                             <i data-feather="zap"></i>
                             <span>Deal Today</span>
                         </button>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
