@@ -376,64 +376,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="deal-offer-box">
-                        <ul class="deal-offer-list">
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop.php" class="deal-image">
-                                        <img src="{{asset('assets/images/vegetable/product/10.png')}}" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop.php" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
+                    <div class="col-xl-8 ratio_65">
+                        <div class="home-contain h-100 ">
+                            <div class="h-100">
+                                <img src="{{asset('frontend/main-banner.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                            </div>
+                            <div class="home-detail p-center-left w-75">
+                                <div>
+                                    <h6><span></span></h6>
+                                    <h1 class="text-uppercase"> <span class="daily"></span></h1>
+                                    <p class="w-75 d-none d-sm-block"></p>
+                                    <button onclick="location.href = '{{url('products')}}';"
+                                        class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">Shop Now <i
+                                            class="fa-solid fa-right-long icon"></i></button>
                                 </div>
-                            </li>
-
-                            <li class="list-2">
-                                <div class="deal-offer-contain">
-                                    <a href="shop.php" class="deal-image">
-                                        <img src="{{asset('assets/images/vegetable/product/11.png')}}" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop.php" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-3">
-                                <div class="deal-offer-contain">
-                                    <a href="shop.php" class="deal-image">
-                                        <img src="{{asset('assets/images/vegetable/product/12.png')}}" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop.php" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop.php" class="deal-image">
-                                        <img src="{{asset('assets/images/vegetable/product/13.png')}}" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop.php" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

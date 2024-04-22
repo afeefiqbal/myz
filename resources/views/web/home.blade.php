@@ -172,7 +172,7 @@
 
 
 <!-- Product Section Start -->
-<section>
+{{-- <section>
     <div class="container-fluid-lg">
         <div class="title">
             <h2>Our  Products</h2>
@@ -264,10 +264,155 @@
         </div>
         @endisset
     </div>
-</section>
+</section> --}}
 <!-- Product Section End -->
 
+    <!-- Product Section Start -->
+    <section class="product-section">
+        <div class="container-fluid-lg">
+            <div class="row g-sm-4 g-3">
+                <div class="col-xxl-3 col-xl-4 d-none d-xl-block">
+                    <div class="p-sticky">
+                        <div class="category-menu">
+                            <h3>Category</h3>
+                            @isset($categories)
+                            <ul>
+                                @foreach ($categories as $item)
+                                <li>
+                                    <div class="category-list">
+                                        <img src="{{$item->icon}}"  class="blur-up lazyload" alt="{{$item->image_attribute}}">
+                                        <h5>
+                                            <a href="/category/{{$item->short_url}}"> 
+                                                <h5>{{$item->title}}</h5></a>
+                                        </h5>
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endisset
+                        </div>
 
+
+                        
+                    </div>
+                </div>
+
+                <div class="col-xxl-9 col-xl-8">
+                    <div class="title title-flex">
+                        <div>
+                            <h2>Top Products</h2>
+                            <span class="title-leaf">
+                                <svg class="icon-width">
+                                    <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
+                                </svg>
+                            </span>
+                            <p>Don't miss this opportunity at a special discount just for this week.</p>
+                        </div>
+                     
+                    </div>
+
+                    <div class="section-b-space">
+                        @isset($products)
+            
+                        <div class="product-border border-row">
+                            <div class="slider-6_2 no-arrow">
+                                @foreach ($products as $product )
+                                <div class="col-6 px-0">
+                                    <div class="product-box wow fadeIn">
+                                        <div class="product-image">
+                                            <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
+                                                <img src="{{$product->thumbnail_image}}"
+                                                    class="img-fluid blur-up lazyload" alt="">
+                                            </a>
+                                            <ul class="product-option justify-content-around">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        data-bs-target="#view">
+                                                        <i data-feather="eye"></i>
+                                                    </a>
+                                                </li>
+                
+                                            
+                
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                                    <a href="#" class="notifi-wishlist">
+                                                        <i data-feather="heart"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="product-detail">
+                                            <a href="product.php">
+                                                <h6 class="name name-2 h-100">{{$product->title}}</h6>
+                                            </a>
+                
+                                            <div class="product-rating mt-2">
+                                                <ul class="rating">
+                                                    @if(Helper::averageRating($product->id)>0)
+                                                    <li class="review">
+                                                        <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                                    </li>
+                                                    @endif
+                                                </ul>
+                                               
+                                            </div>
+                
+                                            <h6 class="sold weight text-content fw-normal"></h6>
+                
+                                            <div class="counter-box">
+                                                <h6 class="sold theme-color">{{$product->price}}</h6>
+                
+                                                <div class="addtocart_btn">
+                                                    <button class="add-button addcart-button btn buy-button text-light">
+                                                        <span>Add</span>
+                                                        <i class="fa-solid fa-plus"></i>
+                                                    </button>
+                                                    <div class="qty-box cart_qty">
+                                                        <div class="input-group">
+                                                            <button type="button" class="btn qty-left-minus"
+                                                                data-type="minus" data-field="">
+                                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                                            </button>
+                                                            <input class="form-control input-number qty-input" type="text"
+                                                                name="quantity" value="1">
+                                                            <button type="button" class="btn qty-right-plus"
+                                                                data-type="plus" data-field="">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                @endforeach
+                
+                            </div>
+                        </div>
+                        @endisset
+                    </div>
+                </div>
+
+                    <div class="section-t-space">
+                        <div class="banner-contain">
+                            <img src="../assets/images/vegetable/banner/15.jpg" class="bg-img blur-up lazyload" alt="">
+                            <div class="banner-details p-center p-4 text-white text-center">
+                                <div>
+                                    <h3 class="lh-base fw-bold offer-text">Get $3 Cashback! Min Order of $30</h3>
+                                    <h6 class="coupon-code">Use Code : GROCERY1920</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
 
 <!-- Product Section Start -->
 
