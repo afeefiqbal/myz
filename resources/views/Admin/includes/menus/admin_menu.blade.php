@@ -28,6 +28,7 @@
         <p>Testimonial</p>
     </a>
 </li>
+
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'about')}}"
         class="nav-link {{ (Request::segment(2)=='about')?'active':'' }}">
@@ -71,7 +72,13 @@
         <p>Site Information</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'contact')}}"
+       class="nav-link {{ (Request::segment(2)=='contact')?'active':''}}">
+        <i class="nav-icon fas fa-envelope"></i>
+        <p>Contact</p>
+    </a>
+</li>
 
 
 <li class="nav-item">

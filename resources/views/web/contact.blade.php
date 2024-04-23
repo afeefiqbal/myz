@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Contact Us</h2>
+                        <h2>{!! @$contact->contact_page_title !!}</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -15,7 +15,7 @@
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                                <li class="breadcrumb-item active" aria-current="page"></li>
                             </ol>
                         </nav>
                     </div>
@@ -36,7 +36,7 @@
                                 alt="">
                         </div>
                         <div class="contact-title">
-                            <h3>Get In Touch</h3>
+                            <h3>{!! @$contact->contact_request_title !!}</h3>
                         </div>
 
                         <div class="contact-detail">
@@ -51,7 +51,7 @@
                                         </div>
 
                                         <div class="contact-detail-contain">
-                                            <p>(+1) 618 190 496</p>
+                                            <p>{{ @$contact->phone }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,10 @@
                                         </div>
 
                                         <div class="contact-detail-contain">
-                                            <p>geweto9420@chokxus.com</p>
+                                            <p>{{ @$contact->email }}</p>
+                                        </div>
+                                        <div class="contact-detail-contain">
+                                            <p>{{ @$contact->alternate_email }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -77,16 +80,16 @@
                                             <i class="fa-solid fa-location-dot"></i>
                                         </div>
                                         <div class="contact-detail-title">
-                                            <h4>London Office</h4>
+                                           
                                         </div>
 
                                         <div class="contact-detail-contain">
-                                            <p>Cruce Casa de Postas 29</p>
+                                            <p>{!! @$contact->address !!}</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                {{-- <div class="col-sm-6">
                                     <div class="contact-detail-box">
                                         <div class="contact-icon">
                                             <i class="fa-solid fa-building"></i>
@@ -99,7 +102,7 @@
                                             <p>Visitación de la Encina 22</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -180,7 +183,7 @@
         <div class="container-fluid p-0">
             <div class="map-box">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d2994.3803116994895!2d55.29773782339708!3d25.222534631321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m5!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!3m2!1d25.2048493!2d55.2707828!4m0!5e1!3m2!1sen!2sin!4v1652217109535!5m2!1sen!2sin"
+                    src="{{ $contact->google_map }}"
                     style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

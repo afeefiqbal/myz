@@ -172,99 +172,7 @@
 
 
 <!-- Product Section Start -->
-{{-- <section>
-    <div class="container-fluid-lg">
-        <div class="title">
-            <h2>Our  Products</h2>
-            <span class="title-leaf">
-                <svg class="icon-width">
-                    <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
-                </svg>
-            </span>
 
-        </div>
-        @isset($products)
-            
-        <div class="product-border border-row">
-            <div class="slider-6_2 no-arrow">
-                @foreach ($products as $product )
-                <div class="col-6 px-0">
-                    <div class="product-box wow fadeIn">
-                        <div class="product-image">
-                            <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                <img src="{{$product->thumbnail_image}}"
-                                    class="img-fluid blur-up lazyload" alt="">
-                            </a>
-                            <ul class="product-option justify-content-around">
-                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                        data-bs-target="#view">
-                                        <i data-feather="eye"></i>
-                                    </a>
-                                </li>
-
-                            
-
-                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                    <a href="#" class="notifi-wishlist">
-                                        <i data-feather="heart"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-detail">
-                            <a href="product.php">
-                                <h6 class="name name-2 h-100">{{$product->title}}</h6>
-                            </a>
-
-                            <div class="product-rating mt-2">
-                                <ul class="rating">
-                                    @if(Helper::averageRating($product->id)>0)
-                                    <li class="review">
-                                        <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
-                                    </li>
-                                    @endif
-                                </ul>
-                               
-                            </div>
-
-                            <h6 class="sold weight text-content fw-normal"></h6>
-
-                            <div class="counter-box">
-                                <h6 class="sold theme-color">{{$product->price}}</h6>
-
-                                <div class="addtocart_btn">
-                                    <button class="add-button addcart-button btn buy-button text-light">
-                                        <span>Add</span>
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                    <div class="qty-box cart_qty">
-                                        <div class="input-group">
-                                            <button type="button" class="btn qty-left-minus"
-                                                data-type="minus" data-field="">
-                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                            </button>
-                                            <input class="form-control input-number qty-input" type="text"
-                                                name="quantity" value="1">
-                                            <button type="button" class="btn qty-right-plus"
-                                                data-type="plus" data-field="">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                @endforeach
-
-            </div>
-        </div>
-        @endisset
-    </div>
-</section> --}}
 <!-- Product Section End -->
 
     <!-- Product Section Start -->
@@ -318,69 +226,68 @@
                             <div class="slider-6_2 no-arrow">
                                 @foreach ($products as $product )
                                 <div class="col-6 px-0">
-                                    <div class="product-box wow fadeIn">
-                                        <div class="product-image">
-                                            <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                                <img src="{{$product->thumbnail_image}}"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </a>
-                                            <ul class="product-option justify-content-around">
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#view">
-                                                        <i data-feather="eye"></i>
-                                                    </a>
-                                                </li>
-                
-                                            
-                
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                    <a href="#" class="notifi-wishlist">
-                                                        <i data-feather="heart"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="product-detail">
-                                            <a href="product.php">
-                                                <h6 class="name name-2 h-100">{{$product->title}}</h6>
-                                            </a>
-                
-                                            <div class="product-rating mt-2">
-                                                <ul class="rating">
-                                                    @if(Helper::averageRating($product->id)>0)
-                                                    <li class="review">
-                                                        <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                    <div class="product-box-3 h-100 wow fadeInUp">
+                                        <div class="product-header">
+                                            <div class="product-image">
+                                                <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
+                                                    <img src="{{$product->thumbnail_image}}"
+                                                        class="img-fluid blur-up lazyload" alt="">
+                                                </a>
+        
+                                                <ul class="product-option">
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                                        <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
+                                                            <i data-feather="eye"></i>
+                                                        </a>
                                                     </li>
-                                                    @endif
+        
+                                                   
+        
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                                        <a id="wishlist_check_{{@$product->id}}"  href="avascript:void(0)" class="notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
+                                                            <i data-feather="heart"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
-                                               
                                             </div>
-                
-                                            <h6 class="sold weight text-content fw-normal"></h6>
-                
-                                            <div class="counter-box">
-                                                <h6 class="sold theme-color">{{$product->price}}</h6>
-                
-                                                <div class="addtocart_btn">
-                                                    <button class="add-button addcart-button btn buy-button text-light">
-                                                        <span>Add</span>
-                                                        <i class="fa-solid fa-plus"></i>
-                                                    </button>
-                                                    <div class="qty-box cart_qty">
-                                                        <div class="input-group">
-                                                            <button type="button" class="btn qty-left-minus"
+                                        </div>
+                                        <div class="product-footer">
+                                            <div class="product-detail">
+                                                
+                                                <a href="product.php">
+                                                    <h5 class="name">{{$product->title}}</h5>
+                                                </a>
+                                              
+                                                <div class="product-rating mt-2">
+                                                    <ul class="rating">
+                                                        @if(Helper::averageRating($product->id)>0)
+                                                        <li class="review">
+                                                            <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                                        </li>
+                                                        @endif
+                                                    </ul>
+                                                    {{-- <span>(4.0)</span> --}}
+                                                </div>
+                                                <!-- <h6 class="unit">250 ml</h6> -->
+                                                <h5 class="price"><span class="theme-color">{{$product->price}}</span> <del></del>
+                                                </h5>
+                                               <div class="add-to-cart-box bg-white ">
+                                                    <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
+                                                        <i class="fa-solid fa-plus bg-gray"></i></button>
+                                                    {{-- <div class="cart_qty qty-box">
+                                                        <div class="input-group bg-white">
+                                                            <button type="button" class="qty-left-minus bg-gray cartBtn"
                                                                 data-type="minus" data-field="">
                                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                                             </button>
-                                                            <input class="form-control input-number qty-input" type="text"
-                                                                name="quantity" value="1">
-                                                            <button type="button" class="btn qty-right-plus"
+                                                            <input class="form-control input-number qty-input cartBtn" type="text"
+                                                                name="quantity" value="0">
+                                                            <button type="button" class="qty-right-plus bg-gray"
                                                                 data-type="plus" data-field="">
                                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                             </button>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>

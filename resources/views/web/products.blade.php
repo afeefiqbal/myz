@@ -268,74 +268,73 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
-                                <div class="modal-content">
-                                    <div class="modal-header p-0">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row g-sm-4 g-2">
-                                            <div class="col-lg-6">
-                                                <div class="slider-image">
-                                                    <img src="{{$product->thumbnail_image}}" class="img-fluid blur-up lazyload"
-                                                        alt="">
+                            <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
+                                    <div class="modal-content">
+                                        <div class="modal-header p-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row g-sm-4 g-2">
+                                                <div class="col-lg-6">
+                                                    <div class="slider-image">
+                                                        <img src="{{$product->thumbnail_image}}" class="img-fluid blur-up lazyload"
+                                                            alt="">
+                                                    </div>
                                                 </div>
-                                            </div>
-                    
-                                            <div class="col-lg-6">
-                                                <div class="right-sidebar-modal">
-                                                    <h4 class="title-name">{{$product->title}}</h4>
-                                                    <h4 class="price">{{$product->price}}</h4>
-                                                    <div class="product-rating">
-                                                        {{-- <ul class="rating">
-                                                            <li>
-                                                                <i data-feather="star" class="fill"></i>
-                                                            </li>
-                                                            <li>
-                                                                <i data-feather="star" class="fill"></i>
-                                                            </li>
-                                                            <li>
-                                                                <i data-feather="star" class="fill"></i>
-                                                            </li>
-                                                            <li>
-                                                                <i data-feather="star" class="fill"></i>
-                                                            </li>
-                                                            <li>
-                                                                <i data-feather="star"></i>
-                                                            </li>
-                                                        </ul>
-                                                        <span class="ms-2">8 Reviews</span>
-                                                       --}}
-                                                    </div>
-                    
-                                                    <div class="product-detail">
-                                                        <h4>Product Details :</h4>
-                                                        <p>{!! $product->description !!}</p>
-                                                    </div>
-                    
-                                                 
+                        
+                                                <div class="col-lg-6">
+                                                    <div class="right-sidebar-modal">
+                                                        <h4 class="title-name">{{$product->title}}</h4>
+                                                        <h4 class="price">{{$product->price}}</h4>
+                                                        <div class="product-rating">
+                                                            {{-- <ul class="rating">
+                                                                <li>
+                                                                    <i data-feather="star" class="fill"></i>
+                                                                </li>
+                                                                <li>
+                                                                    <i data-feather="star" class="fill"></i>
+                                                                </li>
+                                                                <li>
+                                                                    <i data-feather="star" class="fill"></i>
+                                                                </li>
+                                                                <li>
+                                                                    <i data-feather="star" class="fill"></i>
+                                                                </li>
+                                                                <li>
+                                                                    <i data-feather="star"></i>
+                                                                </li>
+                                                            </ul>
+                                                            <span class="ms-2">8 Reviews</span>
+                                                        --}}
+                                                        </div>
+                        
+                                                        <div class="product-detail">
+                                                            <h4>Product Details :</h4>
+                                                            <p>{!! $product->description !!}</p>
+                                                        </div>
+                        
                                                     
-                                                 
-                    
-                                                    <div class="modal-button">
-                                                        <button 
-                                                            class="btn btn-md add-cart-button iconbtn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
-                                                            To Cart</button>
-                                                        <button onclick="location.href = '{{ url('/product/'.$product->short_url) }}'"
-                                                            class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
-                                                            View More Details</button>
+                                                        
+                                                    
+                        
+                                                        <div class="modal-button">
+                                                            <button 
+                                                                class="btn btn-md add-cart-button iconbtn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
+                                                                To Cart</button>
+                                                            <button onclick="location.href = '{{ url('/product/'.$product->short_url) }}'"
+                                                                class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
+                                                                View More Details</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div> 
+                            </div> 
                             @endforeach
                         @endisset
                     </div>

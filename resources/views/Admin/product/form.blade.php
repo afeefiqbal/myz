@@ -264,8 +264,10 @@
                             </div>
 
                         </div>
+                        
+                        
                         <div class="form-row">
-
+    
                             <div class="form-group col-md-12">
                                 <label> About this  product*</label>
                                 <textarea name="about_this_item" id="about_this_item"
@@ -276,42 +278,40 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
+    
                         </div>
-
-
-                        </div>
-                        <div class="form-row">
+                        
+                             <div class="form-row">
+                                 <div class="form-group col-md-6">
+                                     <label> Product Thumbnail Image*</label>
+                                     <div class="file-loading">
+                                         <input id="thumbnail_image" name="thumbnail_image" type="file" class="required"
+                                                accept="image/png, image/jpg, image/jpeg">
+                                     </div>
+                                     <span class="caption_note">Note: Image Size must be less than 512KB</span>
+                                     @error('thumbnail_image')
+                                     <div class="invalid-feedback">{{ $message }}</div>
+                                     @enderror
+                                 </div>
+                                 <div class="form-group col-md-6">
+                                     <label> Product Thumbnail Attribute*</label>
+                                     <input type="text" name="thumbnail_image_attribute"
+                                            id="thumbnail_image_attribute"
+                                            placeholder="Alt='Product Thumbnail Attribute'"
+                                            class="form-control placeholder-cls" autocomplete="off"
+                                            value="{{ isset($product)?$product->thumbnail_image_attribute:'' }}">
+                                     @error('thumbnail_image_attribute')
+                                     <div class="invalid-feedback">{{ $message }}</div>
+                                     @enderror
+                                 </div>
+                             </div>
+                    </div>
+                    <div class="form-row">
                        
                             <div class="form-row" id="quantity_div"
                             style="display: {{(@$product->quantity=='Out of Stock')?'none':''}};">
-                          
-                        
-                        </div>
-                   
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label> Product Thumbnail Image*</label>
-                                <div class="file-loading">
-                                    <input id="thumbnail_image" name="thumbnail_image" type="file" class="required"
-                                           accept="image/png, image/jpg, image/jpeg">
-                                </div>
-                                <span class="caption_note">Note: Image Size must be less than 512KB</span>
-                                @error('thumbnail_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Product Thumbnail Attribute*</label>
-                                <input type="text" name="thumbnail_image_attribute"
-                                       id="thumbnail_image_attribute"
-                                       placeholder="Alt='Product Thumbnail Attribute'"
-                                       class="form-control placeholder-cls" autocomplete="off"
-                                       value="{{ isset($product)?$product->thumbnail_image_attribute:'' }}">
-                                @error('thumbnail_image_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            
+                            
                         </div>
                        
                  

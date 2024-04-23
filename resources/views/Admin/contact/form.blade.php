@@ -244,7 +244,7 @@
                                 </div>
                             </div>
 
-                        <div class="form-row">
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Phone Image*</label>
                                 <div class="file-loading">
@@ -309,7 +309,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
@@ -324,78 +324,78 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#phone_image",).fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: true,
-                allowedFileTypes: ['image'],
-                minImageWidth: 100,
-                minImageHeight: 100,
-                maxImageWidth: 100,
-                maxImageHeight: 100,
-                showRemove: true,
-                @if(isset($contact) && $contact->phone_image!=NULL)
-                initialPreview: ["{{asset($contact->phone_image)}}",],
-                initialPreviewConfig: [{
-                    caption: "{{ ($contact->phone_image!=NULL)?last(explode('/',$contact->phone_image)):''}}",
-                    width: "120px"
-                }]
-                @endif
-            });
-            $("#address_image",).fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: true,
-                allowedFileTypes: ['image'],
-                minImageWidth: 100,
-                minImageHeight: 100,
-                maxImageWidth: 100,
-                maxImageHeight: 100,
-                showRemove: true,
-                @if(isset($contact) && $contact->address_image!=NULL)
-                initialPreview: ["{{asset($contact->address_image)}}",],
-                initialPreviewConfig: [{
-                    caption: "{{ ($contact->address_image!=NULL)?last(explode('/',$contact->address_image)):''}}",
-                    width: "120px"
-                }]
-                @endif
-            });
-            $("#email_image",).fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: true,
-                allowedFileTypes: ['image'],
-                minImageWidth: 100,
-                minImageHeight: 100,
-                maxImageWidth: 100,
-                maxImageHeight: 100,
-                showRemove: true,
-                @if(isset($contact) && $contact->email_image!=NULL)
-                initialPreview: ["{{asset($contact->email_image)}}",],
-                initialPreviewConfig: [{
-                    caption: "{{ ($contact->email_image!=NULL)?last(explode('/',$contact->email_image)):''}}",
-                    width: "120px"
-                }]
-                @endif
-            });
+            // $("#phone_image",).fileinput({
+            //     'theme': 'explorer-fas',
+            //     validateInitialCount: true,
+            //     overwriteInitial: false,
+            //     autoReplace: true,
+            //     layoutTemplates: {actionDelete: ''},
+            //     removeLabel: "Remove",
+            //     initialPreviewAsData: true,
+            //     dropZoneEnabled: false,
+            //     required: true,
+            //     allowedFileTypes: ['image'],
+            //     minImageWidth: 100,
+            //     minImageHeight: 100,
+            //     maxImageWidth: 100,
+            //     maxImageHeight: 100,
+            //     showRemove: true,
+            //     @if(isset($contact) && $contact->phone_image!=NULL)
+            //     initialPreview: ["{{asset($contact->phone_image)}}",],
+            //     initialPreviewConfig: [{
+            //         caption: "{{ ($contact->phone_image!=NULL)?last(explode('/',$contact->phone_image)):''}}",
+            //         width: "120px"
+            //     }]
+            //     @endif
+            // });
+            // $("#address_image",).fileinput({
+            //     'theme': 'explorer-fas',
+            //     validateInitialCount: true,
+            //     overwriteInitial: false,
+            //     autoReplace: true,
+            //     layoutTemplates: {actionDelete: ''},
+            //     removeLabel: "Remove",
+            //     initialPreviewAsData: true,
+            //     dropZoneEnabled: false,
+            //     required: true,
+            //     allowedFileTypes: ['image'],
+            //     minImageWidth: 100,
+            //     minImageHeight: 100,
+            //     maxImageWidth: 100,
+            //     maxImageHeight: 100,
+            //     showRemove: true,
+            //     @if(isset($contact) && $contact->address_image!=NULL)
+            //     initialPreview: ["{{asset($contact->address_image)}}",],
+            //     initialPreviewConfig: [{
+            //         caption: "{{ ($contact->address_image!=NULL)?last(explode('/',$contact->address_image)):''}}",
+            //         width: "120px"
+            //     }]
+            //     @endif
+            // });
+            // $("#email_image",).fileinput({
+            //     'theme': 'explorer-fas',
+            //     validateInitialCount: true,
+            //     overwriteInitial: false,
+            //     autoReplace: true,
+            //     layoutTemplates: {actionDelete: ''},
+            //     removeLabel: "Remove",
+            //     initialPreviewAsData: true,
+            //     dropZoneEnabled: false,
+            //     required: true,
+            //     allowedFileTypes: ['image'],
+            //     minImageWidth: 100,
+            //     minImageHeight: 100,
+            //     maxImageWidth: 100,
+            //     maxImageHeight: 100,
+            //     showRemove: true,
+            //     @if(isset($contact) && $contact->email_image!=NULL)
+            //     initialPreview: ["{{asset($contact->email_image)}}",],
+            //     initialPreviewConfig: [{
+            //         caption: "{{ ($contact->email_image!=NULL)?last(explode('/',$contact->email_image)):''}}",
+            //         width: "120px"
+            //     }]
+            //     @endif
+            // });
         });
     </script>
 @endsection
