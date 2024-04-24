@@ -53,16 +53,7 @@
                             <img src="{{asset('assets/images/logo/logo.jpeg')}}" class="img-fluid blur-up lazyload" alt="">
                         </a>
                         <div class="middle-box">
-                            <div class="location-box">
-                                <button class="btn location-button" data-bs-toggle="modal"
-                                    data-bs-target="#locationModal">
-                                    <span class="location-arrow">
-                                        <i data-feather="map-pin"></i>
-                                    </span>
-                                    <span class="locat-name">Your Location</span>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </button>
-                            </div>
+                            
 
                             <div class="search-box">
                                 <div class="input-group">
