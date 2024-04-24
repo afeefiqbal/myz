@@ -632,6 +632,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::prefix('sitemap_generator')->group(function () {
         Route::get('/', [SitemapController::class, 'index']);
     });
+    Route::prefix('home')->group(function () {
+        Route::get('/', [HomeController::class, 'index']);
+        Route::post('store', [HomeController::class, 'store'])->name('home.store');
+    });
     Route::prefix('product')->group(function () {
 
         Route::get('/', [ProductController::class, 'product']);

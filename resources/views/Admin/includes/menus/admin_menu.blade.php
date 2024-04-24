@@ -30,6 +30,14 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'home')}}"
+        class="nav-link {{ (Request::segment(2)=='home')?'active':'' }}">
+        <i class="nav-icon fas fa-th-list"></i>
+        <p>Home</p>
+    </a>
+</li>
+
+<li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'about')}}"
         class="nav-link {{ (Request::segment(2)=='about')?'active':'' }}">
         <i class="nav-icon fas fa-th-list"></i>

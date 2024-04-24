@@ -40,7 +40,7 @@ class AboutController extends Controller
             'description' => 'required',
         ]);
         if ($request->id == 0) {
-            $about = new About;
+            $about = new About; 
         } else {
             $about = About::find($request->id);
             $about->updated_at = now();

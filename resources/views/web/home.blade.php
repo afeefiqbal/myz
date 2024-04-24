@@ -1,13 +1,15 @@
 @extends('web.layouts.main')
 @section('content')
  <!-- Home Section Start -->
+ @isset($banners)
  <section class="home-section pt-2">
     <div class="container-fluid-lg">
-        <div class="row g-4">
+        <div class="row g-4" >
             <div class="col-xl-8 ratio_65">
+              
                 <div class="home-contain h-100 ">
                     <div class="h-100">
-                        <img src="{{asset('frontend/main-banner.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                        <img src="{{$banners->main_banner}}" class="bg-img blur-up lazyload" alt="">
                     </div>
                     <div class="home-detail p-center-left w-75">
                         <div>
@@ -26,7 +28,7 @@
                 <div class="row g-4">
                     <div class="col-xl-12 col-md-6">
                         <div class="home-contain">
-                            <img src="{{asset('frontend/banner1.jpg')}}" class="bg-img blur-up lazyload"
+                            <img src="{{$banners->left_side_banner}}" class="bg-img blur-up lazyload"
                                 alt="">
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
@@ -43,7 +45,7 @@
 
                     <div class="col-xl-12 col-md-6">
                         <div class="home-contain">
-                            <img src="{{asset('frontend/banner3.jpg')}}" class="bg-img blur-up lazyload"
+                            <img src="{{$banners->left_second_banner}}" class="bg-img blur-up lazyload"
                                 alt="">
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
@@ -59,17 +61,15 @@
                 </div>
             </div>
         </div>
+            
     </div>
 </section>
-<!-- Home Section End -->
-
-<!-- Banner Section Start -->
 <section class="banner-section ratio_60 wow fadeInUp">
     <div class="container-fluid-lg">
         <div class="row g-sm-4 g-3">
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{$banners->bottom_first_image}}" class="bg-img blur-up lazyload" alt="">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -84,7 +84,7 @@
 
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{$banners->bottom_second_image}}" class="bg-img blur-up lazyload" alt="">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -99,7 +99,7 @@
 
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{$banners->bottom_third_image}}" class="bg-img blur-up lazyload" alt="">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -114,7 +114,7 @@
 
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{asset('frontend/card1.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{$banners->bottom_fourth_image}}" class="bg-img blur-up lazyload" alt="">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -129,6 +129,10 @@
         </div>
     </div>
 </section>
+@endisset
+<!-- Home Section End -->
+
+<!-- Banner Section Start -->
 <!-- Banner Section End -->
 
 <!-- Home Section End -->
@@ -302,17 +306,7 @@
                     </div>
                 </div>
 
-                    <div class="section-t-space">
-                        <div class="banner-contain">
-                            <img src="../assets/images/vegetable/banner/15.jpg" class="bg-img blur-up lazyload" alt="">
-                            <div class="banner-details p-center p-4 text-white text-center">
-                                <div>
-                                    <h3 class="lh-base fw-bold offer-text">Get $3 Cashback! Min Order of $30</h3>
-                                    <h6 class="coupon-code">Use Code : GROCERY1920</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
             
                 </div>

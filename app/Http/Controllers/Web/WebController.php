@@ -15,6 +15,7 @@ use App\Models\Color;
 use App\Models\Latest;
 use App\Models\ContactAddress;
 use App\Models\Deal;
+use App\Models\IndexBanner;
 use App\Models\Enquiry;
 use App\Models\Frame;
 use App\Models\CurrencyRate;
@@ -80,9 +81,9 @@ class WebController extends Controller
         $ourSelectionProducts = DB::table('our_selection')->orderBy('sort_order')->pluck('product_id')->toArray();
 
         $ourSelectionProducts = [];
-
-
-    return view('web.home', compact('categories','recentlyViewedProducts','products'));
+        $banners = IndexBanner::first();
+    
+    return view('web.home', compact('categories','recentlyViewedProducts','products', 'banners' ));
     }
 
 

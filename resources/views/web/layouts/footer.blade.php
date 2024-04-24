@@ -78,34 +78,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                        <div class="footer-title">
-                            <h4>Categories</h4>
-                        </div>
-
-                        <div class="footer-contain">
-                            <ul>
-                                {{-- <li>
-                                    <a href="shop.php" class="text-content">Vegetables & Fruit</a>
-                                </li>
-                                <li>
-                                    <a href="shop.php" class="text-content">Beverages</a>
-                                </li>
-                                <li>
-                                    <a href="shop.php" class="text-content">Meats & Seafood</a>
-                                </li>
-                                <li>
-                                    <a href="shop.php" class="text-content">Frozen Foods</a>
-                                </li>
-                                <li>
-                                    <a href="shop.php" class="text-content">Biscuits & Snacks</a>
-                                </li>
-                                <li>
-                                    <a href="shop.php" class="text-content">Grocery & Staples</a>
-                                </li> --}}
-                            </ul>
-                        </div>
-                    </div>
+                   
 
                     <div class="col-xl col-lg-2 col-sm-3">
                         <div class="footer-title">
@@ -133,34 +106,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-2 col-sm-3">
-                        <div class="footer-title">
-                            <h4>Help Center</h4>
-                        </div>
-
-                        <div class="footer-contain">
-                            <ul>
-                                {{-- <li>
-                                    <a href="order-success.php" class="text-content">Your Order</a>
-                                </li>
-                                <li>
-                                    <a href="user-dashboard.php" class="text-content">Your Account</a>
-                                </li>
-                                <li>
-                                    <a href="order-tracking.php" class="text-content">Track Order</a>
-                                </li>
-                                <li>
-                                    <a href="wishlist.php" class="text-content">Your Wishlist</a>
-                                </li>
-                                <li>
-                                    <a href="search.php" class="text-content">Search</a>
-                                </li>
-                                <li>
-                                    <a href="faq.php" class="text-content">FAQ</a>
-                                </li> --}}
-                            </ul>
-                        </div>
-                    </div>
+                
 
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="footer-title">
@@ -198,7 +144,7 @@
 
             <div class="sub-footer section-small-space">
                 <div class="reserve">
-                    <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
+                    <h6 class="text-content">©2024 All rights reserved</h6>
                 </div>
 
                 <div class="payment">
