@@ -41,6 +41,51 @@ class HomeController extends Controller
         return View::share(compact('siteInformation'));
     }
 
+    public function admin_dashboard()
+    {
+        $title = "Dashboard";
+        $processingOrders = Order::OrderCountByStatus('Processing');
+        $ohHoldOrders = Order::OrderCountByStatus('On Hold');
+        $outOfStock = Product::active()->where('quantity', 'Out of stock')->count();
+        $today_start = date('Y-m-d') . ' 00:00:00';
+        $today_end = date('Y-m-d') . ' 23:59:59';
+        $todaySales = Order::SalesByDate($today_start, $today_end, 1);
+        $month_start = date('Y-m-01') . ' 00:00:00';
+        $month_end = date('Y-m-d') . ' 23:59:59';
+        $monthSales = Order::SalesByDate($month_start, $month_end, 1);
+        $year_start = date('Y-01-01') . ' 00:00:00';
+        $year_end = date('Y-m-d') . ' 23:59:59';
+        $yearSales = Order::SalesByDate($year_start, $year_end, 1);
+        $latestProducts = Product::active()->latest()->take(6)->get();
+        $currentMonthOnProcessing = Order::OrderCountByStatus('Processing', $month_start, $month_end);
+        $totalOrders = Order::boxValues();
+        $currentMonthOnHold = Order::OrderCountByStatus('On Hold', $month_start, $month_end);
+        $currentMonthCompleted = Order::OrderCountByStatus('Completed', $month_start, $month_end);
+        $currentMonthCancelled = Order::OrderCountByStatus('Cancelled', $month_start, $month_end);
+        $currentMonthRefunded = Order::OrderCountByStatus('Refunded', $month_start, $month_end);
+        $currentMonthFailed = Order::OrderCountByStatus('Failed', $month_start, $month_end);
+        $monthNetSales = Order::SalesByDate($month_start, $month_end, 0);
+        $monthProducts = Order::ProductOrderCustomerCount($month_start, $month_end);
+        $monthOrders = Order::ProductOrderCustomerCount($month_start, $month_end);
+        $monthNewCustomers = Order::ProductOrderCustomerCount($month_start, $month_end);
+        $latestMembers = Customer::with('user')->whereHas('user', function ($query) {
+            return $query->active();
+        })->latest()->take(8)->get();
+        $totalProducts = Order::ProductOrderCustomerCount();
+        $totalCustomers = Order::ProductOrderCustomerCount();
+        $totalActiveCoupons = Coupon::where('status', 'Active')->count();
+        $totalActiveOrders = Order::OrderCountByStatus('Processing');
+        $latestOrders = Order::latest()->take(10)->get();
+        $chartInfo = Order::ChartInfo($month_start, $month_end);
+
+        return view('Admin.dashboard.admin_dashboard', compact('processingOrders', 'currentMonthOnHold',
+            'latestProducts', 'latestOrders', 'chartInfo', 'totalOrders', 'totalActiveCoupons', 'totalActiveOrders',
+            'latestMembers', 'totalProducts', 'totalCustomers', 'monthNetSales', 'monthProducts', 'monthOrders',
+            'monthNewCustomers', 'currentMonthCompleted', 'currentMonthCancelled', 'currentMonthRefunded',
+            'currentMonthFailed', 'currentMonthOnProcessing', 'ohHoldOrders', 'outOfStock', 'todaySales', 'monthSales',
+            'yearSales'));
+
+    }
     public function index()
     {
         $key = "Update";
