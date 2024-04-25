@@ -322,10 +322,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
                     <div class="col-xl-8 ratio_65">
                         <div class="home-contain h-100 ">
                             <div class="h-100">
-                                <img src="{{asset('frontend/main-banner.jpg')}}" class="bg-img blur-up lazyload" alt="">
+                                <img src="{{@$banners->deal_image}}" class="bg-img blur-up lazyload" alt="">
                             </div>
                             <div class="home-detail p-center-left w-75">
                                 <div>

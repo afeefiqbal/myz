@@ -105,6 +105,7 @@ class HomeController extends Controller
                 'bottom_second_image' =>  'required|image',
                 'bottom_third_image' =>  'required|image',
                 'bottom_third_image' =>  'required|image',
+                'deal_image' => 'required|image'
             ]);
             $index = new   IndexBanner ;
         } else {
@@ -139,14 +140,18 @@ class HomeController extends Controller
             Helper::deleteFile($index, 'bottom_third_image');
             $index->bottom_fourth_image = Helper::uploadFile($request->bottom_third_image, 'uploads/image/', 'home');
         }
-
+        if ($request->hasFile('deal_image')) {
+            Helper::deleteFile($index, 'deal_image');
+            $index->deal_image = Helper::uploadFile($request->deal_image, 'uploads/image/', 'home');
+        }
         $index->main_banner_attribute = $request->main_banner_attribute ?? '';
         $index->left_banner_attribute = $request->left_banner_attribute ?? '';
         $index->left_second_banner_attribute = $request->left_second_banner_attribute ?? '';
         $index->bottom_first_image_attribute = $request->bottom_first_image_attribute ?? '';
         $index->bottom_second_image_attribute = $request->bottom_second_image_attribute ?? '';
         $index->bottom_third_image_attribute = $request->bottom_third_image_attribute ?? '';
-        $index->bottom_fourth_image_attribute = $request->bottom_fourth_image_attribute ?? '';
+        $index->bottom_third_image_attribute = $request->bottom_third_image_attribute ?? '';
+        $index->deal_image_attribute = $request->deal_image_attribute ?? '';
         if ($index->save()) {
             session()->flash('success', 'Home Page has been updated successfully');
             return redirect(Helper::sitePrefix() . 'home');
@@ -154,6 +159,22 @@ class HomeController extends Controller
             return back()->with('error', 'Error while updating the About details');
         }
 
+
+    }
+
+    public function imageProcess(Request $request){
+        if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
+            $image = $request->file('upload');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = 'public/uploads/' . $imageName;
+            $storedImagePath = $image->storeAs('public/uploads', $imageName);
+         
+            $imageUrl = asset(str_replace('public', 'storage', $storedImagePath));
+            return response()->json(['location' => $imageUrl]);
+        }
+
+        // If something goes wrong, return an error response
+        return response()->json(['error' => 'Invalid image'], 400);
 
     }
 }

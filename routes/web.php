@@ -262,7 +262,9 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [AboutController::class, 'delete_feature']);
         });
     });
-
+    Route::prefix('home')->group(function(){
+        Route::post('image_process', [HomeController::class, 'imageProcess']);
+    });
     Route::prefix('vendor')->group(function () {
         Route::get('/', [VendorController::class, 'admin']);
         Route::get('create', [VendorController::class, 'create']);

@@ -160,6 +160,21 @@
                                 </div>
                             </div>
                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Deal Banner*</label>
+                                    <div class="file-loading">
+                                         <input id="deal_image" name="deal_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 500 X 300</span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Image Attribute *</label>
+                                    <input type="text" class="form-control placeholder-cls" id="deal_image"
+                                           name="deal_image" placeholder="Alt='Image  Attribute'"
+                                           value="{{ isset($index)?$index->deal_image:'' }}" maxlength="230">
+                                </div>
+                            </div>
                            
                         </div>
                         <div class="card-footer">
@@ -249,7 +264,7 @@
                     "{{asset($index->left_second_banner)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->left_second_banner!=NULL)?$index->title:'';!!}", width: "120px"}
+                    {caption: "{!! ($index->left_second_banner!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -275,7 +290,7 @@
                     "{{asset($index->bottom_first_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->bottom_first_image!=NULL)?$index->title:'';!!}", width: "120px"}
+                    {caption: "{!! ($index->bottom_first_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -301,7 +316,7 @@
                     "{{asset($index->bottom_second_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->bottom_second_image!=NULL)?$index->title:'';!!}", width: "120px"}
+                    {caption: "{!! ($index->bottom_second_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -327,7 +342,7 @@
                     "{{asset($index->bottom_third_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->bottom_third_image!=NULL)?$index->title:'';!!}", width: "120px"}
+                    {caption: "{!! ($index->bottom_third_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -353,7 +368,33 @@
                     "{{asset($index->bottom_fourth_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->bottom_fourth_image!=NULL)?$index->title:'';!!}", width: "120px"}
+                    {caption: "{!! ($index->bottom_fourth_image!=NULL)?:'';!!}", width: "120px"}
+                ]
+                @endif
+            });
+            $("#deal_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                minImageWidth: 500,
+                minImageHeight: 300,
+                maxImageWidth: 500,
+                maxImageHeight: 300,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($index) && $index->deal_image!=NULL)
+                initialPreview: [
+                    "{{asset($index->deal_image)}}",
+                ],
+                initialPreviewConfig: [
+                    {caption: "{!! ($index->deal_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
