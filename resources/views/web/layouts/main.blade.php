@@ -9,7 +9,7 @@
     <meta name="keywords" content="MYZ">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="author" content="MYZ">
-    <link rel="icon" href="assets/images/favicon/3.png" type="image/x-icon">
+    {{-- <link rel="icon" href="assets/images/favicon/3.png" type="image/x-icon"> --}}
     <title>The best electronic shop near you</title>
 
     <!-- Google font -->

@@ -21,13 +21,13 @@
         <p>Customer</p>
     </a>
 </li>
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
         class="nav-link {{ (Request::segment(2)=='testimonial')?'active':'' }}">
         <i class="nav-icon fas fa-th-list"></i>
         <p>Testimonial</p>
     </a>
-</li>
+</li> --}}
 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'home')}}"
