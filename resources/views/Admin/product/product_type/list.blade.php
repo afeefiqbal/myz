@@ -35,9 +35,9 @@
                         @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">
-                                {{-- <a href="{{url(Helper::sitePrefix().'product/product-type/create')}}"
+                                <a href="{{url(Helper::sitePrefix().'product/product-type/create')}}"
                                    class="btn btn-success pull-right">Add Product Type <i
-                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a> --}}
+                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
