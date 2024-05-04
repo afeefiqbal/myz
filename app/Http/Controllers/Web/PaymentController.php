@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
@@ -13,56 +15,40 @@ class PaymentController extends Controller
     {
         // Fetch order details
         $order = Order::findOrFail($order_id);
-
-        // Remove slashes from phone number and + sign
-        $phone_number = str_replace('/', '', $billingParams['phone_number']);
-        $phone_number = str_replace('+', '', $phone_number);
-        $billingParams['phone'] = $phone_number;
-        $billingParams['currency'] = $order->currency;
-
-        // Determine description
-        $description = 'Order of: ' . $billingParams['first_name'] . ' with order id ' . $order_id;
-
-        // Determine country code
-        if ($billingParams['country'] != null) {
-            $country = \App\Models\Country::where('title', $billingParams['country'])->first();
-            $billingParams['country'] = $country->country_code;
-        } else {
-            $state = \App\Models\State::where('title', $billingParams['city'])->first();
-            if ($state) {
-                $country = \App\Models\Country::where('id', $state->country_id)->first();
-                $billingParams['country'] = $country->country_code;
-            } else {
-                $billingParams['country'] = '';
-            }
-        }
-
-        // Make a request to create payment intent
-        $client = new Client();
-        $response = $client->request('POST', 'https://api-v2.ziina.com/api/payment_intent', [
-            'json' => [
-                'amount' => max(200, $amount), // Adjust amount as needed
-                'currency_code' => 'AED',
-                'message' => $description,
-                'success_url' => url('/payment/success'),
-                'cancel_url' => url('/payment/cancel'),
-                'test' => true, 
-            ],
-            'headers' => [
-                'accept' => 'application/json',
-                'authorization' => 'Bearer 1jnTSlh0smrSSavQGccEbHWrdXwh9fi3/lJsu+haXH74e7jw6LjhpUEuZ4JVP4EW', 
-                'content-type' => 'application/json',
-            ],
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $paymentIntent = PaymentIntent::create([
+            'amount' => max(200,  intval($amount * 100)), // Adjust amount as needed
+            'currency' => 'AED', // Adjust currency as needed
+            'description' => 'Order of: ' . $billingParams['first_name'] . ' with order id ' . $order_id,
         ]);
 
         // Extract payment intent ID
-        $paymentIntent = json_decode($response->getBody(), true);
-        $paymentIntentId = $paymentIntent['id'];
-  
-        $redirectUrl = "https://pay.ziina.com/payment_intent/{$paymentIntentId}";
-        return ($redirectUrl);
+        $paymentIntentId = $paymentIntent->id;
+
+        $redirectUrl = route('processPayment', ['paymentIntentId' => $paymentIntentId]);
+      
+        return redirect($redirectUrl);
     }
 
+    public function processPayment(Request $request)
+    {
+        // Retrieve payment intent ID from the request
+        $paymentIntentId = $request->input('paymentIntentId');
+
+        // Retrieve the PaymentIntent from Stripe
+        $paymentIntent = PaymentIntent::retrieve($paymentIntentId);
+
+        // Check if payment was successful
+        if ($paymentIntent->status === 'succeeded') {
+            // Payment successful, handle accordingly (e.g., mark order as paid)
+            // Implement your logic here
+            return redirect()->route('payment.success');
+        } else {
+            // Payment failed or requires additional action
+            // Implement your logic here (e.g., redirect to payment failure page)
+            return redirect()->route('payment.failure');
+        }
+    }
     public function charge(Request $request)
     {
         $response = app(CartController::class)->order_success(1);

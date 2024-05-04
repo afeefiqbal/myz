@@ -206,7 +206,10 @@ Route::group(['prefix' => 'customer'], function () {
 /******************************** Payment Routes ************************************/
 Route::group(['prefix' => 'payment'], function () {
     Route::get('/{order}', [PaymentController::class, 'charge'])->name('goToPayment');
-    Route::post('/process/{order}', [PaymentController::class, 'processPayment'])->name('processPayment');
+    Route::post('/process', [PaymentController::class, 'processPayment'])->name('processPayment');
+    // Route::get('/payment/process', 'Web\PaymentController@processPayment')->name('payment.process');
+    Route::get('/success', 'Web\PaymentController@paymentSuccess')->name('payment.success');
+    Route::get('/failure', 'Web\PaymentController@paymentFailure')->name('payment.failure');
 });
 
 /******************************** Admin Panel Routes ************************************/
