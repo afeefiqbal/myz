@@ -689,41 +689,12 @@
                                                                     </h3></td>
                                                             </tr>
                                                             @php
-                                                            $frame = App\Models\Frame::where('id',$product->frame)->first();
-                                                            $type = App\Models\ProductType::where('id',$product->type)->first();
-                                                               $size = App\Models\Size::where('id',$product->size)->first();
+                                                            // $frame = App\Models\Frame::where('id',$product->frame)->first();
+                                                            // $type = App\Models\ProductType::where('id',$product->type)->first();
+                                                            //    $size = App\Models\Size::where('id',$product->size)->first();
                                                         @endphp
-                                                          @if($type)
-                                                                <tr style="border-collapse:collapse">
-                                                                    <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:17px;font-style:normal;font-weight:normal;color:#494c45">
-                                                                            <strong><span
-                                                                                    style="color:#000000"> Type : </span>&nbsp; {{ $type->title }}
-                                                                            </strong></h3></td>
-                                                                </tr>
-                                                            @endif
-                                                            @if($frame)
-                                                                <tr style="border-collapse:collapse">
-                                                                    <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:17px;font-style:normal;font-weight:normal;color:#494c45">
-                                                                            <strong><span
-                                                                                    style="color:#000000"> Frame : </span>&nbsp; {{ $frame->title }}
-                                                                            </strong></h3></td>
-                                                                </tr>
-                                                                @endif
-                                                                @if($size)
-                                                                <tr style="border-collapse:collapse">
-                                                                    <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:17px;font-style:normal;font-weight:normal;color:#494c45">
-                                                                            <strong><span
-                                                                                    style="color:#000000"> Size : </span>&nbsp;{{ $size->title }}
-                                                                            </strong></h3></td>
-                                                                </tr>
-                                                                @endif
-                                                            
+                                                        
+                                                
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="left" class="es-m-txt-l"
                                                                     style="padding:0;Margin:0;padding-top:10px"><h3

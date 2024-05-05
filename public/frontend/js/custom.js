@@ -1208,7 +1208,7 @@ $(document).ready(function () {
                                 //     $('#submit-loader').hide();
                                 //     window.location.href = base_url + response.data;
                                 // }
-                           
+                                
                         } else {
                             if (response.status == 'online-payment') {
                                 window.location.href = response.url;
