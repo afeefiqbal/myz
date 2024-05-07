@@ -130,7 +130,7 @@
                                         <i data-feather="mail"></i>
                                         <div class="contact-number">
                                             <h6 class="text-content">Email Address :</h6>
-                                            <h5>fastkart@hotmail.com</h5>
+                                            <h5>info@myzcomputers.com</h5>
                                         </div>
                                     </div>
                                 </li>

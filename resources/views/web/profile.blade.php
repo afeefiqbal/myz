@@ -13,7 +13,7 @@
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html">
+                                    <a href="{{url('//')}}">
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
@@ -138,7 +138,7 @@
                                             <div class="product-box-3 theme-bg-white h-100">
                                                 <div class="product-header">
                                                     <div class="product-image">
-                                                        <a href="product-left.html">
+                                                        <a href="{{route('products')}}">
                                                         
                                                                 {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','img-fluid blur-up lazyload"') !!}
                                                                    
@@ -155,7 +155,7 @@
                                                 <div class="product-footer">
                                                     <div class="product-detail">
                                                         <span class="span-name">Vegetable</span>
-                                                        <a href="product-left.html">
+                                                        <a href="{{route('products')}}">
                                                             <h5 class="name">Fresh Bread and Pastry Flour 200 g</h5>
                                                         </a>
                                                         <p class="text-content mt-1 mb-2 product-content">Cheesy feet
