@@ -642,10 +642,10 @@ class ProductController extends Controller
             $validatedData = $request->validate([
                 'title' => 'required|min:2|max:255',
                 'short_url' => 'required|unique:products,short_url,' . $id . ',id,deleted_at,NULL|min:2|max:255',
-                'sku' => 'required',
+                // 'sku' => 'required',
 //                'brand' => 'required',
-                'category' => 'required',
-                'availability' => 'required',
+                // 'category' => 'required',
+                // 'availability' => 'required',
                 'description' => 'required',
 //                'measurement_unit' => 'required',
 //                'quantity' => 'required',
