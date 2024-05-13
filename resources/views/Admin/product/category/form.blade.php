@@ -85,25 +85,8 @@
                             </div>
                                 <div class="form-row">
 
-                                    <div class="form-group col-md-6">
-                                        <label>Icon</label>
-                                        <div class="file-loading">
-                                           <input id="icon" name="icon" class="required" type="file" accept="image/png, image/jpg">
-                                        </div>
-                                        <span class="caption_note">Note: Image size must be 43x43</span>
-                                        @error('icon')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label> Image Attribute</label>
-                                        <input type="text" class="form-control placeholder-cls required" id="image_attribute"
-                                               name="image_attribute" placeholder="Alt='Banner Attribute'"
-                                               value="{{ isset($category)?$category->image_attribute:'' }}">
-                                        @error('image_attribute')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                
+                                   
                                 </div>
                         
                         </div>
