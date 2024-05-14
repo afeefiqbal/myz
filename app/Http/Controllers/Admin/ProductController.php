@@ -695,14 +695,14 @@ class ProductController extends Controller
             $product->description = $validatedData['description'];
             $product->availability = $request->availability ?? '';
             $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
-            dd($request->all());
-            if ($product->availability == "In Stock") {
-                $product->stock = $request->stock;
-                $product->alert_quantity = $request->alert_quantity;
-            } else {
-                $product->stock = 0;
-                $product->alert_quantity = 0;
-            }
+    
+            $product->stock = $request->stock;
+            // if ($product->availability == "In Stock") {
+            //     $product->alert_quantity = $request->alert_quantity;
+            // } else {
+            //     $product->stock = 0;
+            //     $product->alert_quantity = 0;
+            // }
          
             // $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
             // $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
