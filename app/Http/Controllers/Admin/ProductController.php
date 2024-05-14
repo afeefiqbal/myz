@@ -781,68 +781,9 @@ class ProductController extends Controller
                  
                 }
             }
-            $priceWithSize = $request->price;
-            
-            if(isset($priceWithSize) && !empty($priceWithSize)){
-                DB::table('products_size_price')->where('product_id', $product->id)->whereIn('size_id',$request->size)->delete();
-                foreach($priceWithSize as $key => $value){
-                   
-                    $price['product_id'] = $product->id;
-                    $price[$key] = $value;
-               
-                    if(isset($price[$key]) && !empty($price[$key])){
-    
-                        $procutPrice = DB::table('products_size_price')->insert([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'price' => $value,
-                        ]);
-                      
-                    }
-                }
-            }
-            $stockWithSize = $request->stock;
-            if(isset($stockWithSize) && !empty($stockWithSize)){
-                foreach($stockWithSize as $key => $value){
-                    $stock['product_id'] =  $product->id;
-                    $stock[$key] = $value;
-                    if(isset($stock[$key]) && !empty($stock[$key])){
-                        $procutPrice = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'stock' => $value,
-                        ]);
-                    }
-                }
-            }
-            $availabilityWithSize = $request->availability;
-            if(isset($availabilityWithSize) && !empty($availabilityWithSize)){
-                foreach($availabilityWithSize as $key => $value){
-                    $stock['product_id'] =  $product->id;
-                    $stock[$key] = $value;
-                    if(isset($stock[$key]) && !empty($stock[$key])){
-                        $availabilityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'availability' => $value,
-                        ]);
-                    }
-                }
-            }
-            $alert_quantityWithSize = $request->alert_quantity;
-            if(isset($alert_quantityWithSize) && !empty($alert_quantityWithSize)){
-                foreach($alert_quantityWithSize as $key => $value){
-                    $stock['product_id'] =  $product->id;
-                    $stock[$key] = $value;
-                    if(isset($stock[$key]) && !empty($stock[$key])){
-                        $alert_quantityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'alert_quantity' => $value,
-                        ]);
-                    }
-                }
-            }
+           
+        
+  
                 $similarProducts = [];
                 $errorArray = $successArray = [];
                 // if ($product->similar_product_id != NULL) {
