@@ -531,20 +531,20 @@ class ProductController extends Controller
         
             $similarProducts = [];
             $errorArray = $successArray = [];
-            if ($product->similar_product_id != NULL) {
-                $similarProducts = explode(',', $product->similar_product_id);
-                $similarProducts[] = $product->id;
-                $combinedResult = $this->combinationArrays($similarProducts, 2);
-                foreach ($combinedResult as $combine => $value) {
-                    $productData = Product::find($combine);
-                    $productData->similar_product_id = implode(',', $value);
-                    if ($productData->save()) {
-                        $successArray[] = 1;
-                    } else {
-                        $errorArray[] = 1;
-                    }
-                }
-            }
+            // if ($product->similar_product_id != NULL) {
+            //     $similarProducts = explode(',', $product->similar_product_id);
+            //     $similarProducts[] = $product->id;
+            //     $combinedResult = $this->combinationArrays($similarProducts, 2);
+            //     foreach ($combinedResult as $combine => $value) {
+            //         $productData = Product::find($combine);
+            //         $productData->similar_product_id = implode(',', $value);
+            //         if ($productData->save()) {
+            //             $successArray[] = 1;
+            //         } else {
+            //             $errorArray[] = 1;
+            //         }
+            //     }
+            // }
             if (empty($errorArray)) {
                 session()->flash('success', "Product '" . $product->title . "' has been added successfully");
                 DB::commit();
@@ -703,8 +703,8 @@ class ProductController extends Controller
                 $product->alert_quantity = 0;
             }
          
-            $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
-            $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
+            // $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
+            // $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
             $product->thumbnail_image_attribute = $request->thumbnail_image_attribute ?? '';
             $product->banner_attribute = $request->banner_attribute ?? '';
             $product->featured_image_attribute = $request->featured_image_attribute ?? '';
@@ -845,21 +845,21 @@ class ProductController extends Controller
             }
                 $similarProducts = [];
                 $errorArray = $successArray = [];
-                if ($product->similar_product_id != NULL) {
+                // if ($product->similar_product_id != NULL) {
                
-                    $similarProducts = explode(',', $product->similar_product_id);
-                    $similarProducts[] = $product->id;
-                    $combinedResult = $this->combinationArrays($similarProducts, 2);
-                    foreach ($combinedResult as $combine => $value) {
-                        $productData = Product::find($combine);
-                        $productData->similar_product_id = implode(',', $value);
-                        if ($productData->save()) {
-                            $successArray[] = 1;
-                        } else {
-                            $errorArray[] = 1;
-                        }
-                    }
-                }
+                //     $similarProducts = explode(',', $product->similar_product_id);
+                //     $similarProducts[] = $product->id;
+                //     $combinedResult = $this->combinationArrays($similarProducts, 2);
+                //     foreach ($combinedResult as $combine => $value) {
+                //         $productData = Product::find($combine);
+                //         $productData->similar_product_id = implode(',', $value);
+                //         if ($productData->save()) {
+                //             $successArray[] = 1;
+                //         } else {
+                //             $errorArray[] = 1;
+                //         }
+                //     }
+                // }
                 if (empty($errorArray)) {
                     session()->flash('success', "Product '" . $product->title . "' has been updated successfully");
                     DB::commit();

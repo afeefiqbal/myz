@@ -304,7 +304,233 @@ class HomeController extends Controller
             $testimonialList = Testimonial::where('user_type','Customer')->latest()->get();
             return view('Admin.home.user_testimonial.list', compact('testimonialList', 'title'));
         }
+        public function status_change(Request $request)
+    {
+
+         $table = $request->table;
+         if($table == 'Category'){
+           $category = Category::find($request->primary_key);
+        $category_products = Product::whereRaw("FIND_IN_SET('" . $request->primary_key . "',category_id)")->orWhereRaw("FIND_IN_SET('" . $request->primary_key . "',sub_category_id)")->count();
+        
+              if($category_products > 0 && $request->state == 'false'){
+                 return response()->json(['status' => false, 'message' => 'This category has products. So you can not change the status.']);
+              }
+              else{
+               
+             $state = $request->state;
     
+             $primary_key = $request->primary_key;
+             $field = $request->field ?? 'status';
+             $limit = $request->limit;
+             $limit_field = $request->limit_field;
+             $limit_field_value = $request->limit_field_value;
+             if ($state == 'true') {
+                 $status = "Active";
+             } else {
+                 $status = "Inactive";
+             }
+             $model = 'App\\Models\\' . $table;
+             $data = $model::find($primary_key);
+     
+             if ($limit && $status == "Active") {
+                 if ($limit_field && $limit_field_value) {
+                     $active_data = $model::where($limit_field, $limit_field_value)->Where($field, 'Active');
+                 } else {
+                     $active_data = $model::Where($field, 'Active');
+                 }
+                 if ($active_data->count() >= $limit) {
+                     return response()->json([
+                         'status' => false,
+                         'message' => 'Only ' . $limit . ' active items is possible.'
+                     ]);
+                 }
+             }
+             $data->$field = $status;
+             if ($data->save()) {
+     
+                 if($table=="Category"){
+                     if($state !=="true")
+                         {
+                             $products = Product::whereIn('category_id', explode(',', $primary_key))->get();
+                             $productIds = $products->pluck('id')->toArray();
+                             $updateProduct = Product::whereIn('id',$productIds)
+                             ->update(['status' => 'Inactive'
+                         ]);
+                         }
+                 }
+                 return response()->json([
+                     'status' => true,
+                     'message' => 'Status has been changed successfully.'
+                 ]);
+     
+     
+     
+     
+             } else {
+                 return response()->json([
+                     'status' => false,
+                     'message' => 'Error while changing the status.'
+                 ]);
+             }
+              }
+         }
+         else{
+
+             $state = $request->state;
+    
+            $primary_key = $request->primary_key;
+            $field = $request->field ?? 'status';
+            $limit = $request->limit;
+            $limit_field = $request->limit_field;
+            $limit_field_value = $request->limit_field_value;
+            if ($state == 'true') {
+                $status = "Active";
+            } else {
+                $status = "Inactive";
+            }
+            $model = 'App\\Models\\' . $table;
+            $data = $model::find($primary_key);
+    
+            if ($limit && $status == "Active") {
+                if ($limit_field && $limit_field_value) {
+                    $active_data = $model::where($limit_field, $limit_field_value)->Where($field, 'Active');
+                } else {
+                    $active_data = $model::Where($field, 'Active');
+                }
+                if ($active_data->count() >= $limit) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Only ' . $limit . ' active items is possible.'
+                    ]);
+                }
+            }
+            $data->$field = $status;
+            if ($data->save()) {
+    
+                if($table=="Category"){
+                    if($state !=="true")
+                        {
+                            $products = Product::whereIn('category_id', explode(',', $primary_key))->get();
+                            $productIds = $products->pluck('id')->toArray();
+                            $updateProduct = Product::whereIn('id',$productIds)
+                            ->update(['status' => 'Inactive'
+                        ]);
+                        }
+                }
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Status has been changed successfully.'
+                ]);
+    
+    
+    
+    
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Error while changing the status.'
+                ]);
+            }
+         }
+
+    }
+
+    public function change_bool_status(Request $request)
+    {
+        $table = $request->table;
+        $state = $request->state;
+        $primary_key = $request->id;
+        $field = $request->field;
+        if ($state == 'true') {
+            $status = "Yes";
+        } else {
+            $status = "No";
+        }
+        $model = 'App\\Models\\' . $table;
+        $data = $model::find($primary_key);
+        if ($data != NULL) {
+            $data->$field = $status;
+            if ($data->save()) {
+                return response()->json(['status' => true, 'message' => Str::title(Str::replace('_', ' ', $field)) . ' status has been changed']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Error while changing the display to home option']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Error! Data not found']);
+        }
+    }
+    public function change_order_status(Request $request)
+    {
+        if($request->order_id){
+            $order = Order::find($request->order_id);
+           
+            if($order){
+                $order->status = $request->order_status;
+                if ($order->save()) {
+                    return response()->json([
+                       'status' => true,
+                        'message' => 'Order has has been changed successfully'
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Error while changing the status'
+                    ]);
+                }
+            }
+            else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Couldn\'t find the order'
+                ]);
+            }
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Couldn\'t find the order'
+            ]);
+        }
+    
+    }
+    public function sort_order(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $table = $request->table;
+            $field = $request->field;
+            $field_value = $request->field_value;
+            $model = 'App\\Models\\' . $table;
+            if ($field && $field_value) {
+                $sortOrder = $model::where([['sort_order', '=', $request->sort_order], [$field, '=', $field_value], ['id', '!=', $request->id]])->count();
+            } else {
+                $sortOrder = $model::where([['sort_order', '=', $request->sort_order], ['id', '!=', $request->id]])->count();
+            }
+            // if ($sortOrder) {
+            //     return response()->json(['status' => false, 'message' => 'Sort order "' . $request->sort_order . '" has been already taken']);
+            // } else {
+            // }
+            $data = $model::find($request->id);
+            $data->sort_order = $request->sort_order;
+            if ($data->save()) {
+                return response()->json(['status' => true, 'message' => 'Sort order updated successfully']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Error while updating the sort order']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
+
+    public function sub_categories(Request $request)
+    {
+        $subCategories = Category::whereIn('parent_id', $request->parentId)->orderBy('sort_order')->get();
+        $subData = array();
+        foreach ($subCategories as $sub) {
+            $subData[] = array("id" => $sub->id, "title" => $sub->title);
+        }
+        return response()->json(['status' => true, 'message' => $subData]);
+    }
+
         public function delete_usertestimonial(Request $request)
         {
             if (isset($request->id) && $request->id != NULL) {
