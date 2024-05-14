@@ -718,7 +718,7 @@ class ProductController extends Controller
             $product->quantity = $request->quantity ?? '';
         
             $product->product_type_id = $request->product_type_id;
-            $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
+            // $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
             $meta_title= $product->meta_title = $request->meta_title ?? '';
             $meta_description= $product->meta_description = $request->meta_description ?? '';
             $meta_keyword= $product->meta_keyword = $request->meta_keyword ?? '';
