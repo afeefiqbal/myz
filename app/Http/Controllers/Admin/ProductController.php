@@ -695,6 +695,7 @@ class ProductController extends Controller
             $product->description = $validatedData['description'];
             $product->availability = $request->availability ?? '';
             $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
+            dd($request->all());
             if ($product->availability == "In Stock") {
                 $product->stock = $request->stock;
                 $product->alert_quantity = $request->alert_quantity;
