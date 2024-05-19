@@ -55,7 +55,7 @@
                                                         <a href="{{ url('/product/'.$product->short_url) }}">
                                                             <p class="product-name">
                                                                 @php
-                                                                $productName = 'sldfjls;djf posdfpsdfjsdpofjsdpfjspdofjpsoodpfjspodfjpsdfposjfpofsdpofpojfpsojfposjpfpopsojpsjpsdpjsdpjfpsjdfpojfpsfpojfspoj';
+                                                                $productName = $product->title;
                                                                 $length = 50;
                                                                 $truncatedString = '';
                                                                 $currentLength = 0;
