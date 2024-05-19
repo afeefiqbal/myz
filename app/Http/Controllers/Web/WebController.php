@@ -578,7 +578,7 @@ class WebController extends Controller
 
     public function product_detail($short_url)
     {
-        $product = Product::active()->shortUrl($short_url)->with('activeGalleries')->first();
+        $product = Product::with('vendor')->active()->shortUrl($short_url)->with('activeGalleries')->first();
         if ($product) {
             Helper::addRecentProduct($product);
             $products = Product::active()->where('title',$product->title)->with('activeGalleries')->get();
@@ -965,7 +965,7 @@ class WebController extends Controller
         if (Auth::guard('customer')->check()) {
             $request->validate([
                 
-                'rating' => 'required',
+                // 'rating' => 'required',
                 'message' => 'required',
             ]);
             $email = Auth::guard('customer')->user()->email;
@@ -974,7 +974,7 @@ class WebController extends Controller
 
             $request->validate([
                 'rating' => 'required',
-                'email' => 'required|email:rfc,dns',
+                'email' => 'required',
                 'name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'message' => 'required',
             ]);
@@ -984,7 +984,7 @@ class WebController extends Controller
         $review = new ProductReview();
         $review->email = $email;
         $review->name = $name;
-        $review->rating = round($request->rating);
+        // $review->rating = round($request->rating);
         $review->review = $request->message;
         $review->product_id = $request->product_id;
         if ($review->save()) {

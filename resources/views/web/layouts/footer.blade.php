@@ -392,7 +392,6 @@
 <script src="https://kit.fontawesome.com/99358fb784.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
-<script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
 <script  src="{{ asset('frontend/js/form-select2_new.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
@@ -433,7 +432,7 @@
 <script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
   <!-- latest jquery-->
   <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
-  
+  <script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script> 
   <!-- jquery ui-->
   <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
   <script src="{{asset('assets/js/wizard.js')}}"></script>
