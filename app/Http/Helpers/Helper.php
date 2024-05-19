@@ -578,9 +578,11 @@ class Helper
             $sessionKey = session('session_key');
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-               
+
                     $product = Product::find($row->attributes->product_id);
+             
                     $productOffer = Offer::where('product_id',$product->id)->where('status','Active')->first();
+                    
                     if($productOffer){
                         $productPrice = ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes->size)->first();
                       
