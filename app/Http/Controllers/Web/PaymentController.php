@@ -52,7 +52,7 @@ class PaymentController extends Controller
                 
             ]);
             $paymentIntent = PaymentIntent::retrieve($request->paymentIntentId);
-            dd($paymentIntent);
+  
             $paymentIntent->confirm();
             // Payment successful
             if ($request->has('stripeStatus') && $request->stripeStatus === 'succeeded') {
