@@ -204,7 +204,7 @@
                                     <div class="product-header">
                                         <div class="product-image">
                                             <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                                <img src="{{$product->thumbnail_image}}"
+                                                <img src="{{asset($product->thumbnail_image)}}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                             </a>
     
@@ -280,7 +280,7 @@
                                             <div class="row g-sm-4 g-2">
                                                 <div class="col-lg-6">
                                                     <div class="slider-image">
-                                                        <img src="{{$product->thumbnail_image}}" class="img-fluid blur-up lazyload"
+                                                        <img src="{{asset($product->thumbnail_image)}}" class="img-fluid blur-up lazyload"
                                                             alt="">
                                                     </div>
                                                 </div>

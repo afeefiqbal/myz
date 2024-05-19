@@ -234,7 +234,7 @@
                                         <div class="product-header">
                                             <div class="product-image">
                                                 <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                                    <img src="{{$product->thumbnail_image}}"
+                                                    <img src="{{asset($product->thumbnail_image)}}"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
         
