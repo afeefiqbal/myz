@@ -558,7 +558,7 @@ class Helper
                     $cart_request->setMethod('POST');
                   
                     $product_id = $item['attributes']['product_id'];
-                    $size = $item['attributes']['size'];
+                    $size = $item['attributes'];
                     $cart_request->request->add(['product_id' => $item['id']]);
                     $cart_request->request->add(['qty' => $item['quantity']]);
                     $cart_request->request->add(['countRelative' => 1]);
@@ -578,11 +578,9 @@ class Helper
             $sessionKey = session('session_key');
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-
+               
                     $product = Product::find($row->attributes->product_id);
-             
                     $productOffer = Offer::where('product_id',$product->id)->where('status','Active')->first();
-                    
                     if($productOffer){
                         $productPrice = ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes->size)->first();
                       
