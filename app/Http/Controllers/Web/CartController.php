@@ -579,46 +579,46 @@ class CartController extends Controller
             }
         }
     }
-    public function remove_cart_item(Request $request)
-    {
+    // public function remove_cart_item(Request $request)
+    // {
       
-        if ($request->cart_id) {
-            if (Session::has('session_key')) {
-                $sessionKey = session('session_key');
-                if (Cart::session($sessionKey)->get($request->cart_id)) {
-                    Cart::session($sessionKey)->remove($request->cart_id);
-                    $message = "Item removed from cart successfully";
-                    $icon = "fa-times";
-                    $type = "error";
-                } else {
-                    $message = "Item not found";
-                    $icon = "fa fa-check";
-                    $type = "error";
-                }
-                if (!Cart::session($sessionKey)->isEmpty()) {
-                    $cartItem = Cart::session($sessionKey)->getContent();
-                    $cartCount = $cartItem->count();
-                } else {
-                    session()->forget('session_key');
-                    session()->forget('selected_shipping_address');
-                    session()->forget('selected_customer_address');
-                    session()->forget('order_remarks');
-                    session()->forget('shipping_charge');
-                    session()->forget('coupons');
-                    session()->forget('coupon_value');
-                    $cartCount = '0';
-                }
-                return response(array(
-                    'status' => true,
-                    'data' => [],
-                    'message' => $message,
-                    'count' => $cartCount,
-                    'icon' => $icon,
-                    'type' => $type
-                ), 200, []);
-            }
-        }
-    }
+    //     if ($request->cart_id) {
+    //         if (Session::has('session_key')) {
+    //             $sessionKey = session('session_key');
+    //             if (Cart::session($sessionKey)->get($request->cart_id)) {
+    //                 Cart::session($sessionKey)->remove($request->cart_id);
+    //                 $message = "Item removed from cart successfully";
+    //                 $icon = "fa-times";
+    //                 $type = "error";
+    //             } else {
+    //                 $message = "Item not found";
+    //                 $icon = "fa fa-check";
+    //                 $type = "error";
+    //             }
+    //             if (!Cart::session($sessionKey)->isEmpty()) {
+    //                 $cartItem = Cart::session($sessionKey)->getContent();
+    //                 $cartCount = $cartItem->count();
+    //             } else {
+    //                 session()->forget('session_key');
+    //                 session()->forget('selected_shipping_address');
+    //                 session()->forget('selected_customer_address');
+    //                 session()->forget('order_remarks');
+    //                 session()->forget('shipping_charge');
+    //                 session()->forget('coupons');
+    //                 session()->forget('coupon_value');
+    //                 $cartCount = '0';
+    //             }
+    //             return response(array(
+    //                 'status' => true,
+    //                 'data' => [],
+    //                 'message' => $message,
+    //                 'count' => $cartCount,
+    //                 'icon' => $icon,
+    //                 'type' => $type
+    //             ), 200, []);
+    //         }
+    //     }
+    // }
 
     public function wishlist()
     {
