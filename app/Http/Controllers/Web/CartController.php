@@ -539,14 +539,14 @@ class CartController extends Controller
                     $default_currency = Helper::defaultCurrency();
                 }
                  else {
-                    // session()->forget('session_key');
-                    // session()->forget('selected_customer_address');
-                    // session()->forget('order_remarks');
-                    // session()->forget('shipping_charge');
-                    // session()->forget('coupon');
-                    // session()->forget('coupon_value');
-                    // session()->forget('power_type_brand');
-                    // session()->forget('power_type_lense');
+                    session()->forget('session_key');
+                    session()->forget('selected_customer_address');
+                    session()->forget('order_remarks');
+                    session()->forget('shipping_charge');
+                    session()->forget('coupon');
+                    session()->forget('coupon_value');
+                    session()->forget('power_type_brand');
+                    session()->forget('power_type_lense');
                     $cartItem = Cart::session($sessionKey)->getContent();
 
                     $cart_session =  Cart::session(session('session_key'));
@@ -579,46 +579,46 @@ class CartController extends Controller
             }
         }
     }
-    // public function remove_cart_item(Request $request)
-    // {
+    public function remove_cart_item(Request $request)
+    {
       
-    //     if ($request->cart_id) {
-    //         if (Session::has('session_key')) {
-    //             $sessionKey = session('session_key');
-    //             if (Cart::session($sessionKey)->get($request->cart_id)) {
-    //                 Cart::session($sessionKey)->remove($request->cart_id);
-    //                 $message = "Item removed from cart successfully";
-    //                 $icon = "fa-times";
-    //                 $type = "error";
-    //             } else {
-    //                 $message = "Item not found";
-    //                 $icon = "fa fa-check";
-    //                 $type = "error";
-    //             }
-    //             if (!Cart::session($sessionKey)->isEmpty()) {
-    //                 $cartItem = Cart::session($sessionKey)->getContent();
-    //                 $cartCount = $cartItem->count();
-    //             } else {
-    //                 session()->forget('session_key');
-    //                 session()->forget('selected_shipping_address');
-    //                 session()->forget('selected_customer_address');
-    //                 session()->forget('order_remarks');
-    //                 session()->forget('shipping_charge');
-    //                 session()->forget('coupons');
-    //                 session()->forget('coupon_value');
-    //                 $cartCount = '0';
-    //             }
-    //             return response(array(
-    //                 'status' => true,
-    //                 'data' => [],
-    //                 'message' => $message,
-    //                 'count' => $cartCount,
-    //                 'icon' => $icon,
-    //                 'type' => $type
-    //             ), 200, []);
-    //         }
-    //     }
-    // }
+        if ($request->cart_id) {
+            if (Session::has('session_key')) {
+                $sessionKey = session('session_key');
+                if (Cart::session($sessionKey)->get($request->cart_id)) {
+                    Cart::session($sessionKey)->remove($request->cart_id);
+                    $message = "Item removed from cart successfully";
+                    $icon = "fa-times";
+                    $type = "error";
+                } else {
+                    $message = "Item not found";
+                    $icon = "fa fa-check";
+                    $type = "error";
+                }
+                if (!Cart::session($sessionKey)->isEmpty()) {
+                    $cartItem = Cart::session($sessionKey)->getContent();
+                    $cartCount = $cartItem->count();
+                } else {
+                    session()->forget('session_key');
+                    session()->forget('selected_shipping_address');
+                    session()->forget('selected_customer_address');
+                    session()->forget('order_remarks');
+                    session()->forget('shipping_charge');
+                    session()->forget('coupons');
+                    session()->forget('coupon_value');
+                    $cartCount = '0';
+                }
+                return response(array(
+                    'status' => true,
+                    'data' => [],
+                    'message' => $message,
+                    'count' => $cartCount,
+                    'icon' => $icon,
+                    'type' => $type
+                ), 200, []);
+            }
+        }
+    }
 
     public function wishlist()
     {
@@ -748,17 +748,17 @@ class CartController extends Controller
                 
                 session(['different_shipping_address' => true]);
                 if (Session::has('billing_address')) {
-                    // session()->forget('billing_first_name');
-                    // session()->forget('billing_last_name');
-                    // session()->forget('billing_phone');
-                    // session()->forget('billing_email');
-                    // session()->forget('billing_address');
-                    // session()->forget('billing_address_label_type');
-                    // session()->forget('billing_zipcode');
-                    // session()->forget('billing_state');
-                    // session()->forget('billing_state_name');
-                    // session()->forget('billing_country');
-                    // session()->forget('billing_country_name');
+                    session()->forget('billing_first_name');
+                    session()->forget('billing_last_name');
+                    session()->forget('billing_phone');
+                    session()->forget('billing_email');
+                    session()->forget('billing_address');
+                    session()->forget('billing_address_label_type');
+                    session()->forget('billing_zipcode');
+                    session()->forget('billing_state');
+                    session()->forget('billing_state_name');
+                    session()->forget('billing_country');
+                    session()->forget('billing_country_name');
                 }
                 $orderConfirm = Helper::checkConfirmOrder();
                 $orderC = false;
@@ -960,23 +960,23 @@ class CartController extends Controller
                             
                     }
                     else{
-                        // session()->forget('billing_first_name');
-                        // session()->forget('billing_last_name');
-                        // session()->forget('billing_phone');
-                        // session()->forget('billing_country');
-                        // session()->forget('billing_email');
-                        // session()->forget('billing_address');
-                        // session()->forget('billing_zipcode');
-                        // session()->forget('address_choose');
+                        session()->forget('billing_first_name');
+                        session()->forget('billing_last_name');
+                        session()->forget('billing_phone');
+                        session()->forget('billing_country');
+                        session()->forget('billing_email');
+                        session()->forget('billing_address');
+                        session()->forget('billing_zipcode');
+                        session()->forget('address_choose');
 
-                        // session()->forget('shipping_first_name');
-                        // session()->forget('shipping_last_name');
-                        // session()->forget('shipping_phone');
-                        // session()->forget('shipping_state');
-                        // session()->forget('shipping_state');
-                        // session()->forget('shipping_address');
-                        // session()->forget('shipping_zipcode');
-                        // session()->forget('address_choose');
+                        session()->forget('shipping_first_name');
+                        session()->forget('shipping_last_name');
+                        session()->forget('shipping_phone');
+                        session()->forget('shipping_state');
+                        session()->forget('shipping_state');
+                        session()->forget('shipping_address');
+                        session()->forget('shipping_zipcode');
+                        session()->forget('address_choose');
 
                         session(['first_name' => $request->shipping_first_name]);
                         session(['last_name' => $request->shipping_last_name]);
@@ -1021,22 +1021,22 @@ class CartController extends Controller
             }
         }
     }
-    // public function check_address(Request $request){
+    public function check_address(Request $request){
      
-    //    if($request->choose == "different"){
-    //     session()->forget('billing_first_name');
-    //     session()->forget('billing_last_name');
-    //     session()->forget('billing_phone');
-    //     session()->forget('billing_email');
-    //     session()->forget('billing_address');
-    //     session()->forget('billing_address_label_type');
-    //     session()->forget('billing_zipcode');
-    //     session()->forget('billing_state');
-    //     session()->forget('billing_state_name');
-    //     session()->forget('billing_country');
-    //     session()->forget('billing_country_name');
-    //    }
-    // }
+       if($request->choose == "different"){
+        session()->forget('billing_first_name');
+        session()->forget('billing_last_name');
+        session()->forget('billing_phone');
+        session()->forget('billing_email');
+        session()->forget('billing_address');
+        session()->forget('billing_address_label_type');
+        session()->forget('billing_zipcode');
+        session()->forget('billing_state');
+        session()->forget('billing_state_name');
+        session()->forget('billing_country');
+        session()->forget('billing_country_name');
+       }
+    }
     public function billing_address_store(Request $request)
     {
             
@@ -1717,23 +1717,23 @@ class CartController extends Controller
                                 if ($creditFlg == true) {
                                     if ($method == 'cod') {
                                      
-                                        // Cart::session(session('session_key'))->clear();
-                                        // session()->forget('session_key');
-                                        // session()->forget('selected_customer_address');
-                                        // session()->forget('order_remarks');
-                                        // session()->forget('shipping_charge');
-                                        // session()->forget('coupons');
-                                        // session()->forget('coupon_value');
-                                        // session()->forget('coupon_base_value');
-                                        // session()->forget('credit_point');
-                                        // session()->forget('delivery_date');
-                                        // session()->forget('delivery_time');
+                                        Cart::session(session('session_key'))->clear();
+                                        session()->forget('session_key');
+                                        session()->forget('selected_customer_address');
+                                        session()->forget('order_remarks');
+                                        session()->forget('shipping_charge');
+                                        session()->forget('coupons');
+                                        session()->forget('coupon_value');
+                                        session()->forget('coupon_base_value');
+                                        session()->forget('credit_point');
+                                        session()->forget('delivery_date');
+                                        session()->forget('delivery_time');
 
-                                        // $mail_data = new SendMailData();
-                                        // $mail_data->type = 'SendOrderPlacedMail';
-                                        // $mail_data->order_id = $order->id;
-                                        // $mail_data->order_send_flag = 1;
-                                        // $mail_data->mail_sent = 0;
+                                        $mail_data = new SendMailData();
+                                        $mail_data->type = 'SendOrderPlacedMail';
+                                        $mail_data->order_id = $order->id;
+                                        $mail_data->order_send_flag = 1;
+                                        $mail_data->mail_sent = 0;
                                        Helper::SendOrderPlacedMail($order->id, '1');
                                         if ($mail_data->save()) {
                                             return response(array(
@@ -1750,26 +1750,26 @@ class CartController extends Controller
                                         }
 
                                         /*** Guest session ****/
-                                        // session()->forget('first_name');
-                                        // session()->forget('last_name');
-                                        // session()->forget('email');
+                                        session()->forget('first_name');
+                                        session()->forget('last_name');
+                                        session()->forget('email');
 
-                                        // session()->forget('phone_number');
-                                        // session()->forget('address');
-                                        // session()->forget('state_name');
-                                        // session()->forget('country');
-                                        // session()->forget('state');
+                                        session()->forget('phone_number');
+                                        session()->forget('address');
+                                        session()->forget('state_name');
+                                        session()->forget('country');
+                                        session()->forget('state');
 
 
-                                        // session()->forget('billing_first_name');
-                                        // session()->forget('billing_last_name');
-                                        // session()->forget('billing_email');
-                                        // session()->forget('billing_country_code');
-                                        // session()->forget('billing_phone_number');
-                                        // session()->forget('billing_address');
-                                        // session()->forget('billing_state_name');
-                                        // session()->forget('billing_country');
-                                        // session()->forget('billing_state');
+                                        session()->forget('billing_first_name');
+                                        session()->forget('billing_last_name');
+                                        session()->forget('billing_email');
+                                        session()->forget('billing_country_code');
+                                        session()->forget('billing_phone_number');
+                                        session()->forget('billing_address');
+                                        session()->forget('billing_state_name');
+                                        session()->forget('billing_country');
+                                        session()->forget('billing_state');
 
                                     } else {
                                         if ($method == 'cod') {
@@ -2035,28 +2035,28 @@ class CartController extends Controller
 
     public function clear_order_cart_sessions()
     {
-        // Cart::session(session('session_key'))->clear();
-        // session()->forget('session_key');
-        // session()->forget('selected_billing_address');
-        // session()->forget('selected_shipping_address');
-        // session()->forget('selected_customer_address');
-        // session()->forget('order_remarks');
-        // session()->forget('shipping_charge');
-        // session()->forget('coupons');
-        // session()->forget('coupon_value');
-        // session()->forget('credit_point');
+        Cart::session(session('session_key'))->clear();
+        session()->forget('session_key');
+        session()->forget('selected_billing_address');
+        session()->forget('selected_shipping_address');
+        session()->forget('selected_customer_address');
+        session()->forget('order_remarks');
+        session()->forget('shipping_charge');
+        session()->forget('coupons');
+        session()->forget('coupon_value');
+        session()->forget('credit_point');
         /*** Guest session ****/
         foreach (['billing', 'shipping'] as $addressType) {
-            // session()->forget($addressType . '_first_name');
-            // session()->forget($addressType . '_last_name');
-            // session()->forget($addressType . '_phone');
-            // session()->forget($addressType . '_email');
-            // session()->forget($addressType . '_address');
-            // session()->forget($addressType . '_zipcode');
-            // session()->forget($addressType . '_country_name');
-            // session()->forget($addressType . '_state_name');
-            // session()->forget($addressType . '_country');
-            // session()->forget($addressType . '_state');
+            session()->forget($addressType . '_first_name');
+            session()->forget($addressType . '_last_name');
+            session()->forget($addressType . '_phone');
+            session()->forget($addressType . '_email');
+            session()->forget($addressType . '_address');
+            session()->forget($addressType . '_zipcode');
+            session()->forget($addressType . '_country_name');
+            session()->forget($addressType . '_state_name');
+            session()->forget($addressType . '_country');
+            session()->forget($addressType . '_state');
         }
     }
 

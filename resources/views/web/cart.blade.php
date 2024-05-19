@@ -55,22 +55,23 @@
                                                         <a href="{{ url('/product/'.$product->short_url) }}">
                                                             <p class="product-name">
                                                                 @php
-                                                                    $productName =  $product->title;
-                                                                    $length = 5;
-                                                                    $truncatedString = '';
-                                                                    $words = explode(' ', $productName);
-                                                                    $lineLength = 0;
-                                    
-                                                                    foreach ($words as $word) {
-                                                                        $lineLength += strlen($word) + 1; // +1 for the space
-                                                                        if ($lineLength > $length) {
-                                                                            $truncatedString .= '<br>';
-                                                                            $lineLength = strlen($word) + 1;
-                                                                        }
-                                                                        $truncatedString .= $word . ' ';
+                                                                $productName = 'sldfjls;djf posdfpsdfjsdpofjsdpfjspdofjpsoodpfjspodfjpsdfposjfpofsdpofpojfpsojfposjpfpopsojpsjpsdpjsdpjfpsjdfpojfpsfpojfspoj';
+                                                                $length = 50;
+                                                                $truncatedString = '';
+                                                                $currentLength = 0;
+                                
+                                                                foreach (explode(' ', $productName) as $word) {
+                                                                    $wordLength = strlen($word) + 1; // +1 for the space
+                                                                    if ($currentLength + $wordLength > $length) {
+                                                                        $truncatedString .= '<br>';
+                                                                        $currentLength = 0;
                                                                     }
-                                                                    echo trim($truncatedString);
-                                                                @endphp
+                                                                    $truncatedString .= $word . ' ';
+                                                                    $currentLength += $wordLength;
+                                                                }
+                                
+                                                                echo trim($truncatedString);
+                                                            @endphp
                                                             </p>
                                                         </a>
                                                     </li>
