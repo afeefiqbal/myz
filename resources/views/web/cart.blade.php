@@ -53,9 +53,25 @@
                                                 <ul>
                                                     <li class="name">
                                                         <a href="{{ url('/product/'.$product->short_url) }}">
-                                                            <h6>
-                                                                {{ $product->title }}
-                                                            </h6>
+                                                            <p class="product-name">
+                                                                @php
+                                                                    $productName =  $product->title;
+                                                                    $length = 5;
+                                                                    $truncatedString = '';
+                                                                    $words = explode(' ', $productName);
+                                                                    $lineLength = 0;
+                                    
+                                                                    foreach ($words as $word) {
+                                                                        $lineLength += strlen($word) + 1; // +1 for the space
+                                                                        if ($lineLength > $length) {
+                                                                            $truncatedString .= '<br>';
+                                                                            $lineLength = strlen($word) + 1;
+                                                                        }
+                                                                        $truncatedString .= $word . ' ';
+                                                                    }
+                                                                    echo trim($truncatedString);
+                                                                @endphp
+                                                            </p>
                                                         </a>
                                                     </li>
 

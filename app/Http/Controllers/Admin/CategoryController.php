@@ -46,8 +46,8 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
             'short_url' => 'required|unique:categories,short_url,NULL,id,deleted_at,NULL',
-            'icon' => 'required|image|mimes:png|max:512',
-            'image_attribute' => 'required',
+            // 'icon' => 'required|image|mimes:png|max:512',
+            // 'image_attribute' => 'required',
         ]);
         $category = new Category;
         if ($request->hasFile('icon')) {
@@ -121,9 +121,9 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
             'short_url' => 'required|unique:categories,short_url,' . $id,
-            'icon' => 'image|mimes:png|max:512',
-            'image' => 'image|mimes:jpeg,png,jpg|max:512',
-            'image_attribute' => 'required',
+            // 'icon' => 'image|mimes:png|max:512',
+            // 'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            // 'image_attribute' => 'required',
         ]);
         if ($request->hasFile('icon')) {
             if (File::exists(public_path($category->icon))) {
