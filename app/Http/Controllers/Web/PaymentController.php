@@ -26,7 +26,7 @@ class PaymentController extends Controller
             'line_items'  => [
                 [
                     'price_data' => [
-                        'currency'     => 'gbp',
+                        'currency'     => 'aed',
                         'product_data' => [
                             'name' => 'T-shirt',
                         ],
