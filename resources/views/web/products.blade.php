@@ -1,6 +1,7 @@
 @extends('web.layouts.main')
 @section('content')
 
+
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
@@ -82,7 +83,7 @@
                                     <li>
                                         <a href="javascript:void(0)">Smart  Home</a>
                                     </li>
-                                  
+
                                 </ul>
                             </div> --}}
 
@@ -116,9 +117,9 @@
                                                             </label>
                                                         </div>
                                                     </li>
-                                                        
+
                                                     @endforeach
-                                            
+
                                                 @endisset
                                             </ul>
                                         </div>
@@ -145,7 +146,7 @@
                                     </div>
                                 </div>
 
-                          
+
                             </div>
                         </div>
                     </div>
@@ -179,19 +180,19 @@
                                             <a class="dropdown-item" id="high" href="javascript:void(0)">High - Low
                                                 Price</a>
                                         </li>
-                                  
+
                                         <li>
                                             <a class="dropdown-item" id="aToz" href="javascript:void(0)">A - Z Order</a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" id="zToa" href="javascript:void(0)">Z - A Order</a>
                                         </li>
-                                       
+
                                     </ul>
                                 </div>
                             </div>
 
-                 
+
                         </div>
                     </div>
 
@@ -199,6 +200,22 @@
                         class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section">
                         @isset($products)
                             @foreach ($products as $product)
+                            @php
+    if($product){
+        $cardProduct = App\Models\Product::active()->where('id', $product->id)->first();
+        $copyProducts = App\Models\Product::active()->where('parent_product_id',$product->id)->latest()->get();
+        $copyProductIds = $copyProducts->pluck('id')->toArray();
+        $productPrices = App\Models\ProductPrice::where('product_id',$product->id)
+        ->orWhereIn('product_id',$copyProductIds)
+        ->get();
+        $prices = $productPrices->pluck('price')->toArray();
+
+        $highestPrice = $productPrices->max('price');
+        $lowestPrice = $productPrices->min('price');
+
+    }
+@endphp
+
                             <div>
                                 <div class="product-box-3 h-100 wow fadeInUp">
                                     <div class="product-header">
@@ -207,7 +224,7 @@
                                                 <img src="{{asset($product->thumbnail_image)}}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                             </a>
-    
+
                                             <ul class="product-option">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                                     <a href="javascript:void(0)" data-bs-toggle="modal"
@@ -215,9 +232,9 @@
                                                         <i data-feather="eye"></i>
                                                     </a>
                                                 </li>
-    
-                                               
-    
+
+
+
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
                                                     <a id="wishlist_check_{{@$product->id}}"  href="avascript:void(0)" class="notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
                                                         <i data-feather="heart"></i>
@@ -228,11 +245,11 @@
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            
+
                                             <a href="product.php">
                                                 <h5 class="name">{{$product->title}}</h5>
                                             </a>
-                                          
+
                                             <div class="product-rating mt-2">
                                                 <ul class="rating">
                                                     @if(Helper::averageRating($product->id)>0)
@@ -244,7 +261,22 @@
                                                 {{-- <span>(4.0)</span> --}}
                                             </div>
                                             <!-- <h6 class="unit">250 ml</h6> -->
-                                            <h5 class="price"><span class="theme-color">{{$product->price}}</span> <del></del>
+                                            <h5 class="price">
+                                                @if(Helper::offerPrice($product->id)!='')
+                                                @php
+                                                    $offerId =Helper::offerId($product->id);
+                                                @endphp
+
+                                                <span class="theme-color"> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</span>
+                                                <del> {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}</del>
+                                            @else
+
+
+                                            <span class="theme-color"> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()* $lowestPrice,2)}}-{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()* $highestPrice,2)}}</span>
+                                           @endif
+                                                <span class="theme-color">
+
+                                                </span>
                                             </h5>
                                            <div class="add-to-cart-box bg-white ">
                                                 <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
@@ -284,7 +316,7 @@
                                                             alt="">
                                                     </div>
                                                 </div>
-                        
+
                                                 <div class="col-lg-6">
                                                     <div class="right-sidebar-modal">
                                                         <h4 class="title-name">{{$product->title}}</h4>
@@ -310,18 +342,18 @@
                                                             <span class="ms-2">8 Reviews</span>
                                                         --}}
                                                         </div>
-                        
+
                                                         <div class="product-detail">
                                                             <h4>Product Details :</h4>
                                                             <p>{!! $product->description !!}</p>
                                                         </div>
-                        
-                                                    
-                                                        
-                                                    
-                        
+
+
+
+
+
                                                         <div class="modal-button">
-                                                            <button 
+                                                            <button
                                                                 class="btn btn-md add-cart-button iconbtn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
                                                                 To Cart</button>
                                                             <button onclick="location.href = '{{ url('/product/'.$product->short_url) }}'"
@@ -334,7 +366,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             @endforeach
                         @endisset
                     </div>
@@ -371,13 +403,13 @@
 @push('scripts')
 <script>
 $( document ).ready(function() {
-    
+
     $("#tags").hide();
-   
+
 });
 
 </script>
-    
+
 @endpush
 
 

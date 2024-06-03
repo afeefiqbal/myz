@@ -18,7 +18,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="content">
             <div class="container-fluid">
                 @if ($errors->any())
@@ -53,129 +53,169 @@
                             </div>
                         </div>
                         <div class="card-body">
-                   
+
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Main Banner*</label>
                                     <div class="file-loading">
                                          <input id="main_banner" name="main_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 1155 X 770</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="main_banner_attribute"
                                            name="main_banner_attribute" placeholder="Alt='Main Banner  Attribute'"
                                            value="{{ isset($index)?$index->main_banner_attribute:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label>Banner URL *</label>
+                                    <input type="text" class="form-control " id="main_banner_url" name="main_banner_url"
+                                           value="{{ isset($index)?$index->main_banner_url:'' }}" maxlength="230">
+                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Left Side First Banner*</label>
                                     <div class="file-loading">
                                          <input id="left_side_banner" name="left_side_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 415 X 320</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="left_banner_attribute"
                                            name="left_banner_attribute" placeholder="Alt=' Banner Attribute'"
                                            value="{{ isset($index)?$index->left_banner_attribute:'' }}" maxlength="230">
                                 </div>
-                            </div> 
+                                <div class="form-group col-md-4">
+                                    <label>Left Side First Banner URL *</label>
+                                    <input type="text" class="form-control " id="left_side_banner_url" name="left_side_banner_url"
+                                           value="{{ isset($index)?$index->left_side_banner_url:'' }}" maxlength="230">
+                                </div>
+                            </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Left Side Second Banner*</label>
                                     <div class="file-loading">
                                          <input id="left_second_banner" name="left_second_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 500 X 300</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="left_second_banner_attribute"
                                            name="left_second_banner_attribute" placeholder="Alt='banner Attribute'"
                                            value="{{ isset($index)?$index->left_second_banner_attribute:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label> Left Side Second Banner URL *</label>
+                                    <input type="text" class="form-control " id="left_second_banner_url" name="left_second_banner_url"
+                                           value="{{ isset($index)?$index->left_second_banner_url:'' }}" maxlength="230">
+                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Bottom First Image *</label>
                                     <div class="file-loading">
                                          <input id="bottom_first_image" name="bottom_first_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 347 X 231</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Bottom First Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="bottom_first_image_attribute"
                                            name="bottom_first_image_attribute" placeholder="Alt='image  Attribute'"
                                            value="{{ isset($index)?$index->bottom_first_image_attribute:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label>Bottom First Image URL *</label>
+                                    <input type="text" class="form-control " id="bottom_first_image_url" name="bottom_first_image_url"
+                                           value="{{ isset($index)?$index->bottom_first_image_url:'' }}" maxlength="230">
+                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Bottom Second Image*</label>
                                     <div class="file-loading">
                                          <input id="bottom_second_image" name="bottom_second_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 347 X 231</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="bottom_second_image_attribute"
                                            name="bottom_second_image_attribute" placeholder="Alt='Image  Attribute'"
                                            value="{{ isset($index)?$index->bottom_second_image_attribute:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label>Bottom Second Image URL *</label>
+                                    <input type="text" class="form-control " id="bottom_second_image_url" name="bottom_second_image_url"
+                                           value="{{ isset($index)?$index->bottom_second_image_url:'' }}" maxlength="230">
+                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Bottom Third Image*</label>
                                     <div class="file-loading">
                                          <input id="bottom_third_image" name="bottom_third_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 347 X 231</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="bottom_third_image_attribute"
                                            name="bottom_third_image_attribute" placeholder="Alt='image Attribute'"
                                            value="{{ isset($index)?$index->bottom_third_image_attribute:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label> Bottom Third Image URL *</label>
+                                    <input type="text" class="form-control " id="bottom_third_image_url" name="bottom_third_image_url"
+                                           value="{{ isset($index)?$index->bottom_third_image_url:'' }}" maxlength="230">
+                                </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Bottom Fourth Banner*</label>
                                     <div class="file-loading">
                                          <input id="bottom_fourth_image" name="bottom_fourth_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 347 X 231</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="bottom_fourth_image_attribute"
                                            name="bottom_fourth_image_attribute" placeholder="Alt='Image  Attribute'"
                                            value="{{ isset($index)?$index->bottom_fourth_image_attribute:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label> Bottom Fourth Image URL *</label>
+                                    <input type="text" class="form-control " id="bottom_fourth_image_url" name="bottom_fourth_image_url"
+                                           value="{{ isset($index)?$index->bottom_fourth_image_url:'' }}" maxlength="230">
+                                </div>
                             </div>
-                           
+
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Deal Banner*</label>
                                     <div class="file-loading">
                                          <input id="deal_image" name="deal_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 500 X 300</span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label> Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="deal_image"
                                            name="deal_image" placeholder="Alt='Image  Attribute'"
                                            value="{{ isset($index)?$index->deal_image:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label>Deal Banner URL *</label>
+                                    <input type="url" class="form-control " id="deal_image_url" name="deal_image_url"
+                                           value="{{ isset($index)?$index->deal_image_url:'' }}" maxlength="230">
+                                </div>
                             </div>
-                           
+
                         </div>
                         <div class="card-footer">
                             <input type="hidden" name="id" id="id" value="{{isset($index)?$index->id:'0'}}">

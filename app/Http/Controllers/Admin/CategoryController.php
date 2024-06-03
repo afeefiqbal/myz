@@ -54,8 +54,8 @@ class CategoryController extends Controller
             $category->icon_webp = Helper::uploadWebpImage($request->icon, 'uploads/category/icon/webp/', $request->short_url);
             $category->icon = Helper::uploadFile($request->icon, 'uploads/category/icon/', $request->short_url);
         }
-  
-      
+
+
         $category->title = $validatedData['title'];
         $category->short_url = $validatedData['short_url'];
         $category->parent_id = null;
@@ -88,7 +88,7 @@ class CategoryController extends Controller
          else{
             $category->meta_keyword = $request->meta_keyword ?? '';
          }
-     
+
 
 
 
@@ -196,7 +196,7 @@ class CategoryController extends Controller
          else{
             $category->meta_keyword = $request->meta_keyword ?? '';
          }
-   
+
 
         if ($category->save()) {
            session()->flash('success', "Category '" . $category->title . "' has been updated successfully");
@@ -263,6 +263,7 @@ class CategoryController extends Controller
         $urlType = 'sub-category';
         $heading = HomeHeading::first();
         $categoryList = Category::whereNotNull('parent_id')->get();
+       
         return view('Admin.product.category.list', compact('categoryList', 'title', 'type', 'urlType', 'heading'));
     }
 
@@ -328,7 +329,7 @@ class CategoryController extends Controller
          else{
             $sub_category->meta_keyword = $request->meta_keyword ?? '';
          }
-       
+
         if ($sub_category->save()) {
            session()->flash('success', "Sub-category '" . $sub_category->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/sub-category/');

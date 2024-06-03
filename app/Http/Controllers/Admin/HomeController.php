@@ -152,6 +152,17 @@ class HomeController extends Controller
         $index->bottom_third_image_attribute = $request->bottom_third_image_attribute ?? '';
         $index->bottom_third_image_attribute = $request->bottom_third_image_attribute ?? '';
         $index->deal_image_attribute = $request->deal_image_attribute ?? '';
+        $index->deal_image_url = $request->deal_image_url ?? '';
+        $index->bottom_fourth_image_url = $request->bottom_fourth_image_url ?? '';
+        $index->bottom_third_image_url = $request->bottom_third_image_url ?? '';
+        $index->bottom_second_image_url = $request->bottom_second_image_url ?? '';
+        $index->bottom_first_image_url = $request->bottom_first_image_url ?? '';
+        $index->left_second_banner_url = $request->left_second_banner_url ?? '';
+        $index->left_side_banner_url = $request->left_side_banner_url ?? '';
+        $index->main_banner_url = $request->main_banner_url ?? '';
+
+
+
         if ($index->save()) {
             session()->flash('success', 'Home Page has been updated successfully');
             return redirect(Helper::sitePrefix() . 'home');
@@ -168,7 +179,7 @@ class HomeController extends Controller
             $imageName = time() . '_' . $image->getClientOriginalName();
             $imagePath = 'public/uploads/' . $imageName;
             $storedImagePath = $image->storeAs('public/uploads', $imageName);
-         
+
             $imageUrl = asset(str_replace('public', 'storage', $storedImagePath));
             return response()->json(['location' => $imageUrl]);
         }
@@ -185,16 +196,16 @@ class HomeController extends Controller
             $home_heading = HomeHeading::where('type','testimonial')->first();
             return view('Admin.home.testimonial.list', compact('testimonialList', 'title','home_heading'));
         }
-    
+
         public function testimonial_create()
         {
             $key = "Create";
             $title = "Create Testimonial";
-        
-     
+
+
             return view('Admin.home.testimonial.form', compact('key', 'title'));
         }
-    
+
         public function testimonial_store(Request $request)
         {
             $validatedData = $request->validate([
@@ -205,7 +216,7 @@ class HomeController extends Controller
                 'rating' => 'integer|between:0,5',
                 'review_type' => 'required',
             ]);
-    
+
             $testimonial = new Testimonial;
             if ($request->hasFile('image')) {
                $testimonial->image_webp = Helper::uploadWebpImage($request->image, 'uploads/testimonial/image/webp/', $request->title);
@@ -218,8 +229,8 @@ class HomeController extends Controller
             $testimonial->user_type = "Admin";
             $testimonial->image_attribute = $request->image_attribute ?? '';
             $testimonial->review_type = $request->review_type;
-    
-    
+
+
             if ($testimonial->save()) {
                 session()->flash('success', 'Testimonial has been added successfully');
                 return redirect(Helper::sitePrefix() . 'home/testimonial');
@@ -227,10 +238,10 @@ class HomeController extends Controller
                 return back()->withInput($request->input())->withErrors("Error while updating the content");
             }
         }
-    
+
         public function testimonial_edit(Request $request, $id)
         {
-    
+
             $key = "Update";
             $title = "Update Testimonial";
             $testimonial = Testimonial::find($id);
@@ -240,7 +251,7 @@ class HomeController extends Controller
                 return view('Admin/errors/404');
             }
         }
-    
+
         public function testimonial_update(Request $request, $id)
         {
             $testimonial = Testimonial::find($id);
@@ -274,7 +285,7 @@ class HomeController extends Controller
                 return back()->withInput($request->input())->withErrors("Error while updating the content");
             }
         }
-    
+
         public function delete_testimonial(Request $request)
         {
             if (isset($request->id) && $request->id != NULL) {
@@ -311,14 +322,14 @@ class HomeController extends Controller
          if($table == 'Category'){
            $category = Category::find($request->primary_key);
         $category_products = Product::whereRaw("FIND_IN_SET('" . $request->primary_key . "',category_id)")->orWhereRaw("FIND_IN_SET('" . $request->primary_key . "',sub_category_id)")->count();
-        
+
               if($category_products > 0 && $request->state == 'false'){
                  return response()->json(['status' => false, 'message' => 'This category has products. So you can not change the status.']);
               }
               else{
-               
+
              $state = $request->state;
-    
+
              $primary_key = $request->primary_key;
              $field = $request->field ?? 'status';
              $limit = $request->limit;
@@ -331,7 +342,7 @@ class HomeController extends Controller
              }
              $model = 'App\\Models\\' . $table;
              $data = $model::find($primary_key);
-     
+
              if ($limit && $status == "Active") {
                  if ($limit_field && $limit_field_value) {
                      $active_data = $model::where($limit_field, $limit_field_value)->Where($field, 'Active');
@@ -347,7 +358,7 @@ class HomeController extends Controller
              }
              $data->$field = $status;
              if ($data->save()) {
-     
+
                  if($table=="Category"){
                      if($state !=="true")
                          {
@@ -362,10 +373,10 @@ class HomeController extends Controller
                      'status' => true,
                      'message' => 'Status has been changed successfully.'
                  ]);
-     
-     
-     
-     
+
+
+
+
              } else {
                  return response()->json([
                      'status' => false,
@@ -377,7 +388,7 @@ class HomeController extends Controller
          else{
 
              $state = $request->state;
-    
+
             $primary_key = $request->primary_key;
             $field = $request->field ?? 'status';
             $limit = $request->limit;
@@ -390,7 +401,7 @@ class HomeController extends Controller
             }
             $model = 'App\\Models\\' . $table;
             $data = $model::find($primary_key);
-    
+
             if ($limit && $status == "Active") {
                 if ($limit_field && $limit_field_value) {
                     $active_data = $model::where($limit_field, $limit_field_value)->Where($field, 'Active');
@@ -406,7 +417,7 @@ class HomeController extends Controller
             }
             $data->$field = $status;
             if ($data->save()) {
-    
+
                 if($table=="Category"){
                     if($state !=="true")
                         {
@@ -421,10 +432,10 @@ class HomeController extends Controller
                     'status' => true,
                     'message' => 'Status has been changed successfully.'
                 ]);
-    
-    
-    
-    
+
+
+
+
             } else {
                 return response()->json([
                     'status' => false,
@@ -463,7 +474,7 @@ class HomeController extends Controller
     {
         if($request->order_id){
             $order = Order::find($request->order_id);
-           
+
             if($order){
                 $order->status = $request->order_status;
                 if ($order->save()) {
@@ -491,7 +502,7 @@ class HomeController extends Controller
                 'message' => 'Couldn\'t find the order'
             ]);
         }
-    
+
     }
     public function sort_order(Request $request)
     {

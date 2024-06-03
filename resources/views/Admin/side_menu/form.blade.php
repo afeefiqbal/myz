@@ -46,21 +46,7 @@
                                 </div>
                             @endif
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Menu Type*</label>
-                                    <select name="menu_type" id="menu_type" class="form-control required"
-                                            placeholder="Menu Type">
-                                        <option value="static" {{ (@$menu->menu_type=="static")?'selected':'' }}>
-                                            Static
-                                        </option>
-                                     
-                                        <option value="category" {{ (@$menu->menu_type=="category")?'selected':'' }}>
-                                           category
-                                        </option>
-
-                                    </select>
-                                    <div class="help-block with-errors" id="menu_type_error"></div>
-                                </div>
+      
                                 <div class="form-group col-md-6 category"
                                      style="display: {{ (@$menu->menu_type=='category')?'block':'none' }}">
                                     <label> Categories*</label>
@@ -76,13 +62,13 @@
                                 </div>
                                 <div class="form-group col-md-6 color"
                                 style="display: {{ (@$menu->menu_type=='color')?'block':'none' }}">
-                               <label> Color*</label> 
+                               <label> Color*</label>
                                <select class="form-control menu_color_id select2" id="menu_color_id"  multiple
-                                       name="menu_color_id[]"> 
-                                  
+                                       name="menu_color_id[]">
+
                                    @foreach($colors as $color)
                                        <option data-url="{{$color->short_url}}"
-                                               value="{{ $color->id }}" 
+                                               value="{{ $color->id }}"
                                                @if(@$sideMenuColors && in_array($color->id,$sideMenuColors))
                                                   selected
                                                 @endif
@@ -96,7 +82,7 @@
                           <label> Shape*</label>
                           <select class="form-control menu_shape_id select2"  id="menu_shape_id"  multiple
                                   name="menu_shape_id[]">
-                             
+
                               @foreach($shapes as $shape)
                                   <option data-url="{{$shape->short_url}}"
                                           value="{{ $shape->id }}"
@@ -108,8 +94,8 @@
                           </select>
                           <div class="help-block with-errors" id="menu_tag_id_error"></div>
                       </div>
-                          
-                               
+
+
                             </div>
                             <div class="form-row" >
                                 <div class="form-group col-md-6">
@@ -162,8 +148,8 @@
                     validateInitialCount: true,
                     overwriteInitial: false,
                     autoReplace: true,
-                   
-                    
+
+
                     initialPreviewAsData: true,
                     dropZoneEnabled: false,
                     required: false,
@@ -183,7 +169,7 @@
                     }]
                     @endif
                 });
-    
+
             });
         </script>
 @endsection

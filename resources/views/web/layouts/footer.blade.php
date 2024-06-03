@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <div class="col-xl col-lg-2 col-sm-3">
                         <div class="footer-title">
@@ -103,10 +103,45 @@
                                     <a href="{{url('contact')}}" class="text-content">Contact Us</a>
                                 </li>
                             </ul>
+
                         </div>
+
                     </div>
 
-                
+                    @isset($menus)
+                    <div class="col-xl col-lg-2 col-sm-3">
+                        <div class="footer-title">
+                            <h4>Categories</h4>
+                        </div>
+                        <div class="footer-contain">
+                            <ul>
+                                @foreach($menus as $menu)
+                                @if($menu->menu_type=="category")
+                                    @php
+                                        $menuDetails = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->get();
+                                        $colorId = [];
+                                        foreach($menuDetails as $menuDetail){
+                                            $categoryId[] = $menuDetail->category_id;
+                                        }
+                                        $categoryItems = App\Models\Category::whereIn('id',$categoryId)->get();
+                                    @endphp
+                                @foreach ($categoryItems as $cat)
+
+                                <li>
+                                    <a href="{{url('category/'.$cat->short_url)}}" class="text-content">{{ $cat->title }}</a>
+                                </li>
+
+                                @endforeach
+                                @endif
+
+                                @endforeach
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+                @endisset
 
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="footer-title">
@@ -119,8 +154,8 @@
                                     <div class="footer-number">
                                         <i data-feather="phone"></i>
                                         <div class="contact-number">
-                                            <h6 class="text-content">Hotline 24/7 :</h6>
-                                            <h5>+91 888 104 2340</h5>
+                                            <h6 class="text-content"> :</h6>
+                                            <h5>+91</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -135,7 +170,7 @@
                                     </div>
                                 </li>
 
-                               
+
                             </ul>
                         </div>
                     </div>
@@ -182,7 +217,7 @@
     <!-- Footer Section End -->
 
     <!-- Quick View Modal Box Start -->
- 
+
     <!-- Quick View Modal Box End -->
 
     <!-- Location Modal Start -->
@@ -333,7 +368,7 @@
                                     <h6><span></span></h6>
                                     <h1 class="text-uppercase"> <span class="daily"></span></h1>
                                     <p class="w-75 d-none d-sm-block"></p>
-                                    <button onclick="location.href = '{{url('products')}}';"
+                                    <button onclick="location.href = '{{url(isset($banners) ? $banners->deal_image_url : url('products'))}}';"
                                         class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">Shop Now <i
                                             class="fa-solid fa-right-long icon"></i></button>
                                 </div>
@@ -348,7 +383,7 @@
 
     <!-- Tap to top start -->
     <div class="theme-option">
-     
+
         <div class="back-to-top">
             <a id="back-to-top" href="#">
                 <i class="fas fa-chevron-up"></i>
@@ -363,7 +398,7 @@
 
     <!-- Bg overlay Start -->
     <div class="bg-overlay"></div>
-    
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> --}}
 <script>
@@ -432,7 +467,7 @@
 <script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
   <!-- latest jquery-->
   <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
-  <script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script> 
+  <script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script>
   <!-- jquery ui-->
   <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
   <script src="{{asset('assets/js/wizard.js')}}"></script>
@@ -448,11 +483,11 @@
     <script src="https://kit.fontawesome.com/99358fb784.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
-    
+
     <script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
     <!-- latest jquery-->
     <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>

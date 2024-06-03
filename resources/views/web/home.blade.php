@@ -6,7 +6,7 @@
     <div class="container-fluid-lg">
         <div class="row g-4" >
             <div class="col-xl-8 ratio_65">
-              
+
                 <div class="home-contain h-100 ">
                     <div class="h-100">
                         <img src="{{$banners->main_banner}}" class="bg-img blur-up lazyload" alt="">
@@ -16,7 +16,7 @@
                             <h6><span></span></h6>
                             <h1 class="text-uppercase"> <span class="daily"></span></h1>
                             <p class="w-75 d-none d-sm-block"></p>
-                            <button onclick="location.href = '{{url('products')}}';"
+                            <button onclick="location.href = '{{url($banners->main_banner_url)}}';"
                                 class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">Shop Now <i
                                     class="fa-solid fa-right-long icon"></i></button>
                         </div>
@@ -36,7 +36,7 @@
                                     </h2>
                                     <h3 class="theme-color"></h3>
                                     <p class="w-75"></p>
-                                    <a href="{{url('products')}}" class="shop-button"><i
+                                    <a href="{{url($banners->left_side_banner_url)}}" class="shop-button"><i
                                             class="fa-solid fa-right-long"></i></a>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                     <h3 class="mt-0 theme-color fw-bold"></h3>
                                     <h4 class="text-danger"></h4>
                                     <p class="organic"></p>
-                                    <a href="{{url('products')}}" class="shop-button"><i
+                                    <a href="{{url($banners->left_second_banner_url)}}" class="shop-button"><i
                                             class="fa-solid fa-right-long"></i></a>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-            
+
     </div>
 </section>
 <section class="banner-section ratio_60 wow fadeInUp">
@@ -76,7 +76,7 @@
                             <h5></h5>
                             <h6 class="text-content"></h6>
                         </div>
-                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                        <a href="{{url($banners->bottom_first_image_url)}}" class="banner-button text-white">Shop Now <i
                                 class="fa-solid fa-right-long ms-2"></i></a>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                             <h5></h5>
                             <h6 class="text-content"></h6>
                         </div>
-                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                        <a href="{{url($banners->bottom_second_image_url)}}" class="banner-button text-white">Shop Now <i
                                 class="fa-solid fa-right-long ms-2"></i></a>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                             <h5></h5>
                             <h6 class="text-content"></h6>
                         </div>
-                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                        <a href="{{url($banners->bottom_third_image_url)}}" class="banner-button text-white">Shop Now <i
                                 class="fa-solid fa-right-long ms-2"></i></a>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                             <h5></h5>
                             <h6 class="text-content"></h6>
                         </div>
-                        <a href="{{url('products')}}" class="banner-button text-white">Shop Now <i
+                        <a href="{{url($banners->bottom_fourth_image_url)}}" class="banner-button text-white">Shop Now <i
                                 class="fa-solid fa-right-long ms-2"></i></a>
                     </div>
                 </div>
@@ -154,17 +154,17 @@
                 <div class="slider-9">
                     @isset($categories)
                         @foreach ($categories as $item)
-                        
+
                             <div>
                                 <a href="/category/{{$item->short_url}}" class="category-box wow fadeInUp">
                                     <div>
-                                    
+
                                         <img src="{{$item->icon}}"  class="blur-up lazyload" alt="{{$item->image_attribute}}">
                                         <h5>{{$item->title}}</h5>
                                     </div>
                                 </a>
                             </div>
-                            
+
                         @endforeach
                     @endisset
                 </div>
@@ -194,7 +194,7 @@
                                     <div class="category-list">
                                         <img src="{{$item->icon}}"  class="blur-up lazyload" alt="{{$item->image_attribute}}">
                                         <h5>
-                                            <a href="/category/{{$item->short_url}}"> 
+                                            <a href="/category/{{$item->short_url}}">
                                                 <h5>{{$item->title}}</h5></a>
                                         </h5>
                                     </div>
@@ -205,7 +205,7 @@
                         </div>
 
 
-                        
+
                     </div>
                 </div>
 
@@ -220,12 +220,12 @@
                             </span>
                             <p>Don't miss this opportunity at a special discount just for this week.</p>
                         </div>
-                     
+
                     </div>
 
                     <div class="section-b-space">
                         @isset($products)
-            
+
                         <div class="product-border border-row">
                             <div class="slider-6_2 no-arrow">
                                 @foreach ($products as $product )
@@ -237,16 +237,16 @@
                                                     <img src="{{asset($product->thumbnail_image)}}"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
-        
+
                                                 <ul class="product-option">
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                                         <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
                                                             <i data-feather="eye"></i>
                                                         </a>
                                                     </li>
-        
-                                                   
-        
+
+
+
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
                                                         <a id="wishlist_check_{{@$product->id}}"  href="avascript:void(0)" class="notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
                                                             <i data-feather="heart"></i>
@@ -257,11 +257,11 @@
                                         </div>
                                         <div class="product-footer">
                                             <div class="product-detail">
-                                                
+
                                                 <a href="product.php">
                                                     <h5 class="name">{{$product->title}}</h5>
                                                 </a>
-                                              
+
                                                 <div class="product-rating mt-2">
                                                     <ul class="rating">
                                                         @if(Helper::averageRating($product->id)>0)
@@ -297,18 +297,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 @endforeach
-                
+
                             </div>
                         </div>
                         @endisset
                     </div>
                 </div>
 
-                    
 
-            
+
+
                 </div>
             </div>
         </div>
@@ -334,7 +334,7 @@
                         <div class="col-xl-4 col-sm-8 offset-xl-3">
                             <div class="newsletter-detail">
                                 <h2> Subscribe our newsletter</h2>
-                              
+
                                 <div class="input-box">
                                     <input type="email" class="form-control" id="exampleFormControlInput1"
                                         placeholder="Enter Your Email">

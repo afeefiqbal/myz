@@ -62,13 +62,14 @@
                                         <th>Sort Order</th>
                                         <th>Status</th>
 
-                                    
+
                                         <th>Display to home</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                      
                                     @foreach($categoryList as $category)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>

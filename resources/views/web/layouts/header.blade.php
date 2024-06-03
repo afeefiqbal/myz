@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-       
+
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
                             <img src="{{asset('assets/images/logo/logo.jpeg')}}" class="img-fluid blur-up lazyload" alt="">
                         </a>
                         <div class="middle-box">
-                            
+
 
                             <div class="search-box">
                                 <div class="input-group">
@@ -93,7 +93,7 @@
                                         <div class="delivery-icon">
                                             <i class="fa fa-whatsapp" aria-hidden="true" style="font-size: 27px;"></i>
                                         </div>
-                                       
+
                                     </a>
                                 </li>
                                 <li class="right-side">
@@ -102,7 +102,8 @@
                                             <i data-feather="phone-call"></i>
                                         </div>
                                         <div class="delivery-detail">
-                                            <h6>24/7 Delivery</h6>
+                                            <h6>Free
+                                                Delivery</h6>
                                             <h5>+971-50-232-9670</h5>
                                         </div>
                                     </a>
@@ -131,7 +132,7 @@
                                         <div class="delivery-icon">
                                             <i data-feather="user"></i>
                                         </div>
-                                        
+
                                     </div>
 
                                     <div class="onhover-div onhover-div-login">
@@ -157,7 +158,7 @@
                                         <div class="delivery-icon">
                                             <i data-feather="user"></i>
                                         </div>
-                           
+
                                     </div>
 
                                     <div class="onhover-div onhover-div-login">
@@ -206,7 +207,7 @@
 
                             <ul class="category-list">
                                 @foreach ($sideMenus as $sidemenu)
-                                    
+
                                 <li class="onhover-category-list">
                                     <a href="javascript:void(0)" class="category-name">
                                         @php
@@ -228,27 +229,27 @@
                                             }
                                             $colorItems = App\Models\Category::whereIn('id',$colorId)->get();
                                             @endphp
-                                     
+
                                             <ul>
                                                 @foreach ($colorItems as $menuCat)
-                                                    
+
                                                 <li>
                                                     <a href="{{url('category/'.$menuCat->short_url)}}">{{$menuCat->title}}</a>
                                                 </li>
                                                 @endforeach
-                  
-                                               
-                                              
+
+
+
                                             </ul>
                                         </div>
 
-                                
+
                                     </div>
                                     @endif
                                 </li>
                                 @endforeach
-                                
-                          
+
+
                             </ul>
                         </div>
                     </div>
@@ -266,14 +267,14 @@
                                         @foreach($menus as $menu)
                                         @php
                                             $subMenu = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->first();
-                                        @endphp 
+                                        @endphp
                                         @if($subMenu==NULL)
-                                   
+
                                         @if($menu->menu_type=="category")
                                         @else
                                         <li class="nav-item active">
                                             <a class="nav-link nav-link-2" href="{{ url($menu->url) }}">
-                                                {{$menu->title}} 
+                                                {{$menu->title}}
                                             </a>
                                         </li>
                                         @endif
@@ -285,7 +286,7 @@
 
                                             <div class="dropdown-menu dropdown-menu-2 row g-3">
                                                 @if($menu->menu_type=="category")
-                                                    @php 
+                                                    @php
                                                         $menuDetails = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->get();
                                                         $colorId = [];
                                                         foreach($menuDetails as $menuDetail){
@@ -302,9 +303,9 @@
 
 
                                                 </div>
-                                                
 
-                                              
+
+
                                             </div>
                                         </li>
                                         @endif
