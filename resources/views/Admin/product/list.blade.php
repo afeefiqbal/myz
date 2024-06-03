@@ -56,11 +56,11 @@
                                         <th>Type</th>
                                         <th>Category</th>
                                         <th>Gallery</th>
-                                        <th>Offer</th>
-                                        <th>Status</th>
-                                        <th>Most Relevent</th>
-                                    {{-- <th>Latest</t[h> --}}
                                         <th>Popular</th>
+                                        <th>Most Relevent</th>
+                                        <th>Status</th>
+                                        {{-- <th>Latest</t[h> --}}
+                                            <th>Offer</th>
                                         <th >Display to Home</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>

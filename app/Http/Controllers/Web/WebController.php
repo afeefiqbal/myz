@@ -78,12 +78,14 @@ class WebController extends Controller
 
         $catHomeHeadings = HomeHeading::where('type','category')->first();
         $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
+        $popularProducts = Product::active()->where('is_featured','Yes')->get();
+        $bestProducts = Product::active()->where('best_seller','Yes')->get();
         $ourSelectionProducts = DB::table('our_selection')->orderBy('sort_order')->pluck('product_id')->toArray();
 
         $ourSelectionProducts = [];
         $banners = IndexBanner::first();
     
-    return view('web.home', compact('categories','recentlyViewedProducts','products', 'banners' ));
+    return view('web.home', compact('categories','recentlyViewedProducts','products', 'banners' ,'bestProducts','popularProducts'));
     }
 
 

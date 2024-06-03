@@ -246,7 +246,7 @@
                                     <div class="product-footer">
                                         <div class="product-detail">
 
-                                            <a href="product.php">
+                                              <a href="{{ url('/product/'.$product->short_url) }}">
                                                 <h5 class="name">{{$product->title}}</h5>
                                             </a>
 
@@ -275,7 +275,7 @@
                                                         </del>
                                                         @else
                                                         <span class="theme-color">
-                                                            {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                         </span> 
                                                         @endif
                                                     </h5>

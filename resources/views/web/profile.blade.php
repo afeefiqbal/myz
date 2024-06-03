@@ -173,7 +173,7 @@
                                                             </del>
                                                             @else
                                                             <span class="theme-color">
-                                                                {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                             </span> 
                                                             @endif
                                                         </h5>
