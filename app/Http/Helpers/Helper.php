@@ -578,35 +578,37 @@ class Helper
             $sessionKey = session('session_key');
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-               
-                    $product = Product::find($row->attributes->product_id);
-                    $productOffer = Offer::where('product_id',$product->id)->where('status','Active')->first();
-                    if($productOffer){
-                        $productPrice = ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes->size)->first();
-                      
-                       $offer_amount = Helper::offerPriceSize($product->id,$row->attributes->size,$productOffer->id);
-                       $offer_id = Helper::offerId($product->id);
-                       $product_price = $offer_amount;
+                    $product = Product::find($row->id);
+                    if($product != null){
+
+                        if (Helper::offerPrice($product->id) != '') {
+                            $offer_amount = Helper::offerPriceAmount($product->id);
+                            $offer_id = Helper::offerId($product->id);
+                            $product_price = $offer_amount;
+                        } else {
+                            $offer_amount = '0.00';
+                            $offer_id = '0';
+                            $product_price = Helper::defaultCurrencyRate() * $product->price;
+                        }
+                        Cart::session($sessionKey)->update($row->id, [
+                            'price' => $product_price,
+                            'attributes' => [
+                                'currency' => Helper::defaultCurrency(),
+                                'color' => $product->color_id,
+                                'offer' => $offer_id,
+                                'offer_amount' => $offer_amount,
+                                'base_price' => $product->price,
+                            ]
+                        ]);
                     }
                     else{
-                        $offer_amount = '0.00';
-                        $offer_id = '0';
-                        $product_price = Helper::defaultCurrencyRate() * $product->price;
+                        cart::session($sessionKey)->remove($row->id);
                     }
-                    Cart::session($sessionKey)->update($row->attributes->product_id, [
-                        'price' => $product_price,
-                        'attributes' => [
-                            'currency' => Helper::defaultCurrency(),
-                            'color' => $product->color_id,
-                            'offer' => $offer_id,
-                            'offer_amount' => $offer_amount,
-                            'base_price' => $product->price,
-                        ]
-                    ]);
                 }
             }
         }
     }
+
 
     public static function SendPaymentDeclinedFailedMail($order, $flag, $type)
     {
@@ -714,50 +716,37 @@ class Helper
         return $offer;
     }
 
-    public static function offerPriceSize($productId,$sizeId,$offerId)
-    {
-        // $productOfferSize = DB::table('product_offer_size')->where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
-        
-
-        // if ($productOfferSize) {
-        //     $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);$rproduct
-        // }
-        // return $offer;
-        $product = Product::find($productId);
-      
-        $offer = '';
-        if ($product) {
-                $offer =  ProductOfferSize::where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
-         
-                if ($offer) {
-                  
-                    $offer = number_format($offer->price * self::defaultCurrencyRate(), 2);
-                }
-                
-            }
-            
-        return $offer;
-        
-    }
     public static function offerPriceAmount($productId)
     {
         $product = Product::find($productId);
-   
         $offer = '';
         if ($product) {
-                $offer = Offer::where([['status', 'Active'], ['product_id', $productId], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
-             
-                if ($offer) {
-                    $offerPrice = DB::table('product_offer_size')->where('product_id',$productId)->where('offer_id',$offer->id)->first();
-             
-                    $offer = number_format($offerPrice->price * self::defaultCurrencyRate(), 2);
+            $deal = Deal::whereRaw("find_in_set('" . $productId . "',products)")->where([['status', 'Active'], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
+            if ($deal) {
+                if ($deal->offer_type == "Percentage") {
+                    $productPrice = $product->price * self::defaultCurrencyRate();
+                    $percentage = $deal->offer_value;
+                    $amount = (($productPrice * $percentage) / 100);
+                    $finalAmount = number_format(($productPrice - $amount), 2);
+                    $offer = $finalAmount;
+                } else if ($deal->offer_type == "Fixed") {
+                    $offer = number_format($deal->offer_value * self::defaultCurrencyRate(), 2);
+                } else {
+                    //for normal deal=> takes offer
+                    $offer = Offer::where([['status', 'Active'], ['product_id', $productId], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
+                    if ($offer) {
+                        $offer = number_format($offer->price * self::defaultCurrencyRate(), 2);
+                    }
                 }
-            
+            } else {
+                $offer = Offer::where([['status', 'Active'], ['product_id', $productId], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
+                if ($offer) {
+                    $offer = number_format($offer->price * self::defaultCurrencyRate(), 2);
+                }
+            }
         }
-       
         return $offer;
     }
-
     public static function offerPriceAmountWithoutDefaultCurrency($productId)
     {
         $product = Product::find($productId);

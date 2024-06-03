@@ -273,7 +273,19 @@
                                                     {{-- <span>(4.0)</span> --}}
                                                 </div>
                                                 <!-- <h6 class="unit">250 ml</h6> -->
-                                                <h5 class="price"><span class="theme-color">{{$product->price}}</span> <del></del>
+                                                <h5 class="price">
+                                                    @if(Helper::offerPrice($product->id)!='')
+                                                    <span class="theme-color">
+                                                        {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                    </span> 
+                                                    <del>
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                    </del>
+                                                    @else
+                                                    <span class="theme-color">
+                                                        {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                    </span> 
+                                                    @endif
                                                 </h5>
                                                <div class="add-to-cart-box bg-white ">
                                                     <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add

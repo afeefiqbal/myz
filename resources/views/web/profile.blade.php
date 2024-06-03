@@ -164,8 +164,18 @@
                                                             croque monsieur.</p>
                                                         <h6 class="unit mt-1">250 ml</h6>
                                                         <h5 class="price">
-                                                            <span class="theme-color">$08.02</span>
-                                                            <del>$15.15</del>
+                                                            @if(Helper::offerPrice($product->id)!='')
+                                                            <span class="theme-color">
+                                                                {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                            </span> 
+                                                            <del>
+                                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                            </del>
+                                                            @else
+                                                            <span class="theme-color">
+                                                                {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                            </span> 
+                                                            @endif
                                                         </h5>
                                                         <div class="add-to-cart-box mt-2">
                                                             <button class="btn btn-add-cart addcart-button">Add

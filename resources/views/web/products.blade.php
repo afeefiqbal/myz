@@ -262,40 +262,53 @@
                                             </div>
                                             <!-- <h6 class="unit">250 ml</h6> -->
                                             <h5 class="price">
-                                                @if(Helper::offerPrice($product->id)!='')
-                                                @php
-                                                    $offerId =Helper::offerId($product->id);
-                                                @endphp
-
-                                                <span class="theme-color"> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</span>
-                                                <del> {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}</del>
-                                            @else
-
-
-                                            <span class="theme-color"> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()* $lowestPrice,2)}}-{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()* $highestPrice,2)}}</span>
-                                           @endif
-                                                <span class="theme-color">
-
-                                                </span>
+                                             
+                    
+                                                  
+                                                    <h5 class="price">
+                                                        @if(Helper::offerPrice($product->id)!='')
+                                                        <span class="theme-color">
+                                                            {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                        </span> 
+                                                        <del>
+                                                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                        </del>
+                                                        @else
+                                                        <span class="theme-color">
+                                                            {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                        </span> 
+                                                        @endif
+                                                    </h5>
                                             </h5>
-                                           <div class="add-to-cart-box bg-white ">
-                                                <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
-                                                    <i class="fa-solid fa-plus bg-gray"></i></button>
-                                                {{-- <div class="cart_qty qty-box">
-                                                    <div class="input-group bg-white">
-                                                        <button type="button" class="qty-left-minus bg-gray cartBtn"
-                                                            data-type="minus" data-field="">
-                                                            <i class="fa fa-minus" aria-hidden="true"></i>
-                                                        </button>
-                                                        <input class="form-control input-number qty-input cartBtn" type="text"
-                                                            name="quantity" value="0">
-                                                        <button type="button" class="qty-right-plus bg-gray"
-                                                            data-type="plus" data-field="">
-                                                            <i class="fa fa-plus" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </div> --}}
+                                            @if($product->availability === "In Stock")
+                                            <h6 class="theme-color">In Stock</h6>
+                                            <div class="add-to-cart-box bg-white ">
+                                                 <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
+                                                     <i class="fa-solid fa-plus bg-gray"></i></button>
+                                                 {{-- <div class="cart_qty qty-box">
+                                                     <div class="input-group bg-white">
+                                                         <button type="button" class="qty-left-minus bg-gray cartBtn"
+                                                             data-type="minus" data-field="">
+                                                             <i class="fa fa-minus" aria-hidden="true"></i>
+                                                         </button>
+                                                         <input class="form-control input-number qty-input cartBtn" type="text"
+                                                             name="quantity" value="0">
+                                                         <button type="button" class="qty-right-plus bg-gray"
+                                                             data-type="plus" data-field="">
+                                                             <i class="fa fa-plus" aria-hidden="true"></i>
+                                                         </button>
+                                                     </div>
+                                                 </div> --}}
                                             </div>
+                                                 @else
+                                                 <div class="add-to-cart-box bg-white ">
+                                                     <a href="https://wa.me/{!! @$contact->whatsapp_number!!}?text=I%20am%20interested%20in%20this%20product%20{{$product->title}}.%20Can%20you%20provide%20more%20details%3F
+                                                     " class="btn btn-add-cart cart-action cartBtn">Enquiry
+                                                        <i class="fa-solid fa fa-whatsapp bg-gray"></i>
+                                                     </a>
+                                                 </div>
+                                                @endif
+                                            
                                         </div>
                                     </div>
                                 </div>
