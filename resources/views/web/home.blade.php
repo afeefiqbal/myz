@@ -9,7 +9,7 @@
 
                 <div class="home-contain h-100 ">
                     <div class="h-100">
-                        <img src="{{$banners->main_banner}}" class="bg-img blur-up lazyload" alt="">
+                        <img src="{{$banners->main_banner}}" class="bg-img blur-up lazyload" alt="{{ @$banners->main_banner_attribute }}">
                     </div>
                     <div class="home-detail p-center-left w-75">
                         <div>
@@ -28,8 +28,8 @@
                 <div class="row g-4">
                     <div class="col-xl-12 col-md-6">
                         <div class="home-contain">
-                            <img src="{{$banners->left_side_banner}}" class="bg-img blur-up lazyload"
-                                alt="">
+                            <img src="{{@$banners->left_side_banner}}" class="bg-img blur-up lazyload"
+                                alt="{{@$banners->left_banner_attribute}}">
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
                                     <h2 class="mt-0 text-danger"><span class="discount text-title"></span>
@@ -45,8 +45,8 @@
 
                     <div class="col-xl-12 col-md-6">
                         <div class="home-contain">
-                            <img src="{{$banners->left_second_banner}}" class="bg-img blur-up lazyload"
-                                alt="">
+                            <img src="{{@$banners->left_second_banner}}" class="bg-img blur-up lazyload"
+                                alt="{{@$banners->left_second_banner_attribute}}">
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
                                     <h3 class="mt-0 theme-color fw-bold"></h3>
@@ -69,7 +69,7 @@
         <div class="row g-sm-4 g-3">
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{$banners->bottom_first_image}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{@$banners->bottom_first_image}}" class="bg-img blur-up lazyload" alt="{{@$banners->bottom_first_image_attribute}}">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -84,7 +84,7 @@
 
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{$banners->bottom_second_image}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{@$banners->bottom_second_image}}" class="bg-img blur-up lazyload" alt="{{@$banners->bottom_second_image_attribute}}">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -99,7 +99,7 @@
 
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{$banners->bottom_third_image}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{@$banners->bottom_third_image}}" class="bg-img blur-up lazyload" alt="{{@$banners->bottom_third_image_attribute}}">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -114,7 +114,7 @@
 
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="banner-contain hover-effect">
-                    <img src="{{$banners->bottom_fourth_image}}" class="bg-img blur-up lazyload" alt="">
+                    <img src="{{$banners->bottom_fourth_image}}" class="bg-img blur-up lazyload" alt="{{@$banners->bottom_fourth_image_attribute}}">
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger"></h6>
@@ -205,7 +205,7 @@
                         </div>
                         <div class="ratio_156 section-t-space">
                             <div class="home-contain hover-effect">
-                                <img src="../assets/images/vegetable/banner/8.jpg" class="bg-img blur-up lazyload"
+                                <img src="{{ @$Hbanners->side_first_banner }}" class="bg-img blur-up lazyload"
                                     alt="">
                                 <div class="home-detail p-top-left home-p-medium">
                                     <div>
@@ -213,7 +213,7 @@
                                         <h3 class="text-uppercase fw-normal"><span
                                                 class="theme-color fw-bold"></span> </h3>
                                         <h3 class="fw-light"> </h3>
-                                        <button onclick="location.href = 'shop-left-sidebar.html';"
+                                        <button onclick="location.href = '{{url(@$Hbanners->side_first_banner_url)}}';"
                                             class="btn btn-animation btn-md mend-auto">Shop Now <i
                                                 class="fa-solid fa-arrow-right icon"></i></button>
                                     </div>
@@ -223,15 +223,15 @@
 
                         <div class="ratio_medium section-t-space">
                             <div class="home-contain hover-effect">
-                                <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid blur-up lazyload"
-                                    alt="">
+                                <img src="{{ @$Hbanners->side_second_banner }}" class="img-fluid blur-up lazyload"
+                                    alt="{{ @$Hbanners->side_second_banner_attribute }}">
                                 <div class="home-detail p-top-left home-p-medium">
                                     <div>
                                         <h4 class="text-yellow text-exo home-banner"></h4>
                                         <h2 class="text-uppercase fw-normal mb-0 text-russo theme-color"></h2>
                                         <h2 class="text-uppercase fw-normal text-title"></h2>
                                         <p class="mb-3"></p>
-                                        <button onclick="location.href = 'shop-left-sidebar.html';"
+                                        <button onclick="location.href = '{{url(@$Hbanners->side_second_banner)}}';"
                                             class="btn btn-animation btn-md mend-auto">Shop Now <i
                                                 class="fa-solid fa-arrow-right icon"></i></button>
                                     </div>
@@ -311,14 +311,14 @@
                                                     @if(Helper::offerPrice($product->id)!='')
                                                     <span class="theme-color">
                                                         {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
-                                                    </span> 
+                                                    </span>
                                                     <del>
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                     </del>
                                                     @else
                                                     <span class="theme-color">
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                                                    </span> 
+                                                    </span>
                                                     @endif
                                                 </h5>
                                                <div class="add-to-cart-box bg-white ">
@@ -351,7 +351,7 @@
                         @endisset
                     </div>
                     @isset($popularProducts)
-                        
+
                     <div class="title d-block">
                         <h2>Populat Products</h2>
                         <span class="title-leaf">
@@ -398,7 +398,7 @@
                                                     @if(Helper::offerPrice($product->id)!='')
                                                     <span class="theme-color">
                                                         {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
-                                                    </span> 
+                                                    </span>
                                                     <del>
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                     </del>
@@ -406,13 +406,13 @@
                                                     {{Helper::offerPriceAmount($product->id)}}
                                                     <span class="theme-color">
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                                                    </span> 
+                                                    </span>
                                                     @endif
                                                 </h5>
 
                                                 <div class="product-rating mt-2">
                                                     <ul class="rating">
-                                                        
+
                                                     </ul>
                                                     @if($product->availability === "In Stock")
                                                     <h6 class="theme-color">In Stock</h6>
@@ -451,7 +451,7 @@
                                 </div>
                             </div>
                             @endforeach
-                            
+
                         </div>
                     </div>
                     @endisset
@@ -459,14 +459,15 @@
                         <div class="row g-md-4 g-3">
                             <div class="col-xxl-8 col-xl-12 col-md-7">
                                 <div class="banner-contain hover-effect">
-                                    <img src="../assets/images/vegetable/banner/12.jpg" class="bg-img blur-up lazyload"
-                                        alt="">
+
+                                    <img src="{{ @$Hbanners->category_second_banner }}" class="bg-img blur-up lazyload"
+                                        alt="{{ @$Hbanners->category_first_banner_attribute }}">
                                     <div class="banner-details p-center-left p-4">
                                         <div>
                                             <h2 class="text-kaushan fw-normal theme-color"></h2>
                                             <h3 class="mt-2 mb-3"> <BR></BR></h3>
-                                        
-                                            <button onclick="location.href = 'shop-left-sidebar.html';"
+
+                                            <button onclick="location.href = '{{ @$Hbanners->category_first_banner_url }}';"
                                                 class="btn btn-animation btn-sm mend-auto">Shop Now <i
                                                     class="fa-solid fa-arrow-right icon"></i></button>
                                         </div>
@@ -476,13 +477,16 @@
 
                             <div class="col-xxl-4 col-xl-12 col-md-5">
                                 <a href="shop-left-sidebar.html" class="banner-contain hover-effect h-100">
-                                    <img src="../assets/images/vegetable/banner/13.jpg" class="bg-img blur-up lazyload"
-                                        alt="">
+                                    <img src="{{ @$Hbanners->category_second_banner }}" class="bg-img blur-up lazyload"
+                                        alt="{{ @$Hbanners->category_second_banner_attribute }}">
                                     <div class="banner-details p-center-left p-4 h-100">
                                         <div>
                                             <h2 class="text-kaushan fw-normal text-danger"></h2>
                                             <h3 class="mt-2 mb-2 theme-color"> <br></h3>
                                             <h3 class="fw-normal product-name text-title"></h3>
+                                            <button onclick="location.href = '{{ @$Hbanners->category_second_banner_url }}';"
+                                                class="btn btn-animation btn-sm mend-auto">Shop Now <i
+                                                    class="fa-solid fa-arrow-right icon"></i></button>
                                         </div>
                                     </div>
                                 </a>
@@ -517,10 +521,10 @@
                                                         <a href="{{ url('/product/'.$product->short_url) }}" class="text-title">
                                                             <h6 class="name">{{ $product->name }}</h6>
                                                         </a>
-                                                        
+
                                                         <h6 class="price theme-color">
                                                             {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                                                           
+
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -531,9 +535,9 @@
                             </div>
                         @endforeach
                     </div>
-                        
+
                     @endisset
-                    
+
                 </div>
 
 
