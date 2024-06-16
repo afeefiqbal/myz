@@ -262,80 +262,92 @@
 
                         <div class="product-border border-row">
                             <div class="slider-6_2 no-arrow">
-                                @php $count = 0; @endphp
-                                <div class="row">
-                                    @foreach ($products as $product)
-                                        <div class="col-lg-4 col-md-6 col-sm-12 px-0"> <!-- Adjust column sizes as needed -->
-                                            <div class="product-box-3 h-100 wow fadeInUp">
-                                                <div class="product-header">
-                                                    <div class="product-image">
+                                @foreach ($products as $product )
+                                <div class="col-6 px-0">
+                                    <div class="product-box-3 h-100 wow fadeInUp">
+                                        <div class="product-header">
+                                            <div class="product-image">
+                                                <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
+                                                    <img src="{{asset($product->thumbnail_image)}}"
+                                                        class="img-fluid blur-up lazyload" alt="">
+                                                </a>
+
+                                                <ul class="product-option">
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                                         <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                                            <img src="{{ asset($product->thumbnail_image) }}" class="img-fluid blur-up lazyload" alt="">
+                                                            <i data-feather="eye"></i>
                                                         </a>
-                                                        <ul class="product-option">
-                                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                                <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                                                    <i data-feather="eye"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                                <a id="wishlist_check_{{ @$product->id }}" href="javascript:void(0)"
-                                                                    class="notifi-wishlist {{ (Auth::guard('customer')->check()) ? 'wishlist-action' : 'login-popup' }}">
-                                                                    <i data-feather="heart"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                    </li>
+
+
+
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                                        <a id="wishlist_check_{{@$product->id}}"  href="avascript:void(0)" class="notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
+                                                            <i data-feather="heart"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-footer">
+                                            <div class="product-detail">
+
+                                                <a href="{{ url('/product/'.$product->short_url) }}">
+                                                    <h5 class="name">{{$product->title}}</h5>
+                                                </a>
+
+                                                <div class="product-rating mt-2">
+                                                    <ul class="rating">
+                                                        @if(Helper::averageRating($product->id)>0)
+                                                        <li class="review">
+                                                            <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                                        </li>
+                                                        @endif
+                                                    </ul>
+                                                    {{-- <span>(4.0)</span> --}}
                                                 </div>
-                                                <div class="product-footer">
-                                                    <div class="product-detail">
-                                                        <a href="{{ url('/product/'.$product->short_url) }}">
-                                                            <h5 class="name">{{ $product->title }}</h5>
-                                                        </a>
-                                                        <div class="product-rating mt-2">
-                                                            <ul class="rating">
-                                                                @if(Helper::averageRating($product->id) > 0)
-                                                                    <li class="review">
-                                                                        <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id) }}
-                                                                    </li>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                        <h5 class="price">
-                                                            @if(Helper::offerPrice($product->id) != '')
-                                                                <span class="theme-color">
-                                                                    {{ Helper::defaultCurrency().' '.Helper::offerPriceAmount($product->id) }}
-                                                                </span>
-                                                                <del>
-                                                                    {{ Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate() * $product->price, 2) }}
-                                                                </del>
-                                                            @else
-                                                                <span class="theme-color">
-                                                                    {{ Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate() * $product->price, 2) }}
-                                                                </span>
-                                                            @endif
-                                                        </h5>
-                                                        <div class="add-to-cart-box bg-white">
-                                                            <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1"
-                                                                data-mount="Yes" data-id="{{ $product->id }}" data-size="{{ @$productPrice->size_id }}"
-                                                                data-product_type_id="{{ $product->product_type_id }}">Add
-                                                                <i class="fa-solid fa-plus bg-gray"></i>
+                                                <!-- <h6 class="unit">250 ml</h6> -->
+                                                <h5 class="price">
+                                                    @if(Helper::offerPrice($product->id)!='')
+                                                    <span class="theme-color">
+                                                        {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($product->id))}}
+                                                    </span>
+                                                    <del>
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                    </del>
+                                                    @else
+                                                    <span class="theme-color">
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                    </span>
+                                                    @endif
+                                                </h5>
+                                               <div class="add-to-cart-box bg-white ">
+                                                    <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
+                                                        <i class="fa-solid fa-plus bg-gray"></i></button>
+                                                    {{-- <div class="cart_qty qty-box">
+                                                        <div class="input-group bg-white">
+                                                            <button type="button" class="qty-left-minus bg-gray cartBtn"
+                                                                data-type="minus" data-field="">
+                                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                                            </button>
+                                                            <input class="form-control input-number qty-input cartBtn" type="text"
+                                                                name="quantity" value="0">
+                                                            <button type="button" class="qty-right-plus bg-gray"
+                                                                data-type="plus" data-field="">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i>
                                                             </button>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
-                                        @php $count++; @endphp
-                                        @if ($count % 3 == 0 && $count < count($products))
-                                            </div><div class="row">
-                                        @endif
-                                    @endforeach
+                                    </div>
                                 </div>
+
+                                @endforeach
+
                             </div>
                         </div>
-                        
-                        
                         @endisset
                     </div>
                     @isset($popularProducts)
