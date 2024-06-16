@@ -33,6 +33,7 @@ class AboutController extends Controller
 
     public function about_store(Request $request)
     {
+      
 
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
@@ -73,7 +74,24 @@ class AboutController extends Controller
 
             $about->products_available_image = Helper::uploadFile($request->products_available_image, 'uploads/about/products_available_image/', $request->title);
         }
+   
+        if ($request->hasFile('first_div_image')) {
+            Helper::deleteFile($about, 'first_div_image');
 
+            $about->first_div_image = Helper::uploadFile($request->first_div_image, 'uploads/about/first_div_image/', $request->title);
+        }
+
+
+        if ($request->hasFile('second_div_image')) {
+            Helper::deleteFile($about, 'second_div_image');
+
+            $about->second_div_image = Helper::uploadFile($request->second_div_image, 'uploads/about/second_div_image/', $request->title);
+        }
+        if ($request->hasFile('third_div_image')) {
+            Helper::deleteFile($about, 'third_div_image');
+
+            $about->third_div_image = Helper::uploadFile($request->third_div_image, 'uploads/about/third_div_image/', $request->title);
+        }
         // if ($request->hasFile('image')) {
         //     $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/about/image/webp/', $request->title);
         //     $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
@@ -91,6 +109,15 @@ class AboutController extends Controller
         $about->history_title = $request->history_title ?? '';
         $about->history_description = $request->history_description ?? '';
         $about->products_available_title = $request->products_available_title ?? '';
+        $about->first_div = $request->first_div ?? '';
+        $about->third_div = $request->third_div ?? '';
+        $about->second_div = $request->second_div ?? '';
+        $about->first_div_count = $request->first_div_count ?? '';
+        $about->second_div_count = $request->second_div_count ?? '';
+        $about->third_div_count = $request->third_div_count ?? '';
+        $about->first_div_title = $request->first_div_title ?? '';
+        $about->second_div_title = $request->second_div_title ?? '';
+        $about->third_div_title = $request->third_div_title ?? ''; 
         $about->products_available_description = $request->products_available_description ?? '';
         if ($about->save()) {
             session()->flash('success', 'About details has been updated successfully');

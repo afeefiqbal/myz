@@ -381,7 +381,7 @@
                 initialPreview: [
                     "{{asset($index->bottom_third_image)}}",
                 ],
-                initialPreviewConfig: [
+                initialPreviewConfig: [ 
                     {caption: "{!! ($index->bottom_third_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif

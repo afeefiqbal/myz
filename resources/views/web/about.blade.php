@@ -87,36 +87,34 @@
                         <div>
                             <div class="clint-contain">
                                 <div class="client-icon">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/3/work.svg" class="blur-up lazyload" alt="">
+                                 
+                                    <img src="{{asset($about->first_div_image)}}" class="blur-up lazyload" alt="">
                                 </div>
-                                <h2>10</h2>
-                                <h4>Business Years</h4>
-                                <p>A coffee shop is a small business that sells coffee, pastries, and other morning
-                                    goods. There are many different types of coffee shops around the world.</p>
+                                <h2>  {{$about->first_div_count}} </h2>
+                                <h4>  {{$about->first_div_title}}</h4>
+                                <p> {!!$about->first_div !!} </p>
                             </div>
                         </div>
 
                         <div>
                             <div class="clint-contain">
                                 <div class="client-icon">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/3/buy.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{asset($about->second_div_image)}}" class="blur-up lazyload" alt="">
                                 </div>
-                                <h2>80 K+</h2>
-                                <h4>Products Sales</h4>
-                                <p>Some coffee shops have a seating area, while some just have a spot to order and then
-                                    go somewhere else to sit down. The coffee shop that I am going to.</p>
+                                <h2>{{$about->second_div_count}}</h2>
+                                <h4>{{$about->second_div_title}}</h4>
+                                <p>{!!$about->second_div !!} </p>
                             </div>
                         </div>
 
                         <div>
                             <div class="clint-contain">
                                 <div class="client-icon">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/3/user.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{asset($about->third_div_image)}}" class="blur-up lazyload" alt="">
                                 </div>
-                                <h2>90%</h2>
-                                <h4>Happy Customers</h4>
-                                <p>My goal for this coffee shop is to be able to get a coffee and get on with my day.
-                                    It's a Thursday morning and I am rushing between meetings.</p>
+                                <h2>{{$about->third_div_count}}</h2>
+                                <h4>{{$about->third_div_title}}</h4>
+                                <p>{!!$about->third_div !!} </p>
                             </div>
                         </div>
                     </div>

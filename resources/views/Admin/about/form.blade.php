@@ -128,7 +128,114 @@
                                     @enderror
                                 </div>
                             </div>
-                           
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>First Div*</label>
+                                    <textarea name="first_div" id="first_div"   placeholder="first_div"  class="form-control tinyeditor" autocomplete="off">
+                                        {{ old('first_div', !empty($about)?$about->first_div:'') }}</textarea>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Second Div*</label>
+                                    <textarea id="second_div"   name="second_div"  class="form-control tinyeditor" autocomplete="off">
+                                        {{ old('second_div', !empty($about)?$about->second_div:'') }}</textarea>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Third Div*</label>
+                                    <textarea name="third_div" id="thid_div"   placeholder="thōid_div"  class="form-control tinyeditor" autocomplete="off">
+                                        {{ old('third_div', !empty($about)?$about->third_div:'') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                            
+                                <div class="form-group col-md-4">
+                                    <label> First Div Title </label>
+                                    <input type="text" class="form-control placeholder-cls" id="first_div_title"
+                                           name="first_div_title" placeholder=""
+                                           value="{{ isset($about)?$about->first_div_title:'' }}">
+                                    @error('first_div_title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>First Div Icon*</label>
+                                    <div class="file-loading">
+                                       <input id="first_div_image" name="first_div_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be  233 x 230 and Size must be  less than 512 KB</span>
+                                    @error('first_div_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label> First Div Value </label>
+                                    <input type="text" class="form-control placeholder-cls" id="first_div_count"
+                                           name="first_div_count" placeholder=""
+                                           value="{{ isset($about)?$about->first_div_count:'' }}">
+                                    @error('first_div_count')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label> Second Div Title </label>
+                                    <input type="text" class="form-control placeholder-cls" id="second_div_title"
+                                           name="second_div_title" placeholder=""
+                                           value="{{ isset($about)?$about->second_div_title:'' }}">
+                                    @error('second_div_title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Second Div Icon*</label>
+                                    <div class="file-loading">
+                                       <input id="second_div_image" name="second_div_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be  299 x 230 and Size must be  less than 512 KB</span>
+                                    @error('second_div_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label> Second Div Value </label>
+                                    <input type="text" class="form-control placeholder-cls" id="second_div_count"
+                                           name="second_div_count" placeholder=""
+                                           value="{{ isset($about)?$about->second_div_count:'' }}">
+                                    @error('second_div_count')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label> Third Div Title </label>
+                                    <input type="text" class="form-control placeholder-cls" id="third_div_title"
+                                           name="third_div_title" placeholder=""
+                                           value="{{ isset($about)?$about->third_div_title:'' }}">
+                                    @error('third_div_title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Third Div Icon*</label>
+                                    <div class="file-loading">
+                                       <input id="third_div_image" name="third_div_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be  236 x 230 and Size must be  less than 512 KB</span>
+                                    @error('third_div_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label> Third Div Value </label>
+                                    <input type="text" class="form-control placeholder-cls" id="third_div_count"
+                                           name="third_div_count" placeholder=""
+                                           value="{{ isset($about)?$about->third_div_count:'' }}">
+                                    @error('third_div_count')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <input type="hidden" name="id" id="id" value="{{isset($about)?$about->id:'0'}}">
@@ -186,6 +293,78 @@
                 initialPreview: ["{{asset($about->banner_image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($about->banner_image!=NULL)?last(explode('/',$about->banner_image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#first_div_image",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 233,
+                minImageHeight: 230,
+                maxImageWidth: 233,
+                maxImageHeight: 230,
+                showRemove: true,
+                @if(isset($about) && $about->first_div_image!=NULL)
+                initialPreview: ["{{asset($about->first_div_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->first_div_image!=NULL)?last(explode('/',$about->first_div_image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#second_div_image",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false ,
+                allowedFileTypes: ['image'],
+                minImageWidth: 299,
+                minImageHeight: 230,
+                maxImageWidth: 299,
+                maxImageHeight: 230,
+                showRemove: true,
+                @if(isset($about) && $about->second_div_image!=NULL)
+                initialPreview: ["{{asset($about->second_div_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->second_div_image!=NULL)?last(explode('/',$about->second_div_image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#third_div_image",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 236,
+                minImageHeight: 230,
+                maxImageWidth: 236,
+                maxImageHeight: 230,
+                showRemove: true,
+                @if(isset($about) && $about->third_div_image!=NULL)
+                initialPreview: ["{{asset($about->third_div_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->third_div_image!=NULL)?last(explode('/',$about->third_div_image)):''}}",
                     width: "120px"
                 }]
                 @endif

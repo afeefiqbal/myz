@@ -85,7 +85,25 @@
                             </div>
                                 <div class="form-row">
 
-                                
+                                    <div class="form-group col-md-6">
+                                        <label>Icon*</label>
+                                        <div class="file-loading">
+                                           <input id="icon" name="icon" type="file" accept="image/png, image/jpg, image/jpeg">
+                                        </div>
+                                        <span class="caption_note">Note: Image size must be 43 x 43px</span>
+                                        @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label> Image Attribute</label>
+                                        <input type="text" class="form-control placeholder-cls" id="image_attribute"
+                                               name="image_attribute" placeholder="Alt='Image Attribute'"
+                                               value="{{ isset($frame)?$frame->image_attribute:'' }}">
+                                        @error('image_attribute')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                    
                                 </div>
                         
@@ -115,10 +133,10 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                // minImageWidth: 43,
-                // minImageHeight: 43,
-                // maxImageWidth: 43,
-                // maxImageHeight: 43,
+                minImageWidth: 43,
+                minImageHeight: 43,
+                maxImageWidth: 43,
+                maxImageHeight: 43,
                 maxFileSize: 43,
                 showRemove: true,
                 @if(isset($category) && $category->icon!=NULL)
