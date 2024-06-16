@@ -499,47 +499,16 @@ class WebController extends Controller
 
     public function main_search(Request $request)
     {
-        // $searchResult = array();
-        // $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-
-
         $searchResult = array();
-
-                $categories = Category::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $tags = Tag::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $shapes = Shape::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $colors = Color::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $categoryIds = implode('', $categories->pluck('id')->toArray());
-                $tagIds = implode('', $tags->pluck('id')->toArray());
-                $shapeIds = implode('', $shapes->pluck('id')->toArray());
-                $colorIds = implode('', $colors->pluck('id')->toArray());
-                $products = Product::active()->where('copy','no')
-                    ->where(function ($query) use ($categoryIds, $tagIds,$shapeIds,$colorIds,$request) {
-                        $query->orWhere('title', 'LIKE', "%{$request->search_param}%");
-                        if ($categoryIds) {
-                            $query->orWhereRaw('CONCAT(",", `category_id`, ",") REGEXP ",(' . $categoryIds . '),"');
-                            $query->orWhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $categoryIds . '),"');
-                        }
-                        if ($tagIds) {
-
-                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $tagIds . '),"');
-                        }
-                        if ($shapeIds) {
-
-                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $shapeIds . '),"');
-                        }
-                        if ($colorIds) {
-
-                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $colorIds . '),"');
-                        }
-                    })->get();
+        $products = Product::whereNotIn('type',['corporate'])->active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+     ;
         if ($products->isNotEmpty()) {
             foreach ($products as $product) {
                 if (Helper::offerPrice($product->id) != '') {
                     $offerPrice = Helper::offerPrice($product->id);
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->id;
+                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->price;
                 } else {
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->price;
+                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->price;
                 }
                 $searchResult[] = array("id" => $product->id, "title" => $product->title, 'price' => $price, 'offer_price' => $offerPrice ?? '', 'image' => ($product->thumbnail_image != NULL && File::exists(public_path($product->thumbnail_image))) ? asset($product->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('product/' . $product->short_url));
             }
@@ -550,11 +519,7 @@ class WebController extends Controller
 
     public function main_search_products($search_param)
     {
-
-        //if $search_param have slash remove it
-        $search_param = str_replace('/', '', $search_param);
-
-        $condition = Product::active()->where('title', 'LIKE', "%{$search_param}%")->where('copy','no');
+        $condition = Product::whereNotIn('type',['corporate'])->active()->where('title', 'LIKE', "%{$search_param}%");
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(30)->get();
         $parentCategories = Category::active()->isParent()->get();
@@ -564,18 +529,13 @@ class WebController extends Controller
         $loading_limit = 15;
         $type = "search_result";
         $typeValue = $search_param;
-
-        $shapes = Shape::active()->orderBy('sort_order','asc')->get();
-
-        $shapescount = count($shapes);
-        $tags = Tag::orderBy('sort_order')->get();
         $banner = Banner::type('search')->first();
         $sort_value = 'latest';
         $title = 'Search result of ' . $search_param;
-        $latestProducts = Product::active()->take(5)->latest()->get();
+        $latestProducts = Product::whereNotIn('type',['corporate'])->active()->take(5)->latest()->get();
         return view('web.products', compact('products', 'totalProducts', 'offset',
             'loading_limit', 'parentCategories', 'colors', 'colors',
-            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner','shapes','tags','shapescount'));
+            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner'));
     }
 
     public function product_detail($short_url)

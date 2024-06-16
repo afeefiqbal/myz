@@ -54,15 +54,17 @@
                         </a>
                         <div class="middle-box">
 
-
+                            <form class="position-relative">
                             <div class="search-box">
                                 <div class="input-group">
-                                    <input type="search" class="form-control" placeholder="I'm searching for..."
+                                    <input type="search" class="form-control" placeholder="I'm searching for..." id="main-search" 
                                         aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn" type="button" id="button-addon2">
+                                    <button class="btn" type="submit" id="searchBtn">
                                         <i data-feather="search"></i>
                                     </button>
+                                   
                                 </div>
+                            </form>
                             </div>
                         </div>
 

@@ -1162,6 +1162,71 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).mouseup(function (e) {
+        var container = $("#main-search");
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            $('.searchResult').hide();
+            $('.searchResultMobile').hide();
+        }
+    });
+
+    $(document).on('click', '#searchBtn', function (e) {
+        e.preventDefault();
+        var search_param = $('#main-search').val();
+        if (search_param) {
+            window.location.href = base_url + '/search/' + search_param;
+        } else {
+        }
+    });
+
+    $(document).on('keyup', '#main-search', function () {
+        var search_param = $(this).val();
+        desktopSearch(search_param);
+    });
+
+    function desktopSearch(search_param) {
+        if (search_param) {
+            $.ajax({
+                type: 'POST', dataType: 'json', data: {search_param: search_param}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/main-search', success: function (response) {
+                    if (response.status == true) {
+                        var resp = response.message;
+                        var len = response.message.length;
+                        if (len > 0) {
+                            $('#search-result-append-here').html('');
+                            for (var i = 0; i < len; i++) {
+                                var id = resp[i]['id'];
+                                var title = resp[i]['title'];
+                                var price = resp[i]['price'];
+                                var offer_price = resp[i]['offer_price'];
+                                var image = resp[i]['image'];
+                                var link = resp[i]['link'];
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
+                                if (offer_price != '') {
+                                    result += "<div class='d-flex align-items-center'><div class='price'>" + offer_price + "</div>" + "<div class='fullPrice'>" + price + "</div></div>";
+                                } else {
+                                    result += "<div class='d-flex align-items-center'><div class='price'>" + price + "</div></div>";
+                                }
+                                result += "</div></div>" + "</a></li>";
+                                $('#search-result-append-here').append(result);
+                                $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
+                            }
+                            $('.searchResult').show();
+                        } else {
+                            var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
+                            $('#search-result-append-here').html(result);
+                            $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
+                        }
+                    } else {
+                        Toast.fire('Error', 'Error while retrieving the search results', 'error');
+                    }
+                }
+            });
+        }
+    }
     $(document).on('click', '#confirm_payment', function (e) {
    
         e.preventDefault();

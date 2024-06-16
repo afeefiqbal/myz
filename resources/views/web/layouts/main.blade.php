@@ -54,7 +54,7 @@
 </script>
 
 
-<body class="bg-effect">
+<body class="bg-effect google_translate_element">
 
     <!-- Loader Start -->
     <div class="fullpage-loader">
