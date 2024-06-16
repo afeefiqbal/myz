@@ -206,7 +206,7 @@ Route::group(['prefix' => 'customer'], function () {
 /******************************** Payment Routes ************************************/
 Route::group(['prefix' => 'payment'], function () {
     Route::get('/success',  [PaymentController::class, 'paymentSuccess'])->name('payment.success');
-    Route::get('/failure',  [PaymentController::class, 'paymentDeclined'])->name('payment.failure');    
+    Route::get('/failure',  [PaymentController::class, 'paymentDeclined'])->name('payment.failure');
     // Route::get('/{order}', [PaymentController::class, 'charge'])->name('goToPayment');
     Route::post('/process', [PaymentController::class, 'processPayment'])->name('processPayment');
     // Route::get('/payment/process', 'Web\PaymentController@processPayment')->name('payment.process');
@@ -243,7 +243,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('home-heading', [HomeController::class, 'update_home_heading']);
     Route::get('home-heading', [HomeController::class, 'create_home_heading']);
     Route::post('status-change', [HomeController::class, 'status_change']);
-    Route::post('change-bool-status', [HomeController::class, 'change_bool_status']); 
+    Route::post('change-bool-status', [HomeController::class, 'change_bool_status']);
     Route::post('change-order-status', [HomeController::class, 'change_order_status']);
     Route::post('sort_order/', [HomeController::class, 'sort_order']);
     Route::post('sub-category', [HomeController::class, 'sub_categories']);
@@ -265,6 +265,16 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [AboutController::class, 'delete_feature']);
         });
     });
+    Route::prefix('banner')->group(function () {
+        Route::get('/', [HomeController::class, 'banner']);
+        Route::get('create', [HomeController::class, 'banner_create']);
+        Route::post('store', [HomeController::class, 'banner_store'])->name('banner.store');
+        Route::get('edit/{id}', [HomeController::class, 'banner_edit']);
+        Route::post('edit/{id}', [HomeController::class, 'banner_update']);
+        Route::post('delete', [HomeController::class, 'delete_banner']);
+        Route::post('banner-type-store', [HomeController::class, 'banner_type_store']);
+    });
+
     Route::prefix('home')->group(function(){
         Route::post('image_process', [HomeController::class, 'imageProcess']);
     });
@@ -440,7 +450,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     });
 
     Route::prefix('enquiry')->group(function () {
-        
+
         Route::get('/', [EnquiryController::class, 'enquiry_list']);
         Route::get('view/{id}', [EnquiryController::class, 'enquiry_view']);
         Route::post('reply', [EnquiryController::class, 'reply_to_enquiry']);
@@ -514,23 +524,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/our-collection/create', [HomeController::class, 'ourcollection_create']);
         Route::post('/our-collection/create', [HomeController::class, 'ourcollection_store']);
 
-       
+
 
         Route::get('/our-selection/create', [HomeController::class, 'ourselection_create']);
         Route::post('/our-selection/create', [HomeController::class, 'selection_update']);
         Route::post('update', [HomeController::class, 'selection_update'])->name('selection.update');
 
-      
 
-        Route::prefix('banner')->group(function () {
-            Route::get('/', [HomeController::class, 'banner']);
-            Route::get('create', [HomeController::class, 'banner_create']);
-            Route::post('create', [HomeController::class, 'banner_store']);
-            Route::get('edit/{id}', [HomeController::class, 'banner_edit']);
-            Route::post('edit/{id}', [HomeController::class, 'banner_update']);
-            Route::post('delete', [HomeController::class, 'delete_banner']);
-            Route::post('banner-type-store', [HomeController::class, 'banner_type_store']);
-        });
+
 
         Route::prefix('hot-deal')->group(function () {
             Route::get('/', [HomeController::class, 'hot_deals']);

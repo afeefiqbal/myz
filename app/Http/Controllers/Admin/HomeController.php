@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\Color;
@@ -172,7 +173,71 @@ class HomeController extends Controller
 
 
     }
+    public function banner()
+    {
+        $key = "Update";
+        $title = "Home";
 
+        $index = HomeBanner::first();
+        return view('Admin.banner.form', compact('key', 'title', 'index'));
+    }
+    public function banner_store(Request $request)
+    {
+        if ($request->id == 0) {
+            $validatedData = $request->validate([
+                'side_first_banner_attribute' => 'required',
+                'side_first_banner_url' => 'required|min:2|max:255',
+                'side_second_banner_attribute' =>  'required',
+                'side_second_banner_url' =>  'required',
+                'category_first_banner_attribute' =>  'required',
+                'category_first_banner_url' =>  'required',
+                'category_second_banner_attribute' =>  'required',
+                'category_second_banner_url' =>  'required',
+                'side_first_banner' => 'required|image',
+                'side_second_banner' => 'required|image',
+                'category_first_banner' => 'required|image',
+                'category_second_banner' => 'required|image',
+
+            ]);
+            $index = new   HomeBanner() ;
+        } else {
+            $index = HomeBanner::find($request->id);
+            $index->updated_at = now();
+        }
+        if ($request->hasFile('side_first_banner')) {
+            Helper::deleteFile($index, 'side_first_banner');
+            $index->side_first_banner = Helper::uploadFile($request->side_first_banner, 'uploads/image/', 'banner');
+        }
+        if ($request->hasFile('side_second_banner')) {
+            Helper::deleteFile($index, 'side_second_banner');
+            $index->side_second_banner = Helper::uploadFile($request->side_second_banner, 'uploads/image/', 'banner');
+        }
+        if ($request->hasFile('category_first_banner')) {
+            Helper::deleteFile($index, 'category_first_banner');
+            $index->category_first_banner = Helper::uploadFile($request->category_first_banner, 'uploads/image/', 'banner');
+        }
+        if ($request->hasFile('category_second_banner')) {
+            Helper::deleteFile($index, 'category_second_banner');
+            $index->category_second_banner = Helper::uploadFile($request->category_second_banner, 'uploads/image/', 'banner');
+        }
+        $index->side_first_banner_attribute = $request->side_first_banner_attribute ?? '';
+        $index->side_first_banner_url = $request->side_first_banner_url ?? '';
+
+        $index->side_second_banner_attribute = $request->side_second_banner_attribute ?? '';
+        $index->side_second_banner_url = $request->side_second_banner_url ?? '';
+
+        $index->category_first_banner_attribute = $request->category_first_banner_attribute ?? '';
+        $index->category_first_banner_url = $request->category_first_banner_url ?? '';
+
+        $index->category_second_banner_attribute = $request->category_second_banner_attribute ?? '';
+        $index->category_second_banner_url = $request->category_second_banner_url ?? '';
+        if ($index->save()) {
+            session()->flash('success', 'Banner has been updated successfully');
+            return redirect(Helper::sitePrefix() . 'home');
+        } else {
+            return back()->with('error', 'Error while updating the About details');
+        }
+    }
     public function imageProcess(Request $request){
         if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
             $image = $request->file('upload');
