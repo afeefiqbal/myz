@@ -32,7 +32,7 @@
                 <div class="col-xxl-6">
                     <div class="left-sidebar-box">
                         <div class="contact-image">
-                            <img src="assets/images/inner-page/contact-us.png" class="img-fluid blur-up lazyload"
+                            <img src="{{@$contact->address_image}}" class="img-fluid blur-up lazyload"
                                 alt="">
                         </div>
                         <div class="contact-title">
@@ -84,6 +84,7 @@
                                         </div>
 
                                         <div class="contact-detail-contain">
+                                            <p>{!! @$contact->address !!}</p>
                                             <p>{!! @$contact->address !!}</p>
                                         </div>
                                     </div>

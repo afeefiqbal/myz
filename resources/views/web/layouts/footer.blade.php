@@ -61,17 +61,16 @@
                             </div>
 
                             <div class="footer-logo-contain">
-                                <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
-                                    demonstrate the visual form.</p>
+                                <p></p>
 
                                 <ul class="address">
                                     <li>
                                         <i data-feather="home"></i>
-                                        <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
+                                        <a href="javascript:void(0)">{{@$siteInformation->address}}</a>
                                     </li>
                                     <li>
                                         <i data-feather="mail"></i>
-                                        <a href="javascript:void(0)">support@fastkart.com</a>
+                                        <a href="javascript:void(0)">{{@$siteInformation->email}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -154,8 +153,8 @@
                                     <div class="footer-number">
                                         <i data-feather="phone"></i>
                                         <div class="contact-number">
-                                            <h6 class="text-content"> :</h6>
-                                            <h5>+91</h5>
+                                            <h5 class="text-content"> :{{@$siteInformation->phone}} </h5>
+                                            
                                         </div>
                                     </div>
                                 </li>
@@ -165,7 +164,7 @@
                                         <i data-feather="mail"></i>
                                         <div class="contact-number">
                                             <h6 class="text-content">Email Address :</h6>
-                                            <h5>info@myzcomputers.com</h5>
+                                            <h5>{{@$siteInformation->email}}</h5>
                                         </div>
                                     </div>
                                 </li>
@@ -183,7 +182,7 @@
                 </div>
 
                 <div class="payment">
-                    <img src="{{asset('assets/images/payment/1.pn')}}g" class="blur-up lazyload" alt="">
+                    <img src="{{asset('assets/images/payment/1.png')}}" class="blur-up lazyload" alt="">
                 </div>
 
                 <div class="social-link">

@@ -41,8 +41,8 @@
 
     <!-- Iconly css -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/bulk-style.css')}}">
-    <link rel="stylesheet" href="https://themes.pixelstrap.com/fastkart/assets/css/bulk-style.css">
-    <link rel="stylesheet" href="https://themes.pixelstrap.com/fastkart/assets/css/vendors/animate.css">
+    {{-- <link rel="stylesheet" href="https://themes.pixelstrap.com/fastkart/assets/css/bulk-style.css">
+    <link rel="stylesheet" href="https://themes.pixelstrap.com/fastkart/assets/css/vendors/animate.css"> --}}
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
