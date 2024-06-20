@@ -10,7 +10,7 @@
     <div class="orderProductSummary">
                 @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                 @php
-                $product = App\Models\Product::find($row->attributes['product_id']);
+               $product = App\Models\Product::find($row->id);
                 @endphp
                 <div id="cart-item-div-{{$row->id}}">
                     <div class="item">

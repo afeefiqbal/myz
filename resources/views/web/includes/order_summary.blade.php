@@ -5,7 +5,7 @@
         @if (!Cart::session($sessionKey)->isEmpty())
             @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                 @php
-                $product = App\Models\Product::find($row->attributes['product_id']);
+               $product = App\Models\Product::find($row->id);
                 @endphp
                 <div class="item">
                     <div class="leftImgDetails">

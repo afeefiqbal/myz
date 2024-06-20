@@ -203,9 +203,10 @@
                             </ul>
                             @endisset
                         </div>
+                        @if(@$Hbanners)
                         <div class="ratio_156 section-t-space">
                             <div class="home-contain hover-effect">
-                                <img src="{{ @$Hbanners->side_first_banner }}" class="bg-img blur-up lazyload"
+                                <img src="{{ $Hbanners->side_first_banner }}" class="bg-img blur-up lazyload"
                                     alt="">
                                 <div class="home-detail p-top-left home-p-medium">
                                     <div>
@@ -213,32 +214,33 @@
                                         <h3 class="text-uppercase fw-normal"><span
                                                 class="theme-color fw-bold"></span> </h3>
                                         <h3 class="fw-light"> </h3>
-                                        <button onclick="location.href = '{{url(@$Hbanners->side_first_banner_url)}}';"
+                                        <button onclick="location.href = '{{url($Hbanners->side_first_banner_url)}}';"
                                             class="btn btn-animation btn-md mend-auto">Shop Now <i
                                                 class="fa-solid fa-arrow-right icon"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        @endif
+                        @if(@$Hbanners)
                         <div class="ratio_medium section-t-space">
                             <div class="home-contain hover-effect">
-                                <img src="{{ @$Hbanners->side_second_banner }}" class="img-fluid blur-up lazyload"
-                                    alt="{{ @$Hbanners->side_second_banner_attribute }}">
+                                <img src="{{ $Hbanners->side_second_banner }}" class="img-fluid blur-up lazyload"
+                                    alt="{{ $Hbanners->side_second_banner_attribute }}">
                                 <div class="home-detail p-top-left home-p-medium">
                                     <div>
                                         <h4 class="text-yellow text-exo home-banner"></h4>
                                         <h2 class="text-uppercase fw-normal mb-0 text-russo theme-color"></h2>
                                         <h2 class="text-uppercase fw-normal text-title"></h2>
                                         <p class="mb-3"></p>
-                                        <button onclick="location.href = '{{url(@$Hbanners->side_second_banner)}}';"
+                                        <button onclick="location.href = '{{url($Hbanners->side_second_banner)}}';"
                                             class="btn btn-animation btn-md mend-auto">Shop Now <i
                                                 class="fa-solid fa-arrow-right icon"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        @endif
 
                     </div>
                 </div>
@@ -457,11 +459,12 @@
                     @endisset
                     <div class="section-t-space section-b-space">
                         <div class="row g-md-4 g-3">
+                            @if(@$Hbanners)
                             <div class="col-xxl-8 col-xl-12 col-md-7">
                                 <div class="banner-contain hover-effect">
 
-                                    <img src="{{ @$Hbanners->category_second_banner }}" class="bg-img blur-up lazyload"
-                                        alt="{{ @$Hbanners->category_first_banner_attribute }}">
+                                    <img src="{{ $Hbanners->category_second_banner }}" class="bg-img blur-up lazyload"
+                                        alt="{{ $Hbanners->category_first_banner_attribute }}">
                                     <div class="banner-details p-center-left p-4">
                                         <div>
                                             <h2 class="text-kaushan fw-normal theme-color"></h2>
@@ -474,7 +477,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @endif
+                            @if(@$Hbanners)
                             <div class="col-xxl-4 col-xl-12 col-md-5">
                                 <a href="shop-left-sidebar.html" class="banner-contain hover-effect h-100">
                                     <img src="{{ @$Hbanners->category_second_banner }}" class="bg-img blur-up lazyload"
@@ -491,6 +495,7 @@
                                     </div>
                                 </a>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="title d-block">

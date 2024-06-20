@@ -40,7 +40,7 @@
                             <tbody>
                                 @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                                 @php
-                                $product = App\Models\Product::find($row->attributes['product_id']);
+                               $product = App\Models\Product::find($row->id);
                                 @endphp
                                 <tr class="product-box-contain" id="sub-cart-item-div-{{$row->id}}">
                                     <td class="product-detail">
