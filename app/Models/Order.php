@@ -37,7 +37,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderCoupon::class)->where('status', 'Active');
     }
-
+    public function affiliate()
+    {
+        return $this->belongsTo(Affiliate::class);
+    }
 
     public static function order_code()
     {

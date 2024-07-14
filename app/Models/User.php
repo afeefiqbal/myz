@@ -85,4 +85,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Customer::class, 'user_id', 'id');
     }
+
+    public function affiliate()
+    {
+        return $this->hasOne(Affiliate::class, 'email', 'email');
+    }
 }

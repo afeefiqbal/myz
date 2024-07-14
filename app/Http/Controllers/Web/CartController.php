@@ -38,6 +38,7 @@ class CartController extends Controller
             $wish_list = app('wishlist');
             $sessionKey = Auth::guard('customer')->user()->customer->id;
             $product = Product::find($request->product_id);
+    
             if ($wish_list->get($product->id)) {
                 $wish_list->remove($product->id);
                 $message = "Item removed from wishlist";
@@ -407,11 +408,12 @@ class CartController extends Controller
                     $state_id = $customerAddresses->map(function($q){
                          return $q->state_id;
                      });
-                     $shipping_charge = ShippingCharge::whereIn('state_id',$state_id->toArray())->active()->pluck('state_id')->toArray();
-                    $customerAddresses = $customerAddresses->filter(function($q) use($shipping_charge){
-                         return in_array($q->state_id,$shipping_charge);
-                     });
+                    //  $shipping_charge = ShippingCharge::whereIn('state_id',$state_id->toArray())->active()->pluck('state_id')->toArray();
+                    // $customerAddresses = $customerAddresses->filter(function($q) use($shipping_charge){
+                    //      return in_array($q->state_id,$shipping_charge);
+                    //  });
                 }
+               
                 $calculation_box = Helper::calculationBox();
                 $seo_data = $this->seo_content('Checkout');
                 $banner = Banner::type('Checkout')->first();
@@ -468,8 +470,8 @@ class CartController extends Controller
         // session()->forget('shipping_state');
         // session()->forget('shipping_state_name');
         $shipping_charge = ShippingCharge::active()->pluck('state_id')->toArray();
-        $statesData = State::active()->whereIn('id',$shipping_charge)->where('country_id', $request->country_id)->get(['id', 'title']);
-        return response()->json(['status' => 'true', 'message' => $statesData]);
+        $statesData = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
+        return response()->json(['status' => 'true', 'states' => $statesData]);
     }
     
     
@@ -923,23 +925,23 @@ class CartController extends Controller
                     $responseMessage = 'Customer address selected successfully';
                     $status = true;
                     if($address){
-                        if($address->state){
-                            $shipping = ShippingCharge::active()
-                                ->where('state_id' ,$address->state->id)->first();
-                            if($shipping != NULL){
                                 session(['selected_customer_address' => $request->address_id]);
                                 session(['selected_shipping_address' => $request->address_id]);
                                 session(['selected_billing_address' => $request->address_id]);
-                            }
-                            else{
-                                $status = false;
-                                $responseMessage = 'This item cannot be shipped on this location';
-                            }
-                        }
-                        else{
-                            $status = false;
-                            $responseMessage = 'This item cannot be shipped on this location';
-                        }
+                        // if($address->state){
+                        //     // $shipping = ShippingCharge::active()
+                        //     //     ->where('state_id' ,$address->state->id)->first();
+                        //     // if($shipping != NULL){
+                        //     // }
+                        //     // else{
+                        //     //     $status = false;
+                        //     //     $responseMessage = 'This item cannot be shipped on this location';
+                        //     // }
+                        // }
+                        // else{
+                        //     $status = false;
+                        //     $responseMessage = 'This item cannot be shipped on this location';
+                        // }
                     }
                     else{
                         $status = false;
@@ -1283,8 +1285,26 @@ class CartController extends Controller
                                         ), 200, []);
                                     } else {
                                        
-                                        $url = url('/payment/' . $order->id);
-                                        return response(array('status' => 'payment', 'url' => $url));
+                                        $customerBillingAddress = $order->orderCustomer->billingAddress;
+
+                                        $billingParams = [
+    
+                                            'first_name' => @$customerBillingAddress->first_name,
+                                            'sur_name' => @$customerBillingAddress->last_name,
+                                            'city' => @$customerBillingAddress->state->title,
+                                            'state' => @$customerBillingAddress->state->title,
+                                            'zip' =>  @$customerBillingAddress->zipcode,
+                                            'country' => @$customerBillingAddress->country->title,
+                                            'email' => @$customerBillingAddress->email,
+                                            'address1' => @$customerBillingAddress->address,
+                                            'address2' => @$customerBillingAddress->address,
+                                            'phone_number' =>@$customerBillingAddress->phone,
+                                        ];
+    
+                                        $orderGrandTotal=Order::OrderGrandTotal($order->id);
+                                        
+                                        $url = app(PaymentController::class)->payment($order->id,$orderGrandTotal['orderGrandTotal'], $billingParams);
+                                        return response(array('status' => 'online-payment', 'url' => $url));
                                     }
                                 } else {
                                     return response(array(
@@ -1364,19 +1384,21 @@ class CartController extends Controller
                 $notSaved[] = 1;
             }
         }
+        $order->status = 'processing';
+        $order->save();
         if (empty($notSaved) && empty($orderNotSaved)) {
             DB::commit();
             $this->clear_order_cart_sessions();
             if (Helper::sendOrderPlacedMail($order->id, '1')) {
                 return array(
                     'status' => true,
-                    'message' => 'Order "MBSHI' . $order->order_code . '" has been placed successfully',
+                    'message' => 'Order "MYZ' . $order->order_code . '" has been placed successfully',
                     'data' => '/response/' . $order->id,
                 );
             } else {
                 return array(
                     'status' => true,
-                    'message' => 'Order "MBSHI' . $order->order_code . '" has been placed successfully, error while send the mail',
+                    'message' => 'Order "MYZ' . $order->order_code . '" has been placed successfully, error while send the mail',
                     'data' => '/response/' . $order->id,
                 );
             }
@@ -1491,7 +1513,7 @@ class CartController extends Controller
                     $updateOrder->status = "Cancelled";
                     if ($updateOrder->save()) {
                         Helper::sendOrderCancelledMail($orderData, $request->reason, $updateOrder);
-                        return response()->json(['status' => 'success-reload', 'message' => "Your Order 'MBSHI" . $orderData->order_code . "' has been cancelled"]);
+                        return response()->json(['status' => 'success-reload', 'message' => "Your Order 'MYZ" . $orderData->order_code . "' has been cancelled"]);
                     } else {
                         return response()->json(['status' => 'error', 'message' => 'Error : Please enter a valid email id']);
                     }
@@ -1560,7 +1582,7 @@ class CartController extends Controller
                     if ($updateOrder->save()) {
                         return response(array(
                             'status' => true,
-                            'message' => "Order 'MBSHI#" . $orderData->order_code . "' has been returned",
+                            'message' => "Order 'MYZ#" . $orderData->order_code . "' has been returned",
                             'type' => 'success',
                             'key' => 'Success',
                         ), 200, []);

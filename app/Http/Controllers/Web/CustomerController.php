@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
+use App\Models\Affiliate;
 use App\Models\Banner;
 use App\Models\Country;
 use App\Models\CustomerAddress;
@@ -70,14 +71,28 @@ class CustomerController extends Controller
                     $t->with('colorData');
                 }]);
             }])->where('customer_id', Auth::guard('customer')->user()->customer->id)->latest()->get();
-            return view('web.profile', compact('customer', 'customerAddresses', 'countries',
+
+            $affiliates = Affiliate::with('commissions')->where('email',$user->email)->latest()->get();
+            return view('web.profile', compact('customer', 'customerAddresses', 'countries','affiliates',
                 'tab', 'latestProducts', 'orders', 'seo_data', 'banner', 'user', 'customer'));
         } else {
             abort(403, 'You are not authorised');
         }
     }
 
-   
+    public function generateLink(Request $request)
+    {
+        $user = Auth::user(); 
+    
+        if (!$user->affiliate) {
+            return response()->json(['error' => 'Affiliate not found']);
+        }
+
+        $referralCode = $user->affiliate->referral_code;
+        $link = url('/') . '?referral_code=' . $referralCode;
+
+        return response()->json(['link' => $link]);
+    }
     public function update_profile(Request $request)
     {
         

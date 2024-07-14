@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\OrderPlaced;
 use App\Listeners\PrepareGuestCartTransfer;
+use App\Listeners\RecordAffiliateCommission;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         Attempting::class => [
             PrepareGuestCartTransfer::class
+        ],
+        OrderPlaced::class => [
+            RecordAffiliateCommission::class,
         ],
     ];
 

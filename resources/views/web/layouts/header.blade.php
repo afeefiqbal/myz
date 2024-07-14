@@ -9,7 +9,7 @@
                         <span class="text-white"> Khalid Bin Walid Road, Bur Dubai, UAE</span>
                     </div>
                 </div>
-
+               
                 <div class="col-xxl-6 col-lg-9 d-lg-block d-none">
                     <div class="header-offer">
                         <div class="notification-slider">
@@ -32,11 +32,43 @@
                         </div>
                     </div>
                 </div>
-
-
+              
+                <div class="col-lg-3">
+                    <ul class="about-list right-nav-about">
+                        <li class="right-nav-list">
+                            <div id="google_translate_element" ></div>
+                            {{-- <div class="dropdown theme-form-select">
+                                <button class="btn dropdown-toggle" type="button" id="select-language" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{asset('assets/images/country/united-states.png')}}" class="img-fluid blur-up lazyload" alt="">
+                                    <span id="current-language">English</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);" id="english" onclick="translateLanguage('en')">
+                                            <img src="{{asset('assets/images/country/united-states.png')}}" class="img-fluid blur-up lazyload" alt="">
+                                            <span>English</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);" id="arabic" onclick="translateLanguage('ar')">
+                                            <img src="{{asset('assets/images/country/uae.png')}}" class="img-fluid blur-up lazyload" alt="">
+                                            <span>Arabic</span>
+                                        </a>
+                                    </li>
+                                    <!-- Add more languages as needed -->
+                                </ul>
+                            </div> --}}
+                        </li>
+                    </ul>
+                            </div>
+                        </li>
+                      
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+    
 
     <div class="top-nav top-header sticky-header">
         <div class="container-fluid-lg">
@@ -121,7 +153,7 @@
                                     <div class="onhover-dropdown header-badge">
                                         <button type="button" onclick="location.href = '{{ url('/cart') }}'" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="shopping-cart"></i>
-                                            <span class="position-absolute top-0 start-100 translate-middle badge">  {{ Helper::getCartItemCount()}}
+                                            <span class="position-absolute top-0 start-100 translate-middle badge count">  {{ Helper::getCartItemCount()}}
                                                 <span class="visually-hidden">unread messages</span>
                                             </span>
                                         </button>
@@ -371,3 +403,18 @@
         </li>
     </ul>
 </div>
+
+<script>
+       function translateLanguage(lang) {
+        var selectField = document.querySelector('#google_translate_element select');
+        console.log(selectField);
+        for (var i = 0; i < selectField.children.length; i++) {
+            var option = selectField.children[i];
+            if (option.value == lang) {
+                selectField.selectedIndex = i;
+                selectField.dispatchEvent(new Event('change'));
+                break;
+            }
+        }
+    }
+</script>

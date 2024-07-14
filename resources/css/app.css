@@ -1,0 +1,36 @@
+.my_cart_section .cart_left .my_cart_list .right .total_price_btns .btns_area {
+    width: 25%;
+    display: flex;
+    grid-gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .my_cart_section .cart_left .my_cart_list .right .total_price_btns .btns_area .btn_cart {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F5F5F5;
+    color: #000;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  }
+  .my_cart_section .cart_left .my_cart_list .right .total_price_btns .btns_area .btn_cart:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+  .my_cart_section .cart_left .my_cart_list .right .total_price_btns .btns_area .fill {
+    background-color: #000 !important;
+    color: #F5F5F5;
+  }
+  .my_cart_section .cart_left .my_cart_list:nth-child(even) {
+    background: #F8F8F8;
+  }
+  .my_cart_section .cart_left .my_cart_list:nth-child(even) .right .total_price_btns .btns_area .btn_cart {
+    background: #FFFFFF;
+  }
+  .my_cart_section .cart_left .my_cart_list:nth-child(even) .right .total_price_btns .btns_area .btn_cart:hover {
+    background: #000000;
+    color: #ffffff;
+  }

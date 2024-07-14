@@ -495,6 +495,7 @@
     <script  src="{{ asset('frontend/js/demo.js')}}"></script>
     <!-- jquery ui-->
     <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 
     <!-- Bootstrap js-->
     <script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
@@ -533,6 +534,20 @@
 
     <!-- thme setting js -->
     <script src="{{asset('assets/js/theme-setting.js')}}"></script>
+    <script>
+     
+    
+      
+    
+        function injectGoogleTranslate() {
+            var googleTranslateScript = document.createElement('script');
+            googleTranslateScript.type = 'text/javascript';
+            googleTranslateScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            (document.head || document.body).appendChild(googleTranslateScript);
+        }
+    
+        window.addEventListener('load', injectGoogleTranslate);
+    </script>
     @stack('scripts')
 </body>
 

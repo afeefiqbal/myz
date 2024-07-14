@@ -30,9 +30,9 @@
 <!-- Cart Section Start -->
 <section class="cart-section section-b-space">
     @if (!Cart::session($sessionKey)->isEmpty())
-    <div class="container-fluid-lg">
+    <div class="container-lg">
         <h5 id="offcanvasRightLabel"><span>(<span  class="cart-count">  {{ Helper::getCartItemCount()}}</span> Items )</span> <br></h5> <br>
-        <div class="row g-sm-5 g-3">
+        <div class="row g-sm-1 g-1">
             <div class="col-xxl-9">
                 <div class="cart-table">
                     <div class="table-responsive-xl">
@@ -56,7 +56,7 @@
                                                             <p class="product-name">
                                                                 @php
                                                                 $productName = $product->title;
-                                                                $length = 50;
+                                                                $length = 30;
                                                                 $truncatedString = '';
                                                                 $currentLength = 0;
                                 
@@ -164,10 +164,13 @@
                                         <h5>{{Helper::defaultCurrency()}} {{number_format(($price),2)}}</h5>
                                     </td>
 
-                                    <td class="save-remove">
+                                    <td class="save-remove btns_area">
                                         <h4 class="table-title text-content">Action</h4>
-                                        <a class="save notifi-wishlist" href="javascript:void(0)">Save for later</a>
-                                        <a class="remove close_button" href="javascript:void(0)">Remove</a>
+                                        <a data-id="{{$product->id}}" data-cart_id="{{$row->id}}" 
+                                            class="btn_cart my_wishlist  {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}"
+                                            id="wishlist_check_{{$product->id}}"
+                                            href="javascript:void(0) ">Save to Later</a>
+                                            <a class="btn_cart remove-cart-item" href="javascript:void(0)" data-id="{{$row->id}}"  id="{{$row->id}}" >Remove</a>
                                     </td>
                                 </tr>
                                 @endforeach

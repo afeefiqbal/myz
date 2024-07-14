@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::table('abouts', function (Blueprint $table) {
             $table->text('first_div')->nullable()->change();
-            $table->longText('first_div_image')->nullable();
-            $table->text('first_div_count')->nullable();
+            $table->longText('first_div_image')->nullable()->change();
+            $table->text('first_div_count')->nullable()->change();
             $table->text('second_div')->nullable()->change();
-            $table->string('second_div_image')->nullable();
-            $table->text('second_div_count')->nullable();
+            $table->string('second_div_image')->nullable()->change();
+            $table->text('second_div_count')->nullable()->change();
             $table->text('third_div')->nullable()->change();
-            $table->text('third_div_image')->nullable();
-            $table->text('third_div_count')->nullable();
+            $table->text('third_div_image')->nullable()->change();
+            $table->text('third_div_count')->nullable()->change();
             
         });
     }

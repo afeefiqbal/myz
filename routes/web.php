@@ -53,7 +53,7 @@ use PHPUnit\TextUI\Help;
 |
 */
 
-Route::middleware(['web'])->group(function () {
+Route::middleware(['web','track'])->group(function () {
     Route::get('/', [WebController::class, 'home'])->name('/');
 
     Route::get('product-details',function(){
@@ -147,6 +147,7 @@ Route::middleware(['web'])->group(function () {
 
 
     /******************************* Cart functions *************************************/
+
     Route::get('cart', [CartController::class, 'cart']);
     Route::post('add-wishlist', [CartController::class, 'add_to_wish_list']);
     Route::post('add-cart', [CartController::class, 'add_to_cart']);
@@ -197,8 +198,10 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
 
     Route::post('set-default-address', [CustomerWebController::class, 'set_default_address']);
 
+    Route::get('/affiliate/generate-link', [CustomerWebController::class, 'generateLink'])->name('affiliate.generateLink');
 
 });
+
 Route::group(['prefix' => 'customer'], function () {
     Route::post('add-address', [CustomerWebController::class, 'createAddress']);
 });
@@ -207,7 +210,7 @@ Route::group(['prefix' => 'customer'], function () {
 Route::group(['prefix' => 'payment'], function () {
     Route::get('/success',  [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     Route::get('/failure',  [PaymentController::class, 'paymentDeclined'])->name('payment.failure');
-    // Route::get('/{order}', [PaymentController::class, 'charge'])->name('goToPayment');
+    Route::get('/{order}', [PaymentController::class, 'payment'])->name('goToPayment');
     Route::post('/process', [PaymentController::class, 'processPayment'])->name('processPayment');
     // Route::get('/payment/process', 'Web\PaymentController@processPayment')->name('payment.process');
 });

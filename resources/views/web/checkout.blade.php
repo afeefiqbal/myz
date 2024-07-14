@@ -241,7 +241,7 @@
                         </div>
 
                         <div class="row g-4">
-                            
+                  
                             @if (@$customerAddresses)
                             @foreach($customerAddresses as $address)
                             <div class="col-xxl-6 col-lg-12 col-md-6">

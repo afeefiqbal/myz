@@ -56,82 +56,143 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>Side first banner*</label>
+                                    <label>Home Side first banner*</label>
                                     <div class="file-loading">
                                          <input id="side_first_banner" name="side_first_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 375 X 586</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label> Image Attribute *</label>
+                                    <label>Home  Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="side_first_banner_attribute"
                                            name="side_first_banner_attribute" placeholder="Alt='Banner  Attribute'"
                                            value="{{ isset($index)?$index->side_first_banner_attribute:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>Side first banner URL *</label>
+                                    <label>Home Side first banner URL *</label>
                                     <input type="text" class="form-control " id="side_first_banner_url" name="side_first_banner_url"
                                            value="{{ isset($index)?$index->side_first_banner_url:'' }}" maxlength="230">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>Side Second Banner*</label>
+                                    <label>Home Side Second Banner*</label>
                                     <div class="file-loading">
                                          <input id="side_second_banner" name="side_second_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 313 X 209</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label> Image Attribute *</label>
+                                    <label>Home  Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="side_second_banner_attribute"
                                            name="side_second_banner_attribute" placeholder="Alt=' Banner Attribute'"
                                            value="{{ isset($index)?$index->side_second_banner_attribute:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>Side second banner url *</label>
+                                    <label>Home Side second banner url *</label>
                                     <input type="text" class="form-control " id="side_second_banner_url" name="side_second_banner_url"
                                            value="{{ isset($index)?$index->side_second_banner_url:'' }}" maxlength="230">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label> Category first banner*</label>
+                                    <label>Home  Category first banner*</label>
                                     <div class="file-loading">
                                          <input id="category_first_banner" name="category_first_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 790 X 286</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label> Image Attribute *</label>
+                                    <label>Home  Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="category_first_banner_attribute"
                                            name="category_first_banner_attribute" placeholder="Alt='banner Attribute'"
                                            value="{{ isset($index)?$index->category_first_banner_attribute:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label> Category first banner url *</label>
+                                    <label>Home  Category first banner url *</label>
                                     <input type="text" class="form-control " id="category_first_banner_url" name="category_first_banner_url"
                                            value="{{ isset($index)?$index->category_first_banner_url:'' }}" maxlength="230">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>Category second banner *</label>
+                                    <label>Home Category second banner *</label>
                                     <div class="file-loading">
                                          <input id="category_second_banner" name="category_second_banner" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 383 X 286</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label> Image Attribute *</label>
+                                    <label>Home  Image Attribute *</label>
                                     <input type="text" class="form-control placeholder-cls" id="category_second_banner_attribute"
                                            name="category_second_banner_attribute" placeholder="Alt='image  Attribute'"
                                            value="{{ isset($index)?$index->category_second_banner_attribute:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>Category second banner url *</label>
+                                    <label>Home Category second banner url *</label>
                                     <input type="text" class="form-control " id="category_second_banner_url" name="category_second_banner_url"
                                            value="{{ isset($index)?$index->category_second_banner_url:'' }}" maxlength="230">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>Product  banner *</label>
+                                    <div class="file-loading">
+                                         <input id="product_banner" name="product_banner" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 1380 X 531</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Product  banner Text *</label>
+                                    <input type="text" class="form-control " id="product_banner_text" name="product_banner_text"
+                                           value="{{ isset($index)?$index->product_banner_text:'' }}" maxlength="230">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Product  banner url *</label>
+                                    <input type="text" class="form-control " id="product_banner_url" name="product_banner_url"
+                                           value="{{ isset($index)?$index->product_banner_url:'' }}" maxlength="230">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>About first bottom image *</label>
+                                    <div class="file-loading">
+                                         <input id="about_first_bottom_image" name="about_first_bottom_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 39 X 39</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>About first bottom image text *</label>
+                                    <input type="text" class="form-control " id="about_first_bottom_image_text" name="about_first_bottom_image_text"
+                                           value="{{ isset($index)?$index->about_first_bottom_image_text:'' }}" maxlength="230">
+                                </div>
+                            </div>  
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>About second bottom image *</label>
+                                    <div class="file-loading">
+                                         <input id="about_second_bottom_image" name="about_second_bottom_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 39 X 39</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>About second bottom image text *</label>
+                                    <input type="text" class="form-control " id="about_second_bottom_image_text" name="about_second_bottom_image_text"
+                                           value="{{ isset($index)?$index->about_second_bottom_image_text:'' }}" maxlength="230">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>About third bottom image *</label>
+                                    <div class="file-loading">
+                                         <input id="about_third_bottom_image" name="about_third_bottom_image" type="file" accept="image/png, image/jpg, image/jpeg">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 39 X 39</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>About third bottom image text *</label>
+                                    <input type="text" class="form-control " id="about_third_bottom_image_text" name="about_third_bottom_image_text"
+                                           value="{{ isset($index)?$index->about_third_bottom_image_text:'' }}" maxlength="230">
                                 </div>
                             </div>
 
@@ -158,7 +219,7 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
                 // minImageWidth: 375,
                 // minImageHeight: 586,
@@ -184,7 +245,7 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
                 // minImageWidth: 313,
                 // minImageHeight: 209,
@@ -210,7 +271,7 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
                 // minImageWidth: 790,
                 // minImageHeight: 287,
@@ -236,7 +297,7 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
                 // minImageWidth: 790,
                 // minImageHeight: 287,
@@ -253,7 +314,111 @@
                 ]
                 @endif
             });
+            $("#product_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 1380,
+                // minImageHeight: 531,
+                // maxImageWidth: 1380,
+                // maxImageHeight: 531,
+                // maxFileSize: 512,
+                showRemove: true,
+                @if(isset($index) && $index->product_banner!=NULL)
+                initialPreview: [
+                    "{{asset($index->product_banner)}}",
+                ],
+                initialPreviewConfig: [
+                    {caption: "{!! ($index->product_banner!=NULL)?:'';!!}", width: "120px"}
+                ]
+                @endif
+            });
+            $("#about_first_bottom_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 39,
+                // minImageHeight: 39,
+                // maxImageWidth: 39,
+                // maxImageHeight: 39,
+                // maxFileSize: 512,
+                showRemove: true,
+                @if(isset($index) && $index->about_first_bottom_image!=NULL)
+                initialPreview: [
+                    "{{asset($index->about_first_bottom_image)}}",
+                ],
+                initialPreviewConfig: [
+                    {caption: "{!! ($index->about_first_bottom_image!=NULL)?:'';!!}", width: "120px"}
+                ]
+                @endif
+            });
+            $("#about_second_bottom_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 39,
+                // minImageHeight: 39,
+                // maxImageWidth: 39,
+                // maxImageHeight: 39,
+                // maxFileSize: 39,
+                showRemove: true,
+                @if(isset($index) && $index->about_second_bottom_image!=NULL)
+                initialPreview: [
+                    "{{asset($index->about_second_bottom_image)}}",
+                ],
+                initialPreviewConfig: [
+                    {caption: "{!! ($index->about_second_bottom_image!=NULL)?:'';!!}", width: "120px"}
+                ]
+                @endif
+            });
+            $("#about_third_bottom_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 39,
+                // minImageHeight: 39,
+                // maxImageWidth: 39,
+                // maxImageHeight: 39,
+                maxFileSize: 39,
+                showRemove: true,
+                @if(isset($index) && $index->about_third_bottom_image!=NULL)
+                initialPreview: [
+                    "{{asset($index->about_third_bottom_image)}}",
+                ],
+                initialPreviewConfig: [
+                    {caption: "{!! ($index->about_third_bottom_image!=NULL)?:'';!!}", width: "120px"}
+                ]
+                @endif
+            });
 
         });
     </script>
-@endsection
+@endsection 

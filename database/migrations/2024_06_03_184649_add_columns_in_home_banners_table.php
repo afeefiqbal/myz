@@ -13,7 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('home_banners', function (Blueprint $table) {
+        Schema::dropIfExists('home_banners'); 
+        Schema::create('home_banners', function (Blueprint $table) {
+          
             $table->longText('side_first_banner')->nullable();
             $table->string('side_first_banner_attribute')->nullable();
             $table->string('side_first_banner_url')->nullable();

@@ -21,14 +21,14 @@
         <p>Customer</p>
     </a>
 </li>
-
+{{-- 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'home')}}"
         class="nav-link {{ (Request::segment(2)=='home')?'active':'' }}">
         <i class="nav-icon fas fa-th-list"></i>
         <p>Home</p>
     </a>
-</li>
+</li> --}}
 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'about')}}"
@@ -41,7 +41,7 @@
     <a href="{{url(Helper::sitePrefix().'banner')}}"
         class="nav-link {{ (Request::segment(2)=='banner')?'active':'' }}">
         <i class="nav-icon fas fa-th-list"></i>
-        <p>Home Banner</p>
+        <p>Banners</p>
     </a>
 </li>
 

@@ -13,7 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
+
+        Schema::dropIfExists('index_banner');
         Schema::create('index_banner', function (Blueprint $table) {
+
             $table->id();
             $table->longText('main_banner')->nullable();
             $table->string('main_banner_attribute')->nullable();

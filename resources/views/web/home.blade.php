@@ -284,7 +284,7 @@
 
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                        <a id="wishlist_check_{{@$product->id}}"  href="avascript:void(0)" class="notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
+                                                        <a id="wishlist_check_{{@$product->id}}" data-id="{{$product->id}}"  href="javascript:void(0)" class=" notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
                                                             <i data-feather="heart"></i>
                                                         </a>
                                                     </li>
@@ -385,7 +385,7 @@
 
 
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                        <a id="wishlist_check_{{@$product->id}}"  href="avascript:void(0)" class="notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
+                                                        <a id="wishlist_check_{{@$product->id}}" data-id="{{$product->id}}"  href="javascript:void(0)" class=" notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
                                                             <i data-feather="heart"></i>
                                                         </a>
                                                     </li>

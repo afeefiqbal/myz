@@ -45,7 +45,25 @@
     <link rel="stylesheet" href="https://themes.pixelstrap.com/fastkart/assets/css/vendors/animate.css"> --}}
 
     <!-- Template css -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/app.css')}}">
+    <style>
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        .goog-logo-link { display: none !important; }
+        .goog-te-gadget { color: transparent !important; }
+        body { top: 0px !important; }
+    </style>
     <link id="color-link" rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ar', // Add more languages here
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+    </script>
+{{-- <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> --}}
 </head>
 <script type="text/javascript">
             var base_url = "{{ url('/') }}";
@@ -54,7 +72,7 @@
 </script>
 
 
-<body class="bg-effect google_translate_element">
+<body class="bg-effect">
 
     <!-- Loader Start -->
     <div class="fullpage-loader">

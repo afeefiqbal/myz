@@ -220,6 +220,26 @@ class HomeController extends Controller
             Helper::deleteFile($index, 'category_second_banner');
             $index->category_second_banner = Helper::uploadFile($request->category_second_banner, 'uploads/image/', 'banner');
         }
+
+        if ($request->hasFile('product_banner')) {
+            Helper::deleteFile($index, 'product_banner');
+            $index->product_banner = Helper::uploadFile($request->product_banner, 'uploads/image/', 'banner');
+        }
+
+        if ($request->hasFile('about_third_bottom_image')) {
+            Helper::deleteFile($index, 'about_third_bottom_image');
+            $index->about_third_bottom_image = Helper::uploadFile($request->about_third_bottom_image, 'uploads/image/', 'banner');
+        }
+
+        if ($request->hasFile('about_first_bottom_image')) {
+            Helper::deleteFile($index, 'about_first_bottom_image');
+            $index->about_first_bottom_image = Helper::uploadFile($request->about_first_bottom_image, 'uploads/image/', 'banner');
+        }
+
+        if ($request->hasFile('about_second_bottom_image')) {
+            Helper::deleteFile($index, 'about_second_bottom_image');
+            $index->about_second_bottom_image = Helper::uploadFile($request->about_second_bottom_image, 'uploads/image/', 'banner');
+        }
         $index->side_first_banner_attribute = $request->side_first_banner_attribute ?? '';
         $index->side_first_banner_url = $request->side_first_banner_url ?? '';
 

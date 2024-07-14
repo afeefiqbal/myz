@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
+use App\Models\Affiliate;
 use App\Models\Customer;
 use App\Models\PasswordReset;
 use App\Models\SeoData;
@@ -322,7 +323,7 @@ class LoginController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
 //            'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|min:7|max:15|unique:users,phone',
-            'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
+            'password' => ['required', Password::min(8)],
             'password_confirmation' => 'required_if:password,!=,null|same:password',
         ]);
         DB::beginTransaction();
@@ -345,6 +346,14 @@ class LoginController extends Controller
                     'token' => $token,
                     'created_at' => now()
                 ]);
+                 $data['referral_code'] = uniqid();
+                 $data = [
+                    'name' => $customer->first_name.' '.$customer->last_name,
+                    'email' => $request->email,
+                    'referral_code' => uniqid(),
+
+                 ];
+                 $affiliate = Affiliate::create($data);
                 DB::commit();
                 Auth::guard('customer')->login($user);
 

@@ -198,6 +198,7 @@ class CountryController extends Controller
     public function state_list(Request $request)
     {
         $states = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
+
         return response()->json(['status' => 'true', 'states' => $states]);
     }
 

@@ -86,12 +86,12 @@
                                     aria-controls="pills-wishlist" aria-selected="false"><i data-feather="heart"></i>
                                     Wishlist</button>
                             </li>
-{{-- 
+
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-card-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-card" type="button" role="tab" aria-controls="pills-card"
-                                    aria-selected="false"><i data-feather="credit-card"></i> Saved Card</button>
-                            </li> --}}
+                                    aria-selected="false"><i data-feather="credit-card"></i>My Affilates</button>
+                            </li>
 
                             {{-- <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-address-tab" data-bs-toggle="pill"
@@ -134,11 +134,11 @@
                                         @endphp
                                         @if($product!=NULL)
                                         @endif
-                                        <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6" id="wishlistBox{{$row->id}}"> >
+                                        <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6" id="wishlistBox{{$row->id}}">
                                             <div class="product-box-3 theme-bg-white h-100">
                                                 <div class="product-header">
                                                     <div class="product-image">
-                                                        <a href="{{route('products')}}">
+                                                        <a href="#">
                                                         
                                                                 {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','img-fluid blur-up lazyload"') !!}
                                                                    
@@ -154,15 +154,10 @@
 
                                                 <div class="product-footer">
                                                     <div class="product-detail">
-                                                        <span class="span-name">Vegetable</span>
-                                                        <a href="{{route('products')}}">
-                                                            <h5 class="name">Fresh Bread and Pastry Flour 200 g</h5>
+                                                        <a href="{{ url('/product/'.$product->short_url) }}">
+                                                            <h5 class="name">{{$product->title}}</h5>
                                                         </a>
-                                                        <p class="text-content mt-1 mb-2 product-content">Cheesy feet
-                                                            cheesy grin brie. Mascarpone cheese and wine hard cheese the
-                                                            big cheese everyone loves smelly cheese macaroni cheese
-                                                            croque monsieur.</p>
-                                                        <h6 class="unit mt-1">250 ml</h6>
+                                                        
                                                         <h5 class="price">
                                                             @if(Helper::offerPrice($product->id)!='')
                                                             <span class="theme-color">
@@ -177,24 +172,34 @@
                                                             </span> 
                                                             @endif
                                                         </h5>
-                                                        <div class="add-to-cart-box mt-2">
-                                                            <button class="btn btn-add-cart addcart-button">Add
-                                                                <i class="fa-solid fa-plus"></i></button>
-                                                            <div class="cart_qty qty-box">
-                                                                <div class="input-group">
-                                                                    <button type="button" class="qty-left-minus"
-                                                                        data-type="minus" data-field="">
-                                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                                    </button>
-                                                                    <input class="form-control input-number qty-input"
-                                                                        type="text" name="quantity" value="0">
-                                                                    <button type="button" class="qty-right-plus"
-                                                                        data-type="plus" data-field="">
-                                                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                        @if($product->availability === "In Stock")
+                                                        <h6 class="theme-color">In Stock</h6>
+                                                        <div class="add-to-cart-box bg-white ">
+                                                             <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add
+                                                                 <i class="fa-solid fa-plus bg-gray"></i></button>
+                                                             {{-- <div class="cart_qty qty-box">
+                                                                 <div class="input-group bg-white">
+                                                                     <button type="button" class="qty-left-minus bg-gray cartBtn"
+                                                                         data-type="minus" data-field="">
+                                                                         <i class="fa fa-minus" aria-hidden="true"></i>
+                                                                     </button>
+                                                                     <input class="form-control input-number qty-input cartBtn" type="text"
+                                                                         name="quantity" value="0">
+                                                                     <button type="button" class="qty-right-plus bg-gray"
+                                                                         data-type="plus" data-field="">
+                                                                         <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                     </button>
+                                                                 </div>
+                                                             </div> --}}
                                                         </div>
+                                                             @else
+                                                             <div class="add-to-cart-box bg-white ">
+                                                                 <a href="https://wa.me/{!! @$contact->whatsapp_number!!}?text=I%20am%20interested%20in%20this%20product%20{{$product->title}}.%20Can%20you%20provide%20more%20details%3F
+                                                                 " class="btn btn-add-cart cart-action cartBtn">Enquiry
+                                                                    <i class="fa-solid fa fa-whatsapp bg-gray"></i>
+                                                                 </a>
+                                                             </div>
+                                                            @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,48 +230,85 @@
                                                 </div>
 
                                                 <div class="order-detail">
-                                                    <h4>Order ID : ARTMYST# {{$order->orderData->order_code}} <span>{{$order->orderData->status}}</span></h4>
+                                                    <h4>Order ID : ARTMYST# {{$order->orderData->order_code}} <span>{{$order->orderData->status}}</span> <span>{{$order->orderData->status}}</span></h4>
                                                     <h6 class="text-content">  Placed Order on   {{ date("d-m-y", strtotime($order->orderData->created_at))  }}</h6>
                                                 </div>
                                             </div>
-                                            @foreach($order->orderData->orderProducts as $orderProduct)
-                                            @if ($orderProduct->productData != null)
-                                            <div class="product-order-detail">
-                                              
-
-                                                <div class="order-wrap">
-                                                    <a href="{{ url('/product/'.$orderProduct->productData->short_url) }}" tabindex="-1">
-                                                        <h3>{{ $orderProduct->productData->title}}</h3>
-                                                    </a>
-                                                  
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Price : </h6>
-                                                                <h5>{{$orderProduct->productData->price}}</h5>
+                                            <div class="row g-sm-4 g-3">
+                                                @foreach($order->orderData->orderProducts as $orderProduct)
+                                                @if ($orderProduct->productData != null)
+                                                <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                    
+                                                    <div class="product-box-3 theme-bg-white h-100">
+                                                        <div class="product-header">
+                                                            <div class="product-image">
+                                                                <a href="{{ url('/product/'.$orderProduct->productData->short_url) }}" tabindex="-1">
+                                                                
+                                                                        {!! Helper::printImage($orderProduct->productData, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','img-fluid blur-up lazyload"') !!}
+                                                                           
+                                                                </a>
                                                             </div>
-                                                        </li>
-
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Sold By : </h6>
-                                                                <h5>{{$orderProduct->productData->vendor->name}}</h5>
+                                                            
+                                                        </div>
+        
+                                                        <div class="product-footer">
+                                                            <div class="product-detail">
+                                                                <span class="span-name">Vegetable</span>
+                                                                <a href="{{ url('/product/'.$orderProduct->productData->short_url) }}" tabindex="-1">
+                                                                    <h5 class="name">{{$orderProduct->productData->title}}</h5>
+                                                                </a>
+                                                        
+                                                                <h5 class="price">
+                                                                    @if(Helper::offerPrice($orderProduct->productData->id)!='')
+                                                                    <span class="theme-color">
+                                                                        {{Helper::defaultCurrency().' '.(Helper::offerPriceAmount($orderProduct->productData->id))}}
+                                                                    </span> 
+                                                                    <del>
+                                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$orderProduct->productData->price,2)}}
+                                                                    </del>
+                                                                    @else
+                                                                    <span class="theme-color">
+                                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$orderProduct->productData->price,2)}}
+                                                                    </span> 
+                                                                    @endif
+                                                                </h5>
+                                                                <div class="add-to-cart-box mt-2">
+                                                                    @if($orderProduct->productData->availability === "In Stock")
+                                                                    <h6 class="theme-color">In Stock</h6>
+                                                                    <div class="add-to-cart-box bg-white ">
+                                                                         <button type="button" class="btn btn-add-cart cart-action cartBtn" data-frame="1" data-mount="Yes" data-id="{{$orderProduct->productData->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$orderProduct->productData->product_type_id}}">Add
+                                                                             <i class="fa-solid fa-plus bg-gray"></i></button>
+                                                                         {{-- <div class="cart_qty qty-box">
+                                                                             <div class="input-group bg-white">
+                                                                                 <button type="button" class="qty-left-minus bg-gray cartBtn"
+                                                                                     data-type="minus" data-field="">
+                                                                                     <i class="fa fa-minus" aria-hidden="true"></i>
+                                                                                 </button>
+                                                                                 <input class="form-control input-number qty-input cartBtn" type="text"
+                                                                                     name="quantity" value="0">
+                                                                                 <button type="button" class="qty-right-plus bg-gray"
+                                                                                     data-type="plus" data-field="">
+                                                                                     <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                                 </button>
+                                                                             </div>
+                                                                         </div> --}}
+                                                                    </div>
+                                                                         @else
+                                                                         <div class="add-to-cart-box bg-white ">
+                                                                             <a href="https://wa.me/{!! @$contact->whatsapp_number!!}?text=I%20am%20interested%20in%20this%20product%20{{$orderProduct->productData->title}}.%20Can%20you%20provide%20more%20details%3F
+                                                                             " class="btn btn-add-cart cart-action cartBtn">Enquiry
+                                                                                <i class="fa-solid fa fa-whatsapp bg-gray"></i>
+                                                                             </a>
+                                                                         </div>
+                                                                        @endif
+                                                                </div>
                                                             </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Quantity : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                @endif
+                                                @endforeach
                                             </div>
-                                            
-                                            @endif
-                                            @endforeach
                                         </div>
                                         @endforeach
                                     </div>
@@ -559,7 +601,7 @@
                                 <div class="dashboard-card">
                                     <div class="title title-flex">
                                         <div>
-                                            <h2>My Card Details</h2>
+                                            <h2>My Affiliates</h2>
                                             <span class="title-leaf">
                                                 <svg class="icon-width bg-gray">
                                                     <use xlink:href="https://themes.pixelstrap.com/fastkart/assets/svg/leaf.svg#leaf"></use>
@@ -567,156 +609,70 @@
                                             </span>
                                         </div>
 
-                                        <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3"
-                                            data-bs-toggle="modal" data-bs-target="#editCard"><i data-feather="plus"
-                                                class="me-2"></i> Add New Card</button>
+                                     
                                     </div>
-
-                                    <div class="row g-4">
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-sm-6">
-                                            <div class="payment-card-detail">
-                                                <div class="card-details">
-                                                    <div class="card-number">
-                                                        <h4>XXXX - XXXX - XXXX - 2548</h4>
-                                                    </div>
-
-                                                    <div class="valid-detail">
-                                                        <div class="title">
-                                                            <span>valid</span>
-                                                            <span>thru</span>
-                                                        </div>
-                                                        <div class="date">
-                                                            <h3>08/05</h3>
-                                                        </div>
-                                                        <div class="primary">
-                                                            <span class="badge bg-pill badge-light">primary</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="name-detail">
-                                                        <div class="name">
-                                                            <h5>Audrey Carol</h5>
-                                                        </div>
-                                                        <div class="card-img">
-                                                            <img src="../assets/images/payment-icon/1.jpg"
-                                                                class="img-fluid blur-up lazyloaded" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="edit-card">
-                                                    <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                        href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i
-                                                            class="far fa-minus-square"></i> delete</a>
+                                    
+                                        <div class="row g-sm-4 g-3">
+                                            <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-6">
+                                                <div class="address-box">
+                                                    <button id="generate-link-btn" class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3"
+                                                    ><i data-feather="plus"
+                                                        class="me-2"></i> Generate Link</button>
+                                                        <br>
                                                 </div>
                                             </div>
-
-                                            <div class="edit-card-mobile">
-                                                <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                    href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                <a href="javascript:void(0)"><i class="far fa-minus-square"></i>
-                                                    delete</a>
-                                            </div>
+                                            <div id="link-container"></div>
                                         </div>
 
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-sm-6">
-                                            <div class="payment-card-detail">
-                                                <div class="card-details card-visa">
-                                                    <div class="card-number">
-                                                        <h4>XXXX - XXXX - XXXX - 1536</h4>
-                                                    </div>
-
-                                                    <div class="valid-detail">
-                                                        <div class="title">
-                                                            <span>valid</span>
-                                                            <span>thru</span>
-                                                        </div>
-                                                        <div class="date">
-                                                            <h3>12/23</h3>
-                                                        </div>
-                                                        <div class="primary">
-                                                            <span class="badge bg-pill badge-light">primary</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="name-detail">
-                                                        <div class="name">
-                                                            <h5>Leah Heather</h5>
-                                                        </div>
-                                                        <div class="card-img">
-                                                            <img src="../assets/images/payment-icon/2.jpg"
-                                                                class="img-fluid blur-up lazyloaded" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="edit-card">
-                                                    <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                        href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i
-                                                            class="far fa-minus-square"></i> delete</a>
-                                                </div>
-                                            </div>
-
-                                            <div class="edit-card-mobile">
-                                                <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                    href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                <a href="javascript:void(0)"><i class="far fa-minus-square"></i>
-                                                    delete</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-xl-6 col-lg-12 col-sm-6">
-                                            <div class="payment-card-detail">
-                                                <div class="card-details dabit-card">
-                                                    <div class="card-number">
-                                                        <h4>XXXX - XXXX - XXXX - 1366</h4>
-                                                    </div>
-
-                                                    <div class="valid-detail">
-                                                        <div class="title">
-                                                            <span>valid</span>
-                                                            <span>thru</span>
-                                                        </div>
-                                                        <div class="date">
-                                                            <h3>05/21</h3>
-                                                        </div>
-                                                        <div class="primary">
-                                                            <span class="badge bg-pill badge-light">primary</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="name-detail">
-                                                        <div class="name">
-                                                            <h5>mark jecno</h5>
-                                                        </div>
-                                                        <div class="card-img">
-                                                            <img src="../assets/images/payment-icon/3.jpg"
-                                                                class="img-fluid blur-up lazyloaded" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="edit-card">
-                                                    <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                        href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#removeProfile"><i
-                                                            class="far fa-minus-square"></i> delete</a>
-                                                </div>
-                                            </div>
-
-                                            <div class="edit-card-mobile">
-                                                <a data-bs-toggle="modal" data-bs-target="#editCard"
-                                                    href="javascript:void(0)"><i class="far fa-edit"></i> edit</a>
-                                                <a href="javascript:void(0)"><i class="far fa-minus-square"></i>
-                                                    delete</a>
+                                        <div class="row g-4">
+                                            <div class="col-12">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Referral Code</th>
+                                                            <th>Created At</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($affiliates as $affiliate)
+                                                            <tr>
+                                                                <td>{{ $affiliate->id }}</td>
+                                                                <td>{{ $affiliate->name }}</td>
+                                                                <td>{{ $affiliate->email }}</td>
+                                                                <td>{{ $affiliate->referral_code }}</td>
+                                                                <td>{{ $affiliate->created_at }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="5">
+                                                                    <table class="table table-sm table-hover">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Order ID</th>
+                                                                                <th>Commission Amount</th>
+                                                                                <th>Created At</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach($affiliate->commissions as $commission)
+                                                                                <tr>
+                                                                                    <td>{{ $commission->order_id }}</td>
+                                                                                    <td>{{ $commission->commission_amount }}</td>
+                                                                                    <td>{{ $commission->created_at }}</td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                    </div>
+                                 
                                 </div>
                             </div>
 
@@ -1064,5 +1020,35 @@
 @endsection
 @push('scripts')
 
-    
+<script>
+   $(document).ready(function() {
+        $('#generate-link-btn').on('click', function() {
+            $.ajax({
+                url: '{{ route('affiliate.generateLink') }}',
+                method: 'GET',
+                success: function(data) {
+                    if (data.link) {
+                        $('#link-container').html(`
+                            <p>Your affiliate link: <a href="${data.link}" target="_blank">${data.link}</a></p>
+                            <button id="copy-link-btn" class="btn btn-secondary">Copy to Clipboard</button>
+                        `);
+                        $('#copy-link-btn').on('click', function() {
+                            navigator.clipboard.writeText(data.link).then(function() {
+                                alert('Affiliate link copied to clipboard!');
+                            }, function(err) {
+                                alert('Failed to copy text: ', err);
+                            });
+                        });
+                    } else {
+                        console.log(data)
+                        $('#link-container').html(`<p>${data.error}</p>`);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#link-container').html(`<p>An error occurred: ${xhr.responseText}</p>`);
+                }
+            });
+        });
+    });
+    </script>
 @endpush

@@ -355,51 +355,51 @@ $(document).ready(function () {
 
 
 
-    $(document).on('click', '.wishlist-action', function () {
-        var id = $(this).data('id');
-        var size = $(this).data('size');
-        var cart_id = $(this).data('cart_id');
-        var type_id = $(this).data('product_type_id');
+    // $(document).on('click', '.wishlist-action', function () {
+    //     var id = $(this).data('id');
+    //     var size = $(this).data('size');
+    //     var cart_id = $(this).data('cart_id');
+    //     var type_id = $(this).data('product_type_id');
         
-        $.ajax({
-            type: 'POST', dataType: 'json', data: {product_id: id,type_id : type_id, size : size,cart_id : cart_id}, headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/add-wishlist', success: function (response) {
-                if (response.status == true) {
-                    if (response.responseStatus == true) {
-                        $('#wishlist_check_' + id).removeClass('fill');
-                        $('#wishlist_check_span_' + id).removeClass('fill');
+    //     $.ajax({
+    //         type: 'POST', dataType: 'json', data: {product_id: id,type_id : type_id, size : size,cart_id : cart_id}, headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }, url: base_url + '/add-wishlist', success: function (response) {
+    //             if (response.status == true) {
+    //                 if (response.responseStatus == true) {
+    //                     $('#wishlist_check_' + id).removeClass('fill');
+    //                     $('#wishlist_check_span_' + id).removeClass('fill');
 
-                        if ($('#wishlistBox' + id).length > 0) {
-                            $('#wishlistBox' + id).remove();
-                        }
-                    } else {
-                        $('#wishlist_check_' + id).addClass('fill');
-                        $('#wishlist_check_span_' + id).addClass('fill');
+    //                     if ($('#wishlistBox' + id).length > 0) {
+    //                         $('#wishlistBox' + id).remove();
+    //                     }
+    //                 } else {
+    //                     $('#wishlist_check_' + id).addClass('fill');
+    //                     $('#wishlist_check_span_' + id).addClass('fill');
 
-                    }
-                    $('.wishlistCount').html(response.count);
-                    $('.cartCount').html(response.cartCount);
-                    if ($('#cartBox' + id).length > 0) {
-                        $('#cartBox' + id).remove();
-                    }
-                    Toast.fire({
-                        title: 'Success!', text: response.message, icon: 'success'
-                    });
-                    if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "wishlist") {
-                        location.reload();
-                    }
-                } else {
-                    $('#wishlist_check_' + id).removeClass('fill');
-                    $('#wishlist_check_span_' + id).removeClass('fill');
+    //                 }
+    //                 $('.wishlistCount').html(response.count);
+    //                 $('.cartCount').html(response.cartCount);
+    //                 if ($('#cartBox' + id).length > 0) {
+    //                     $('#cartBox' + id).remove();
+    //                 }
+    //                 Toast.fire({
+    //                     title: 'Success!', text: response.message, icon: 'success'
+    //                 });
+    //                 if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "wishlist") {
+    //                     location.reload();
+    //                 }
+    //             } else {
+    //                 $('#wishlist_check_' + id).removeClass('fill');
+    //                 $('#wishlist_check_span_' + id).removeClass('fill');
 
-                    swal.fire({
-                        title: "Oops", text: response.message, icon: "error"
-                    });
-                }
-            }
-        });
-    });
+    //                 swal.fire({
+    //                     title: "Oops", text: response.message, icon: "error"
+    //                 });
+    //             }
+    //         }
+    //     });
+    // });
 
 
 
@@ -799,12 +799,15 @@ $(document).ready(function () {
         var id = $(this).data('id');
         var bogo = $(this).data('bogo');
         var qty = $('.qty').val();
+
         var cartText = $('.buy-action-span').html();
+        
         if ($(this).data('relative') == undefined) {
             var countRelative = 1;
         } else {
             var countRelative = 0;
         }
+        
 
         // alert(countRelative);return false;
         $('.buy-action-span').html('Loading..');

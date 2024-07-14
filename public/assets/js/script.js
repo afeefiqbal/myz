@@ -309,6 +309,7 @@ document.addEventListener("readystatechange", (event) => {
  ==========================*/
 $(".dropdown-menu li a").on('click', function () {
     var a = $(this).closest("a");
+    
     var getSampling = a.text();
     var getImage = a.find('img').attr('src');
 

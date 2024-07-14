@@ -266,28 +266,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Address Image*</label>
-                                <div class="file-loading">
-                                    <input id="address_image" name="address_image" type="file"  accept="image/png, image/jpg, image/jpeg">
-                                </div>
-                                <span class="caption_note">Note: Image dimension must be  100 x 100 and Size must be
-                                    less than 512 KB</span>
-                                @error('image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Address Image Attribute</label>
-                                <input type="text" class="form-control placeholder-cls" id="address_image_attribute"
-                                       name="address_image_attribute" placeholder="Alt='Address Image Attribute'"
-                                       value="{{ isset($contact)?$contact->banner_image_attribute:'' }}">
-                                @error('address_image_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                       
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label> Email Image*</label>
@@ -310,6 +289,28 @@
                                 @enderror
                             </div>
                         </div> --}}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Address Image*</label>
+                                <div class="file-loading">
+                                    <input id="address_image" name="address_image" type="file"  accept="image/png, image/jpg, image/jpeg">
+                                </div>
+                                <span class="caption_note">Note: Image dimension must be  614 x 513 and Size must be
+                                    less than 512 KB</span>
+                                @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Address Image Attribute</label>
+                                <input type="text" class="form-control placeholder-cls" id="address_image_attribute"
+                                       name="address_image_attribute" placeholder="Alt='Address Image Attribute'"
+                                       value="{{ isset($contact)?$contact->banner_image_attribute:'' }}">
+                                @error('address_image_attribute')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
@@ -348,30 +349,7 @@
             //     }]
             //     @endif
             // });
-            // $("#address_image",).fileinput({
-            //     'theme': 'explorer-fas',
-            //     validateInitialCount: true,
-            //     overwriteInitial: false,
-            //     autoReplace: true,
-            //     layoutTemplates: {actionDelete: ''},
-            //     removeLabel: "Remove",
-            //     initialPreviewAsData: true,
-            //     dropZoneEnabled: false,
-            //     required: true,
-            //     allowedFileTypes: ['image'],
-            //     minImageWidth: 100,
-            //     minImageHeight: 100,
-            //     maxImageWidth: 100,
-            //     maxImageHeight: 100,
-            //     showRemove: true,
-            //     @if(isset($contact) && $contact->address_image!=NULL)
-            //     initialPreview: ["{{asset($contact->address_image)}}",],
-            //     initialPreviewConfig: [{
-            //         caption: "{{ ($contact->address_image!=NULL)?last(explode('/',$contact->address_image)):''}}",
-            //         width: "120px"
-            //     }]
-            //     @endif
-            // });
+            
             // $("#email_image",).fileinput({
             //     'theme': 'explorer-fas',
             //     validateInitialCount: true,
@@ -397,5 +375,29 @@
             //     @endif
             // });
         });
+        $("#address_image",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                minImageWidth: 613,
+                minImageHeight: 514,
+                maxImageWidth: 613,
+                maxImageHeight: 514,
+                showRemove: true,
+                @if(isset($contact) && $contact->address_image!=NULL)
+                initialPreview: ["{{asset($contact->address_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($contact->address_image!=NULL)?last(explode('/',$contact->address_image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
     </script>
 @endsection
