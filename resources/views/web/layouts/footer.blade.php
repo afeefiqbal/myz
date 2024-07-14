@@ -66,7 +66,7 @@
                                 <ul class="address">
                                     <li>
                                         <i data-feather="home"></i>
-                                        <a href="javascript:void(0)">{{@$siteInformation->address}}</a>
+                                        <a href="javascript:void(0)">{!! @$siteInformation->address !!}</a>
                                     </li>
                                     <li>
                                         <i data-feather="mail"></i>
