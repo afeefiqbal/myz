@@ -6,45 +6,51 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <div class="service-contain">
+                            @if(@$first_image)
                             <div class="service-box">
+                             
                                 <div class="service-image">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/product.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{asset(@$first_image)}}" class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
-                                    <h5>Every Fresh Products</h5>
+                                    <h5>{{@$first_image_text}}</h5>
                                 </div>
                             </div>
-
+                            @endif
+                            @if (@$second_image)
                             <div class="service-box">
                                 <div class="service-image">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/delivery.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{asset(@$second_image)}}" class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
-                                    <h5>Free Delivery For Order Over $50</h5>
+                                    <h5>{{@$second_image_text}}</h5>
                                 </div>
                             </div>
-
+                                
+                            @endif
+                            @if (@$third_image)
                             <div class="service-box">
                                 <div class="service-image">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/discount.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{asset(@$third_image)}}" class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
-                                    <h5>Daily Mega Discounts</h5>
+                                    <h5>{{@$third_image_text}}</h5>
                                 </div>
                             </div>
+                            @endif
 
-                            <div class="service-box">
+                            {{-- <div class="service-box">
                                 <div class="service-image">
-                                    <img src="https://themes.pixelstrap.com/fastkart/assets/svg/market.svg" class="blur-up lazyload" alt="">
+                                    <img src="{{asset(@$third_image)}}" class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="service-detail">
-                                    <h5>Best Price On The Market</h5>
+                                    <h5>{{@$third_image_text}}</h5>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

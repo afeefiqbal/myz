@@ -3,6 +3,7 @@
 namespace App\Http\Helpers;
 
 use App\Http\Controllers\Web\CartController;
+use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Color;
@@ -136,12 +137,45 @@ class Helper
         $calculation_box = self::calculationBox();
         $currencies = Currency::where('status', 'Active')->get();
         $defaultCurrency = Currency::where('is_default', 1)->first();
-     
+
+        $first_image = Banner::first();
+        if(isset($first_image)){
+            $first_image = $first_image->about_first_bottom_image;
+        }
+        $first_image_text = Banner::first();
+        if(isset($first_image_text)){
+            $first_image_text = $first_image_text->about_first_bottom_image_text;
+        }
+        $second_image = Banner::first();
+        if(isset($second_image)){
+            $second_image = $second_image->about_second_bottom_image;
+        }
+        $second_image_text = Banner::first();
+        if(isset($second_image_text)){
+            $second_image_text = $second_image_text->about_second_bottom_image;
+        }
+        $third_image = Banner::first();
+        if(isset($third_image)){
+            $third_image = $third_image->about_third_bottom_image;
+        } 
+        $third_image_text = Banner::first();
+        if(isset($third_image_text)){
+            $third_image_text = $third_image_text->about_third_bottom_image_text;
+        } 
+
         $parentCategories = Category::active()->isParent()->get();
         $menuCategories = Category::active()->get();
         $address = ContactAddress::active()->first();
         $shapes = Shape::active()->get();
-        return View::share(compact('siteInformation', 'menus', 'blogCount', 'sessionKey','shapes','menuCategories', 'calculation_box', 'currencies', 'defaultCurrency', 'parentCategories', 'address','shapes','colors','sideMenus'));
+        return View::share(compact('siteInformation', 'menus', 'blogCount', 'sessionKey','shapes','menuCategories', 'calculation_box', 
+        'first_image',
+        'first_image_text',
+        'second_image',
+        'second_image',
+        'second_image_text',
+        'third_image',
+        'third_image_text',
+        'currencies', 'defaultCurrency', 'parentCategories', 'address','shapes','colors','sideMenus'));
     }
 
     /**
@@ -1612,5 +1646,16 @@ class Helper
         if ($getPrice)
             $price = $getPrice;
         return $price;
+    }
+
+    public function Banner(){
+        $first_image = Banner::first()->about_first_bottom_image;
+        $first_image_text = Banner::first()->about_first_bottom_image_text;
+        $second_image = Banner::first()->about_second_bottom_image;
+        $second_image_text = Banner::first()->about_second_bottom_image_text;
+        $third_image = Banner::first()->about_third_bottom_image;
+        $third_image_text = Banner::first()->about_third_bottom_image_text;
+        
+
     }
 }

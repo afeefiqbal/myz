@@ -145,54 +145,54 @@
                                 <div class="form-group col-md-4">
                                     <label>Product  banner Text *</label>
                                     <input type="text" class="form-control " id="product_banner_text" name="product_banner_text"
-                                           value="{{ isset($index)?$index->product_banner_text:'' }}" maxlength="230">
+                                           value="{{ isset($banner)?$banner->product_banner_text:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label>Product  banner url *</label>
                                     <input type="text" class="form-control " id="product_banner_url" name="product_banner_url"
-                                           value="{{ isset($index)?$index->product_banner_url:'' }}" maxlength="230">
+                                           value="{{ isset($banner)?$banner->product_banner_url:'' }}" maxlength="230">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>About first bottom image *</label>
+                                    <label>First bottom image *</label>
                                     <div class="file-loading">
                                          <input id="about_first_bottom_image" name="about_first_bottom_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 39 X 39</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>About first bottom image text *</label>
+                                    <label>First bottom image text *</label>
                                     <input type="text" class="form-control " id="about_first_bottom_image_text" name="about_first_bottom_image_text"
-                                           value="{{ isset($index)?$index->about_first_bottom_image_text:'' }}" maxlength="230">
+                                           value="{{ isset($banner)?$banner->about_first_bottom_image_text:'' }}" maxlength="230">
                                 </div>
                             </div>  
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>About second bottom image *</label>
+                                    <label>Second bottom image *</label>
                                     <div class="file-loading">
                                          <input id="about_second_bottom_image" name="about_second_bottom_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 39 X 39</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>About second bottom image text *</label>
+                                    <label>Second bottom image text *</label>
                                     <input type="text" class="form-control " id="about_second_bottom_image_text" name="about_second_bottom_image_text"
-                                           value="{{ isset($index)?$index->about_second_bottom_image_text:'' }}" maxlength="230">
+                                           value="{{ isset($banner)?$banner->about_second_bottom_image_text:'' }}" maxlength="230">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label>About third bottom image *</label>
+                                    <label>Third bottom image *</label>
                                     <div class="file-loading">
                                          <input id="about_third_bottom_image" name="about_third_bottom_image" type="file" accept="image/png, image/jpg, image/jpeg">
                                     </div>
                                     <span class="caption_note">Note: Image size must be 39 X 39</span>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label>About third bottom image text *</label>
+                                    <label>Third bottom image text *</label>
                                     <input type="text" class="form-control " id="about_third_bottom_image_text" name="about_third_bottom_image_text"
-                                           value="{{ isset($index)?$index->about_third_bottom_image_text:'' }}" maxlength="230">
+                                           value="{{ isset($banner)?$banner->about_third_bottom_image_text:'' }}" maxlength="230">
                                 </div>
                             </div>
 
@@ -325,18 +325,18 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                // minImageWidth: 1380,
-                // minImageHeight: 531,
-                // maxImageWidth: 1380,
-                // maxImageHeight: 531,
-                // maxFileSize: 512,
+                minImageWidth: 1380,
+                minImageHeight: 531,
+                maxImageWidth: 1380,
+                maxImageHeight: 531,
+                maxFileSize: 512,
                 showRemove: true,
-                @if(isset($index) && $index->product_banner!=NULL)
+                @if(isset($banner) && $banner->product_banner!=NULL)
                 initialPreview: [
-                    "{{asset($index->product_banner)}}",
+                    "{{asset($banner->product_banner)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->product_banner!=NULL)?:'';!!}", width: "120px"}
+                    {caption: "{!! ($banner->product_banner!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -351,18 +351,18 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                // minImageWidth: 39,
-                // minImageHeight: 39,
-                // maxImageWidth: 39,
-                // maxImageHeight: 39,
-                // maxFileSize: 512,
+                minImageWidth: 39,
+                minImageHeight: 39,
+                maxImageWidth: 39,
+                maxImageHeight: 39,
+                maxFileSize: 512,
                 showRemove: true,
-                @if(isset($index) && $index->about_first_bottom_image!=NULL)
+                @if(isset($banner) && $banner->about_first_bottom_image!=NULL)
                 initialPreview: [
-                    "{{asset($index->about_first_bottom_image)}}",
+                    "{{asset($banner->about_first_bottom_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->about_first_bottom_image!=NULL)?:'';!!}", width: "120px"}
+                    {caption: "{!! ($banner->about_first_bottom_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -377,18 +377,18 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                // minImageWidth: 39,
-                // minImageHeight: 39,
-                // maxImageWidth: 39,
-                // maxImageHeight: 39,
-                // maxFileSize: 39,
+                minImageWidth: 39,
+                minImageHeight: 39,
+                maxImageWidth: 39,
+                maxImageHeight: 39,
+                maxFileSize: 39,
                 showRemove: true,
-                @if(isset($index) && $index->about_second_bottom_image!=NULL)
+                @if(isset($banner) && $banner->about_second_bottom_image!=NULL)
                 initialPreview: [
-                    "{{asset($index->about_second_bottom_image)}}",
+                    "{{asset($banner->about_second_bottom_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->about_second_bottom_image!=NULL)?:'';!!}", width: "120px"}
+                    {caption: "{!! ($banner->about_second_bottom_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });
@@ -403,18 +403,18 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                // minImageWidth: 39,
-                // minImageHeight: 39,
-                // maxImageWidth: 39,
-                // maxImageHeight: 39,
+                minImageWidth: 39,
+                minImageHeight: 39,
+                maxImageWidth: 39,
+                maxImageHeight: 39,
                 maxFileSize: 39,
                 showRemove: true,
-                @if(isset($index) && $index->about_third_bottom_image!=NULL)
+                @if(isset($banner) && $banner->about_third_bottom_image!=NULL)
                 initialPreview: [
-                    "{{asset($index->about_third_bottom_image)}}",
+                    "{{asset($banner->about_third_bottom_image)}}",
                 ],
                 initialPreviewConfig: [
-                    {caption: "{!! ($index->about_third_bottom_image!=NULL)?:'';!!}", width: "120px"}
+                    {caption: "{!! ($banner->about_third_bottom_image!=NULL)?:'';!!}", width: "120px"}
                 ]
                 @endif
             });

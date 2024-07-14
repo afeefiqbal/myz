@@ -179,10 +179,12 @@ class HomeController extends Controller
         $title = "Home";
 
         $index = HomeBanner::first();
-        return view('Admin.banner.form', compact('key', 'title', 'index'));
+        $banner = Banner::first();
+        return view('Admin.banner.form', compact('key', 'title', 'index','banner'));
     }
     public function banner_store(Request $request)
     {
+
         if ($request->id == 0) {
             $validatedData = $request->validate([
                 'side_first_banner_attribute' => 'required',
@@ -200,9 +202,11 @@ class HomeController extends Controller
 
             ]);
             $index = new   HomeBanner() ;
+            $banner = new Banner();
         } else {
             $index = HomeBanner::find($request->id);
-            $index->updated_at = now();
+            $banner = HomeBanner::find($request->id);
+
         }
         if ($request->hasFile('side_first_banner')) {
             Helper::deleteFile($index, 'side_first_banner');
@@ -222,23 +226,23 @@ class HomeController extends Controller
         }
 
         if ($request->hasFile('product_banner')) {
-            Helper::deleteFile($index, 'product_banner');
-            $index->product_banner = Helper::uploadFile($request->product_banner, 'uploads/image/', 'banner');
+            Helper::deleteFile($banner, 'product_banner');
+            $banner->product_banner = Helper::uploadFile($request->product_banner, 'uploads/image/', 'banner');
         }
 
         if ($request->hasFile('about_third_bottom_image')) {
-            Helper::deleteFile($index, 'about_third_bottom_image');
-            $index->about_third_bottom_image = Helper::uploadFile($request->about_third_bottom_image, 'uploads/image/', 'banner');
+            Helper::deleteFile($banner, 'about_third_bottom_image');
+            $banner->about_third_bottom_image = Helper::uploadFile($request->about_third_bottom_image, 'uploads/image/', 'banner');
         }
 
         if ($request->hasFile('about_first_bottom_image')) {
-            Helper::deleteFile($index, 'about_first_bottom_image');
-            $index->about_first_bottom_image = Helper::uploadFile($request->about_first_bottom_image, 'uploads/image/', 'banner');
+            Helper::deleteFile($banner, 'about_first_bottom_image');
+            $banner->about_first_bottom_image = Helper::uploadFile($request->about_first_bottom_image, 'uploads/image/', 'banner');
         }
 
         if ($request->hasFile('about_second_bottom_image')) {
-            Helper::deleteFile($index, 'about_second_bottom_image');
-            $index->about_second_bottom_image = Helper::uploadFile($request->about_second_bottom_image, 'uploads/image/', 'banner');
+            Helper::deleteFile($banner, 'about_second_bottom_image');
+            $banner->about_second_bottom_image = Helper::uploadFile($request->about_second_bottom_image, 'uploads/image/', 'banner');
         }
         $index->side_first_banner_attribute = $request->side_first_banner_attribute ?? '';
         $index->side_first_banner_url = $request->side_first_banner_url ?? '';
@@ -251,9 +255,18 @@ class HomeController extends Controller
 
         $index->category_second_banner_attribute = $request->category_second_banner_attribute ?? '';
         $index->category_second_banner_url = $request->category_second_banner_url ?? '';
-        if ($index->save()) {
+        
+        $banner->product_banner_text = $request->product_banner_text ?? '';
+        $banner->product_banner_url = $request->product_banner_url ?? '';
+        
+        $banner->about_first_bottom_image_text = $request->about_first_bottom_image_text ?? '';
+        $banner->about_second_bottom_image_text = $request->about_second_bottom_image_text ?? '';
+        
+        $banner->about_third_bottom_image_text = $request->about_third_bottom_image_text ?? '';
+   
+        if ($index->save() && $banner->save()) {
             session()->flash('success', 'Banner has been updated successfully');
-            return redirect(Helper::sitePrefix() . 'home');
+            return redirect(Helper::sitePrefix() . 'banner');
         } else {
             return back()->with('error', 'Error while updating the About details');
         }
