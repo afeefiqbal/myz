@@ -46,7 +46,19 @@
                                 </div>
                             @endif
                             <div class="form-row">
-      
+                                <div class="form-group col-md-6" >
+                                    <label> Menu Type*</label>
+                                    <select name="menu_type" id="menu_type" class="form-control required" placeholder="Menu Type">
+                                        <option value="static" {{ (@$menu->menu_type=="static")?'selected':'' }}>
+                                            Static
+                                        </option>
+                                        <option value="category" {{ (@$menu->menu_type=="category")?'selected':'' }}>
+                                            Category
+                                        </option>
+                                        
+                                    </select>
+                                    <div class="help-block with-errors" id="menu_type_error"></div>
+                                </div>
                                 <div class="form-group col-md-6 category"
                                      style="display: {{ (@$menu->menu_type=='category')?'block':'none' }}">
                                     <label> Categories*</label>

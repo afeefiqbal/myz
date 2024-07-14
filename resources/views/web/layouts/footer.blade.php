@@ -123,14 +123,14 @@
                                 @foreach($menus as $menu)
                                 @if($menu->menu_type=="category")
                                     @php
-                                        $menuDetails = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->get();
+                                        $menuDetails = App\Models\MenuDetail::active()->where('menu_id',$menu->id)->limit(5)->get();
                                         $colorId = [];
-                                        foreach($menuDetails as $menuDetail){
+                                        foreach($menuDetails->take(5) as $menuDetail){
                                             $categoryId[] = $menuDetail->category_id;
                                         }
-                                        $categoryItems = App\Models\Category::whereIn('id',$categoryId)->get();
+                                        $categoryItems = App\Models\Category::whereIn('id',$categoryId)->limit(5)->get();
                                     @endphp
-                                @foreach ($categoryItems as $cat)
+                                @foreach ($categoryItems->take(4) as $cat)
 
                                 <li>
                                     <a href="{{url('category/'.$cat->short_url)}}" class="text-content">{{ $cat->title }}</a>

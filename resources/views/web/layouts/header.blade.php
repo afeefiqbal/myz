@@ -24,7 +24,7 @@
                             <div>
                                 <div class="timer-notification">
                                     <h6>Something you love is now on sale!
-                                        <a href="#" class="text-white">Buy Now
+                                        <a href="{{url('products')}}" class="text-white">Buy Now
                                             !</a>
                                     </h6>
                                 </div>
