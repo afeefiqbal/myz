@@ -469,7 +469,7 @@ class OrderController extends Controller
                     $t->with('colorData');
                 }])->with('orderCustomer')->with('orderCoupons')->find($id);
             }
-            $title = "Order View - ARTMYST#" . $order->order_code;
+            $title = "Order View - MYZ#" . $order->order_code;
             return view('Admin.order.print_invoice', compact('orderDetails', 'title', 'orderTotal', 'orderGrandTotal', 'order'));
         } else {
             return view('Admin.error.404');

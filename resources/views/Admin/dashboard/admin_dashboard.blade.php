@@ -61,7 +61,7 @@
                                                     @endphp
                                                     <tr>
                                                         <td>
-                                                            <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}">{{ 'ARTMYST#'.$order->order_code }}</a>
+                                                            <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}">{{ 'MYZ#'.$order->order_code }}</a>
                                                         </td>
                                                         @if(@$order->orderCustomer->user_type=="User")
                                                             <td>{{ $order->orderCustomer->shippingAddress->first_name.' '.$order->orderCustomer->shippingAddress->last_name }}</td>

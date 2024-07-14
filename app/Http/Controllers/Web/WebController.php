@@ -12,7 +12,7 @@ use App\Models\Currency;
 use App\Models\Category;
 use App\Models\Homecollection;
 use App\Models\Color;
-use App\Models\Latest;
+use App\Models\OrderCustomer;
 use App\Models\ContactAddress;
 use App\Models\Deal;
 use App\Models\IndexBanner;
@@ -30,6 +30,7 @@ use App\Models\KeyFeature;
 use App\Models\Newsletter;
 use App\Models\Offer;
 use App\Models\OfferStrip;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\ProductReview;
@@ -87,7 +88,17 @@ class WebController extends Controller
 
     return view('web.home', compact('categories','recentlyViewedProducts','products', 'banners' ,'bestProducts','popularProducts','Hbanners'));
     }
+    public function  TrackOrder($orderId){
+        $order = OrderCustomer::with(['orderData' => function ($q) {
+            $q->with(['orderProducts' => function ($t) {
+                $t->with('productData');
+                $t->with('colorData');
+            }]);
+        },'shippingAddress'])->where('customer_id', Auth::guard('customer')->user()->customer->id)->where('order_id',$orderId)->first();
 
+     
+        return view('web.order_tracking', compact('order'));
+    }
 
     public function about()
     {

@@ -91,7 +91,7 @@
                             Product cancelled </h2><br/>
                         <br/>
                         <br/>
-                        <p><b>Order : ARTMYST#{{$order->order_code}}</b></p>
+                        <p><b>Order : MYZ#{{$order->order_code}}</b></p>
                         <p>Product : <b>{{$product}}</b> has been cancelled</p>
                         <p>Reason : {{$reason}}</p>
                     </td>

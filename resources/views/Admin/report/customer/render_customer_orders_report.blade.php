@@ -31,7 +31,7 @@
     @foreach($orderList as $order)
         <tr>
             <td >{{ $loop->iteration }}</td>
-            <td colspan="2">{{ 'ARTMYST#'.$order['order']->order_code}}</td>
+            <td colspan="2">{{ 'MYZ#'.$order['order']->order_code}}</td>
             <td colspan="2">{{ $order['OrderProducts'] }}</td>
             <td colspan="2">{{ $order['order']->payment_method }}</td>
             <td colspan="2">{{ $order['order']->remarks }}</td>

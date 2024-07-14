@@ -15,7 +15,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'order')}}">Orders</a></li>
-                            <li class="breadcrumb-item active">Order View - {{'ARTMYST#'.$order->order_code}}</li>
+                            <li class="breadcrumb-item active">Order View - {{'MYZ#'.$order->order_code}}</li>
                         </ol>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                                     </address>
                                 </div>
                                 <div class="col-sm-4 invoice-col">
-                                    Invoice :<b> {{'ARTMYST#'.$order->order_code}}</b><br>
+                                    Invoice :<b> {{'MYZ#'.$order->order_code}}</b><br>
                                     User Choosed Currency : <b> {{$order->currency}}</b><br>
                                 </div>
                             </div>

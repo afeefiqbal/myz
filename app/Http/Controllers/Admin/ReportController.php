@@ -185,7 +185,7 @@ class ReportController extends Controller
             return Datatables::of($orderList)
             ->addIndexColumn()
             ->addColumn('code', function ($row) {
-                return 'ARTMYST# '.$row->order_code;
+                return 'MYZ# '.$row->order_code;
             })
             ->addColumn('customer_details', function ($row) {
                 if($row->orderCustomer->CustomerData != null)

@@ -9,7 +9,7 @@
                 <ul>
                     
                     <li>
-                        Order Number : <span>ARTMYST#{{@$order->order_code}}</span>
+                        Order Number : <span>MYZ#{{@$order->order_code}}</span>
                     </li>
                     <li>
                         Payment Method : <span>{{(@$order->payment_method=='COD')? 'Cash on Delivery': 'Online Payment'}}</span>

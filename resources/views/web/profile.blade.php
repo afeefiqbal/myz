@@ -230,7 +230,11 @@
                                                 </div>
 
                                                 <div class="order-detail">
-                                                    <h4>Order ID : ARTMYST# {{$order->orderData->order_code}} <span>{{$order->orderData->status}}</span> <span>{{$order->orderData->status}}</span></h4>
+                                                    <h4>Order ID : MYZ# {{$order->orderData->order_code}} <span>{{$order->orderData->status}}</span>
+                                                        <a href="{{ url('track-order',$order->orderData->id) }}" tabindex="-1">
+                                                            <button class="btn btn-sm" >Track</button>
+                                                        </a>
+                                                        </h4>
                                                     <h6 class="text-content">  Placed Order on   {{ date("d-m-y", strtotime($order->orderData->created_at))  }}</h6>
                                                 </div>
                                             </div>

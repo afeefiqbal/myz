@@ -41,7 +41,7 @@
             @endphp
             <tr>
                 <td colspan="1" rowspan="{{count($products)}}">{{ $i }}</td>
-                <td colspan="1" rowspan="{{count($products)}}">{{ 'ARTMYST# '.$order->order_code }}</td>
+                <td colspan="1" rowspan="{{count($products)}}">{{ 'MYZ# '.$order->order_code }}</td>
                 @if($order->orderCustomer->user_type=="User")
                     <td colspan="1"
                         rowspan="{{count($products)}}">{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>

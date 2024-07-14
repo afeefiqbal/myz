@@ -85,6 +85,7 @@ Route::middleware(['web','track'])->group(function () {
     Route::get('deal/{url}', [WebController::class, 'deal']);
     Route::get('products', [WebController::class, 'products']);
     Route::get('product/{short_url}', [WebController::class, 'product_detail']);
+    Route::get('track-order/{order_id}', [WebController::class, 'TrackOrder']);
     // Route::get('product/{short_url}/{type_id}', [WebController::class, 'product_detail_type']);
     Route::post('product/check-price', [WebController::class, 'check_price']);
 
