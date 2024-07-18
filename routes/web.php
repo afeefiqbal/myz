@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdvertisementController;
+use App\Http\Controllers\Admin\AffiliateCommissionController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BannerController;
@@ -599,6 +600,11 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [MenuController::class, 'delete_detail_menu']);
         });
     });
+    Route::prefix('affiliate')->group(function () {
+        Route::get('/', [AffiliateCommissionController::class, 'index']);
+        Route::post('/', [AffiliateCommissionController::class, 'store']);
+    });
+    Route::get('affiliate/affiliaters', [AffiliateCommissionController::class, 'customers']);
     Route::prefix('side-menu')->group(function () {
         Route::get('/', [MenuController::class, 'side_menu']);
         Route::get('create', [MenuController::class, 'side_menu_create']);

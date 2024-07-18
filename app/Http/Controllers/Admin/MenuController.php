@@ -275,7 +275,7 @@ class MenuController extends Controller
         $colors = Color::active()->get();
         $shapes = Shape::active()->get();
         $tags = Tag::active()->get();
-        $categories = Category::active()->get();
+        $categories = Category::where('parent_id',null)->active()->get();
         return view('Admin.side_menu.form', compact('key', 'title', 'categories','tags','shapes','colors'));
     }
 

@@ -185,27 +185,14 @@
 
 
 
+                            @if($product->availability === "In Stock")
                             <div class="note-box product-packege">
-                                <div class="cart_qty qty-box product-qty">
-                                    <div class="input-group">
-                                        <button type="button" class="qty-right-plus" data-type="plus" data-field="">
-                                            <i class="fa fa-plus" aria-hidden="true"></i>
-                                        </button>
-                                        <input class="form-control input-number qty-input" type="text"
-                                            name="quantity" value="0">
-                                        <button type="button" class="qty-left-minus" data-type="minus"
-                                            data-field="">
-                                            <i class="fa fa-minus" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <button  type="button"
-                                    class="btn btn-md bg-dark cart-button text-white w-100 btn btn-add-cart cart-action cartBtn"  data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add To Cart</button>
+                               
+                                <button  type="button" class="btn btn-md bg-dark cart-button text-white w-100 btn btn-add-cart cart-action cartBtn"  data-frame="1" data-mount="Yes" data-id="{{$product->id}}" data-size="{{@$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">Add To Cart</button>
                             </div>
 
                             <div class="buy-box">
-                                <a href="javascript:void(0)">
+                                <a href="javascript:void(0)"  data-id="{{$product->id}}" class=" notifi-wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} ">
                                     <i data-feather="heart"></i>
                                     <span>Add To Wishlist</span>
                                 </a>
@@ -215,6 +202,41 @@
                                     <span>Add To Compare</span>
                                 </a> --}}
                             </div>
+                            @else
+                            <div class="add-to-cart-box bg-white">
+                                <a href="https://wa.me/{!! @$contact->whatsapp_number!!}?text=I%20am%20interested%20in%20this%20product%20{{$product->title}}.%20Can%20you%20provide%20more%20details%3F" class="btn btn-add-cart cart-action cartBtn">
+                                    Enquiry
+                                    <i class="fa fa-whatsapp whatsapp-icon"></i>
+                                </a>
+                            </div>
+                            
+                            <style>
+                                .btn-add-cart {
+                                    display: inline-flex;
+                                    align-items: center;
+                                    padding: 10px 20px;
+                                    background-color: #25D366; /* WhatsApp green */
+                                    color: #fff; /* White text color */
+                                    border: none;
+                                    border-radius: 5px; /* Rounded corners */
+                                    text-decoration: none; /* Remove underline */
+                                    font-size: 16px; /* Font size */
+                                    transition: background-color 0.3s; /* Smooth background color change */
+                                }
+                            
+                                .btn-add-cart:hover {
+                                    background-color: #1DA851; /* Darker green on hover */
+                                }
+                            
+                                .whatsapp-icon {
+                                    margin-left: 10px; /* Space between text and icon */
+                                    color: #fff; /* White color for the icon */
+                                    font-size: 20px; /* Font size for the icon */
+                                }
+                            </style>
+                            
+                            
+                            @endif
 
 
                         </div>

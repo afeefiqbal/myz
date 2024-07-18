@@ -13,7 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('banners', function (Blueprint $table) {
+        Schema::dropIfExists('banners');
+        Schema::create('banners', function (Blueprint $table) {
            $table->text('product_banner')->nullable();
            $table->text('product_banner_text')->nullable();
            $table->text('product_banner_url')->nullable();

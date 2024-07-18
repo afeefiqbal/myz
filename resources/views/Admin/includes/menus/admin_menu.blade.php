@@ -72,6 +72,32 @@
     </ul>
 </li>
 
+<li class="nav-item {{ (Request::segment(2)=='affilliate')?'menu-is-opening menu-open':'' }}">
+    <a href="#" class="nav-link {{ (Request::segment(2)=='affiliate')?'active':'' }}">
+        {{--        <i class="nav-icon fas fa-envelope"></i>--}}
+        <i class="nav-icon fas fa-inbox"></i>
+        <p>Affilate 
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='affiliate')?'block':'none' }}">
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'affiliate')}}"
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'affiliate'))?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Affiliate Settings</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'affiliate/affiliaters')}}"
+               class="nav-link {{ (Request::segment(3)=='affiliaters')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p> Affiliaters</p>
+            </a>
+        </li>
+    </ul>
+</li>
 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'site-information')}}"

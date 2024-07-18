@@ -15,4 +15,8 @@ class AffiliateCommission extends Model
     {
         return $this->belongsTo(Affiliate::class);
     }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

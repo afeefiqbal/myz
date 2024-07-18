@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('affiliate_commissions');
         Schema::create('affiliate_commissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('affiliate_id')->constrained()->onDelete('cascade');

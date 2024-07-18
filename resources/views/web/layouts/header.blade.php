@@ -252,7 +252,6 @@
                                     </a>
                                     @if($sidemenu->menu_type=="category")
                                     <div class="onhover-category-box">
-                                        <div class="list-1">
                                             @php
                                             $sideMenuDetails = App\Models\SideMenuDetail::active()->where('menu_id',$sidemenu->id)->get();
 
@@ -262,20 +261,26 @@
                                                 ($sideMenudetail);
                                             }
                                             $colorItems = App\Models\Category::whereIn('id',$colorId)->get();
+                                            
                                             @endphp
-
-                                            <ul>
-                                                @foreach ($colorItems as $menuCat)
-
+                                            @foreach ($colorItems as $menuCat)
+                                            @php
+                                                $subCategory = App\Models\Category::where('parent_id',$menuCat->id)->get();
+                                            @endphp
+                                            <div class="list-1">
+                                                <div class="category-title-box">
+                                                    <h5>{{$menuCat->title}}</h5>
+                                                </div>                                                
+                                                <ul>
+                                                @foreach ($subCategory as $subc)
                                                 <li>
-                                                    <a href="{{url('category/'.$menuCat->short_url)}}">{{$menuCat->title}}</a>
+                                                    <a href="{{url('category/'.$subc->short_url)}}">{{$subc->title}}</a>
+                                                    
                                                 </li>
                                                 @endforeach
-
-
-
-                                            </ul>
-                                        </div>
+                                                </ul>
+                                            </div> 
+                                        @endforeach
 
 
                                     </div>

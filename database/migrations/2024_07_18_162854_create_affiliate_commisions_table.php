@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('affiliates');
-        Schema::create('affiliates', function (Blueprint $table) {
+        Schema::create('affiliate_commisions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('referral_code')->unique();
+            $table->text('title');
+            $table->double('commision_amount')->default(0);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('affiliates');
+        Schema::dropIfExists('affiliate_commisions');
     }
 };
