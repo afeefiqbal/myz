@@ -48,8 +48,8 @@ class AffiliateCommissionController extends Controller
         $affiliate->commision_amount = $validatedData['commision_amount'];
 
         if ($affiliate->save()) {
-            session()->flash('success', "About Feature '" . $request->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'affiliate/settings');
+            session()->flash('success', "Affiliate '" . $request->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'affiliate');
         } else {
             return back()->with('error', 'Error while creating the about Feature');
         }
