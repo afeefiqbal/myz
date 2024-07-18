@@ -52,9 +52,9 @@
                                     @foreach($affiliates as $affiliate)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $affiliate->affiliate->name }}</td>
-                                            <td>{{ $affiliate->affiliate->commision_amount }}</td>
-                                            <td>MYZ#{{ $affiliate->order->order_code }}</td>
+                                            <td>{{ @$affiliate->affiliate->name }}</td>
+                                            <td>{{ @$affiliate->affiliate->commision_amount }}</td>
+                                            <td>MYZ#{{ @$affiliate->order->order_code }}</td>
                                             <td>{{ date("d-M-Y", strtotime($affiliate->created_at)) }}</td>
                                             
                                         </tr>
